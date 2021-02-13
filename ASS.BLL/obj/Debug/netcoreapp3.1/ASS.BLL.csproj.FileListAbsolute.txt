@@ -1,0 +1,5 @@
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.Common.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.DAL.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.csprojAssemblyReference.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.AssemblyInfoInputs.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.AssemblyInfo.cs
