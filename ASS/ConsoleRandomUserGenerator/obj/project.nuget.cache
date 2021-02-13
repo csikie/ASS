@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "QQri9xmVRRZiGttAc1JrotVxtqC22BglyvB3C84mn2plwC70YEjvX9p+o/7MnikukoxuCwjIzbrtxS3X8KVzUA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Csiki Erik\\Desktop\\ASS\\ASS\\ConsoleRandomUserGenerator\\ConsoleRandomUserGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Csiki Erik\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
