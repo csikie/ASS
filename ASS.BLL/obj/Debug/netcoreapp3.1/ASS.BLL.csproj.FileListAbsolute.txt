@@ -3,3 +3,12 @@ C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.DAL.dll
 C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.csprojAssemblyReference.cache
 C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.AssemblyInfoInputs.cache
 C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.AssemblyInfo.cs
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.BLL.deps.json
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.BLL.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.BLL.pdb
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.DAL.pdb
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\bin\Debug\netcoreapp3.1\ASS.Common.pdb
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.csproj.CoreCompileInputs.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.csproj.CopyComplete
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.BLL\obj\Debug\netcoreapp3.1\ASS.BLL.pdb

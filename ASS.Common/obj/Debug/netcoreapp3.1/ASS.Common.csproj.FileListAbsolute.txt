@@ -1,0 +1,9 @@
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\bin\Debug\netcoreapp3.1\ASS.Common.deps.json
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\bin\Debug\netcoreapp3.1\ASS.Common.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\bin\Debug\netcoreapp3.1\ASS.Common.pdb
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.csprojAssemblyReference.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.AssemblyInfoInputs.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.AssemblyInfo.cs
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.csproj.CoreCompileInputs.cache
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.Common\obj\Debug\netcoreapp3.1\ASS.Common.pdb
