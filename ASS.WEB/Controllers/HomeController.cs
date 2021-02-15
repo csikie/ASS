@@ -1,4 +1,5 @@
-﻿using ASS.DAL.Models;
+﻿using ASS.Common.Enums;
+using ASS.DAL.Models;
 using ASS.WEB.Models;
 using ASS.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,17 @@ namespace ASS.WEB.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(Role.Admin.ToString()))
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return View("Privacy");
+                }
+            }
             return View();
         }
 
@@ -48,6 +60,12 @@ namespace ASS.WEB.Controllers
             {
                 return View("Index");
             }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return View("Index");
         }
 
         [HttpPost]

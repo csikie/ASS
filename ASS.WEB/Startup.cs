@@ -1,8 +1,10 @@
+using ASS.BLL.Services;
 using ASS.Common.Settings;
 using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +37,7 @@ namespace ASS.WEB
             services.AddLocalization(option => option.ResourcesPath = "Resources");
             services.AddMvc()
                     .AddViewLocalization();
-                    //.AddDataAnnotationsLocalization();
+            //.AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -81,10 +83,10 @@ namespace ASS.WEB
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Home/Login";
-                //options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Error/Error"); talán ez nem fog kelleni
+                options.AccessDeniedPath = new PathString("/Home/Error");
             });
 
-            //services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAdminService, AdminService>();
             //services.AddScoped<ITeacherService, TeacherService>();
 
             services.AddSession(options =>

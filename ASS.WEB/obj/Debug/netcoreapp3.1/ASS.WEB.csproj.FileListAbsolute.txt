@@ -87,3 +87,7 @@ C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\bin\Debug\netcoreapp3.1\hu-HU\ASS.WEB.re
 C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\obj\Debug\netcoreapp3.1\ASS.WEB.Resources.Views.Home.Index.hu-HU.resources
 C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\obj\Debug\netcoreapp3.1\hu-HU\ASS.WEB.resources.dll
 C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\obj\Debug\netcoreapp3.1\ASS.WEB.Resources.Models.ViewModels.LoginViewModel.en-US.resources
+C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\bin\Debug\netcoreapp3.1\ASS.BLL.dll
+C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\bin\Debug\netcoreapp3.1\ASS.BLL.pdb
+C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+C:\Users\Csiki Erik\Desktop\ASS\ASS.WEB\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MainLayout.cshtml.g.cs

@@ -1808,6 +1808,19 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
+      "ASS.BLL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "ASS.DAL": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ASS.BLL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ASS.BLL.dll": {}
+        }
+      },
       "ASS.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -6374,6 +6387,11 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
+    "ASS.BLL/1.0.0": {
+      "type": "project",
+      "path": "../ASS.BLL/ASS.BLL.csproj",
+      "msbuildProject": "../ASS.BLL/ASS.BLL.csproj"
+    },
     "ASS.Common/1.0.0": {
       "type": "project",
       "path": "../ASS.Common/ASS.Common.csproj",
@@ -6387,6 +6405,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "ASS.BLL >= 1.0.0",
       "ASS.DAL >= 1.0.0",
       "MySql.Data.EntityFrameworkCore >= 8.0.22"
     ]
@@ -6423,6 +6442,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
+            "C:\\Users\\Csiki Erik\\Desktop\\ASS\\ASS.BLL\\ASS.BLL.csproj": {
+              "projectPath": "C:\\Users\\Csiki Erik\\Desktop\\ASS\\ASS.BLL\\ASS.BLL.csproj"
+            },
             "C:\\Users\\Csiki Erik\\Desktop\\ASS\\ASS.DAL\\ASS.DAL.csproj": {
               "projectPath": "C:\\Users\\Csiki Erik\\Desktop\\ASS\\ASS.DAL\\ASS.DAL.csproj"
             }

@@ -5,15 +5,11 @@ namespace ASS.DAL.Models
 {
     public class User : IdentityUser<int>
     {
+        public string RealName { get; set; }
         public User() : base() { }
-        public User(string name) : base(name)
-        {
-
-        }
-
         public User(string neptunCode, string name) : base(neptunCode)
         {
-            NormalizedUserName = name;
+            RealName = name;
         }
 
         public ICollection<UserCourse> UserCourses { get; set; }

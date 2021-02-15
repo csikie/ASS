@@ -1,7 +1,8 @@
 ﻿@using ASS.WEB.Models.ViewModels
+@using ASS.Common.Helpers
 @model LoginViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Index";
 }
 
 <div class="container">
@@ -32,13 +33,13 @@
 
             <hr>
             @{
-                var cultureList = localizationOption.Value.SupportedUICultures.Select(x => new { Value = x.Name, Text = x.DisplayName });
+                IEnumerable<string> cultureList = localizationOption.Value.SupportedUICultures.Select(x => x.Name);
             }
             <form asp-controller="Home" asp-action="CultureManagment" method="post">
                 <div class="btn-group d-flex" role="group">
                     @foreach (var item in cultureList)
                     {
-                        <button class="btn btn-outline-primary" type="submit" name="culture" value="@item.Value">@item.Text</button>
+                        <button class="btn btn-outline-info" type="submit" name="culture" value="@item">@CultureCodeMapping.CultureCodeToCountryName(item)</button>
                     }
                 </div>
             </form>
