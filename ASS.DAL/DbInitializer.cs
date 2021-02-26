@@ -20,8 +20,6 @@ namespace ASS.DAL
             {
                 CreateSystemData(userManager);
             }
-
-
         }
 
         private async static void CreateSystemData(UserManager<User> userManager)
@@ -64,6 +62,22 @@ namespace ASS.DAL
             if (res5.Succeeded)
             {
                 await userManager.AddToRoleAsync(user5, Role.Teacher.ToString());
+            }
+
+            Subject subject = new Subject("Funkcionális programozás EA+GY");
+            if (user3 != null && await userManager.IsInRoleAsync(user3, Role.Teacher.ToString()))
+            {
+                context.UserSubjects.Add(new UserSubject(subject, user3));
+                context.UserSubjects.Add(new UserSubject(subject, user5));
+                context.SaveChanges();
+            }
+
+            Subject subject2 = new Subject("Funkcionális nyelvek EA+GY");
+            if (user3 != null && await userManager.IsInRoleAsync(user3, Role.Teacher.ToString()))
+            {
+                context.UserSubjects.Add(new UserSubject(subject2, user3));
+                context.UserSubjects.Add(new UserSubject(subject2, user5));
+                context.SaveChanges();
             }
         }
     }

@@ -52,7 +52,7 @@ namespace ASS.WEB
                 options.SupportedUICultures = supportedCultures;
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             services.AddDbContext<ASSContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 

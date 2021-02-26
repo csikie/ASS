@@ -1,3 +1,135 @@
-﻿@{
+﻿@using ASS.WEB.Models.ViewModels;
+@model CreateSubjectViewModel
+@{
     Layout = "_MainLayout";
 }
+
+<div class="container">
+    <h1>Tárgy létrehozása</h1>
+    <hr />
+
+    @*<form asp-controller="Admin" asp-action="CreateSubject" method="post">
+        <div class="form-group">
+            <label asp-for="SubjectName">Tantárgy neve</label>
+            <input type="text" class="form-control" asp-for="SubjectName" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TeachersNeptunCode">Tárgyfelelős neptunkódja</label>
+            <select id="multiselect" multiple="multiple" asp-for="TeachersNeptunCode"></select>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $("#multiselect").kendoMultiSelect({
+                    dataTextField: "TeacherName",
+                    dataValueField: "TeacherNeptun",
+                    itemTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                    tagTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                    dataSource: {
+                        transport: {
+                            read: {
+                                dataType: "json",
+                                url: "@Url.Action("GetTeachers", "Admin")"
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+
+        <button type="submit" class="btn btn-block btn-primary" name="login-btn">Létrehoz</button>
+    </form>*@
+
+    <div id="subjectGrid"></div>
+    <script>
+        $(document).ready(function () {
+            $("#subjectGrid").kendoGrid({
+                dataSource: {
+                    transport: {
+                        read: {
+                            dataType: "json",
+                            url: "@Url.Action("GetSubjects","Admin")",
+                        },
+                        update: {
+                            url: "@Url.Action("UpdateSubject", "Admin",null,"https")",
+                            dataType: "json",
+                        },
+                        destroy: {
+                            url: "@Url.Action("DeleteSubject", "Admin",null,"https")",
+                            dataType: "json",
+                        },
+                        parameterMap: function (options, operation) {
+                            if (operation !== "read" && options.models) {
+                                return { models: kendo.stringify(options.models) };
+                            }
+                        }
+                    },
+                    batch : true,
+                    schema: {
+                        model: {
+                            id: "TeachersName",
+                            fields: {
+                                SubjectName: { type: "string" },
+                                TeachersName: { type: "object" }
+                            }
+                        },
+                    }
+                },
+                height: 550,
+                edit: function (e) {
+                    $(e.container).css({
+                        width: '100%',
+                    });
+                },
+                columns: [
+                    {
+                        field: "SubjectName",
+                        title: "Tantárgy neve"
+                    },
+                    {
+                        field: "TeachersName",
+                        title: "Tárgyfelelős(ök)",
+                        template: function (dataItem) {
+                            let teachers = "";
+                            dataItem.TeachersName.forEach(function (item) {
+                                teachers += item.TeacherName + " (" + item.TeacherNeptun + ") ,";
+                            });
+                            return teachers.slice(0, -1);
+                        },
+                        editor: teachersNameMultiSelect
+                    },
+                    {
+                        command: ["edit" ,"destroy"],
+                        title: "&nbsp;",
+                    }
+                ],
+                editable: "inline",
+            });
+        });
+
+        function teachersNameMultiSelect(container, options) {
+            $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
+                .appendTo(container)
+                .kendoMultiSelect({
+                    dataTextField: "TeacherName",
+                    dataValueField: "TeacherNeptun",
+                    itemTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                    tagTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                    dataSource: {
+                        transport: {
+                            read: {
+                                dataType: "json",
+                                url: "@Url.Action("GetTeachers", "Admin")"
+                            },
+                        },
+                        schema: {
+                            model: {
+                                id: "Id",
+                            }
+                        }
+                    },
+                    value: options.model.TeachersName.toJSON()
+                });
+        }
+    </script>
+</div>

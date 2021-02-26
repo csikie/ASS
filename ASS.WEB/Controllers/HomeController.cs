@@ -53,7 +53,7 @@ namespace ASS.WEB.Controllers
 
             SignInResult result = await signInManager.PasswordSignInAsync(loginUser.Username, loginUser.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
-            { 
+            {
                 return RedirectToAction("Index","Home");
             }
             else

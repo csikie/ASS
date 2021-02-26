@@ -2,6 +2,7 @@
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Linq;
 
 namespace ASS.BLL.Services
 {
@@ -9,6 +10,8 @@ namespace ASS.BLL.Services
     {
         protected ASSContext context;
         protected UserManager<User> userManager;
+        private bool disposed;
+
 
         protected BaseService(ASSContext context, UserManager<User> userManager)
         {
@@ -17,7 +20,12 @@ namespace ASS.BLL.Services
             this.disposed = false;
         }
 
-        private bool disposed;
+        protected string FullName(string username)
+        {
+            User user = context.Users.FirstOrDefault(x => x.UserName == username);
+            return $"{user.RealName} / {user.UserName}";
+        }
+
         private void Dispose(bool disposing)
         {
             if (!disposed)
