@@ -39,8 +39,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="SET path=$(SolutionDir)\Logs&#xD;&#xA;if not exist &quot;%25path%25&quot; mkdir &quot;%25path%25&quot;" />
-  </Target>
-
 </Project>
