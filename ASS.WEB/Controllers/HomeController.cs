@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -27,10 +28,12 @@ namespace ASS.WEB.Controllers
             signInManager = _signInManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
             {
+                string roles = JsonConvert.SerializeObject(await userManager.GetRolesAsync(await userManager.GetUserAsync(User)));
+                HttpContext.Session.SetString("userRoles", roles);
                 if (User.IsInRole(Role.Admin.ToString()))
                 {
                     return RedirectToAction("Index", "Admin");

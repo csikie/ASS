@@ -31,8 +31,6 @@ namespace ASS.BLL.Services
             //return false;
         }
 
-        public string GetFullName(string username) => FullName(username);
-
         public IEnumerable<Subject> GetSubjects()
         {
             return context.Subjects.Include(s => s.UserSubject)
@@ -50,22 +48,48 @@ namespace ASS.BLL.Services
             return context.Users.Where(pred);
         }
 
-        public async void UpdateSubject(int id, string subjectName, string[] teacherNeptunCodes)
+        public void UpdateSubject(int id, string subjectName, string[] teacherNeptunCodes)
         {
-            Subject subject = context.Subjects.Include(s => s.UserSubject).ThenInclude(u => u.User).FirstOrDefault(x => x.Id == id);
+            Subject subject = context.Subjects.Include(s => s.UserSubject)
+                                              .ThenInclude(u => u.User)
+                                              .FirstOrDefault(x => x.Id == id);
 
-            subject.Name = subjectName;
-            List<User> users = (await userManager.GetUsersInRoleAsync(Role.Teacher.ToString())).Where(x => teacherNeptunCodes.Contains(x.UserName)).ToList();
-            List<UserSubject> teachers = new List<UserSubject>();
-
-            foreach (User user in users)
+            List<UserSubject> deletedTeachers = new List<UserSubject>();
+            foreach (UserSubject teacher in subject.UserSubject)
             {
-                teachers.Add(new UserSubject(subject,user));
+                if (!teacherNeptunCodes.Contains(teacher.User.UserName))
+                {
+                    deletedTeachers.Add(teacher);
+                }
             }
 
-            subject.UserSubject = teachers;
+            foreach (UserSubject deletedTeacher in deletedTeachers)
+            {
+                subject.UserSubject.Remove(deletedTeacher);
+            }
+
+            foreach (string teacherNeptunCode in teacherNeptunCodes)
+            {
+                if (!subject.UserSubject.Any(x => x.User.UserName == teacherNeptunCode))
+                {
+                    subject.UserSubject.Add(new UserSubject(subject, context.Users.FirstOrDefault(x => x.UserName == teacherNeptunCode)));
+                }
+            }
+
+            subject.Name = subjectName;
 
             context.Subjects.Update(subject);
+            context.SaveChanges();
+        }
+
+        public void DeleteSubject(int id)
+        {
+            Subject subject = context.Subjects.Include(s => s.UserSubject)
+                                              .ThenInclude(u => u.User)
+                                              .FirstOrDefault(x => x.Id == id);
+
+            context.Subjects.Remove(subject);
+
             context.SaveChanges();
         }
     }

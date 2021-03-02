@@ -31,9 +31,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginViewModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Home\Index.de-DE.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Home\Index.en-US.resx">
       <Generator></Generator>
     </EmbeddedResource>

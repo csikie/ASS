@@ -45,7 +45,6 @@ namespace ASS.WEB
                 {
                     new CultureInfo("hu-HU"),
                     new CultureInfo("en-US"),
-                    new CultureInfo("de-DE")
                 };
                 options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
                 options.SupportedCultures = supportedCultures;
@@ -86,7 +85,7 @@ namespace ASS.WEB
                 options.AccessDeniedPath = new PathString("/Home/Error");
             });
 
-            services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<AdminService>();
             //services.AddScoped<ITeacherService, TeacherService>();
 
             services.AddSession(options =>

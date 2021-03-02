@@ -2,7 +2,9 @@
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASS.BLL.Services
 {
@@ -20,7 +22,7 @@ namespace ASS.BLL.Services
             this.disposed = false;
         }
 
-        protected string FullName(string username)
+        public string FullName(string username)
         {
             User user = context.Users.FirstOrDefault(x => x.UserName == username);
             return $"{user.RealName} / {user.UserName}";

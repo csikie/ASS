@@ -4,6 +4,7 @@ using ASS.WEB.Models.DTOs;
 using ASS.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -14,12 +15,12 @@ using System.Threading.Tasks;
 namespace ASS.WEB.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class AdminController : Controller
+    public class AdminController : BaseController
     {
         private readonly ILogger<AdminController> logger;
-        private readonly IAdminService adminService;
+        private readonly AdminService adminService;
 
-        public AdminController(ILogger<AdminController> _logger, IAdminService _adminService)
+        public AdminController(ILogger<AdminController> _logger, AdminService _adminService)
         {
             logger = _logger;
             adminService = _adminService;
@@ -27,7 +28,7 @@ namespace ASS.WEB.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Username = adminService.GetFullName(User.Identity.Name);
+            HttpContext.Session.SetString("name", adminService.FullName(User.Identity.Name));
             return View();
         }
 
@@ -35,6 +36,11 @@ namespace ASS.WEB.Controllers
         {
             string result = JsonConvert.SerializeObject((await adminService.GetUsersInRole(Role.Teacher)).Select(x => new TeacherDTO(x.Id,x.RealName, x.UserName)));
             return result;
+        }
+
+        public IActionResult CreateSubject()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -46,16 +52,19 @@ namespace ASS.WEB.Controllers
 
         public string GetSubjects()
         {
-            IEnumerable<SubjectDTO> subjects = adminService.GetSubjects().Select(x => new SubjectDTO(x.Id,x.Name, x.UserSubject.Select(y => new TeacherDTO(y.Id,y.User.RealName,y.User.UserName)).ToArray()));
+            IEnumerable<SubjectDTO> subjects = adminService.GetSubjects()
+                                                           .Select(x => new SubjectDTO(x.Id,x.Name, x.UserSubject.Select(y => new TeacherDTO(y.Id,y.User.RealName,y.User.UserName))
+                                                                                                                 .ToArray()));
             string result = JsonConvert.SerializeObject(subjects);
             return result;
         }
             
-        public IActionResult DeleteSubject(string models)
+        public string DeleteSubject(string models)
         {
-            List<SubjectDTO> subjects = JsonConvert.DeserializeObject<List<SubjectDTO>>(models);
-
-            return View("Index");
+            SubjectDTO subject = JsonConvert.DeserializeObject<List<SubjectDTO>>(models).FirstOrDefault();
+            adminService.DeleteSubject(subject.Id);
+            return GetSubjects();
+            
         }
 
         public string UpdateSubject(string models)
@@ -64,7 +73,6 @@ namespace ASS.WEB.Controllers
             adminService.UpdateSubject(subject.Id, subject.SubjectName, subject.TeachersName.Select(x => x.TeacherNeptun).ToArray());
             
             return GetSubjects();
-            //return View("Index");
         }
     }
 }

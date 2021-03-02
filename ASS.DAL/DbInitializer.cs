@@ -34,6 +34,7 @@ namespace ASS.DAL
             if (res.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, Role.Admin.ToString());
+                await userManager.AddToRoleAsync(user, Role.Teacher.ToString());
             }
 
             User user2 = new User("student", "Teszt Elek");
@@ -76,7 +77,7 @@ namespace ASS.DAL
             if (user3 != null && await userManager.IsInRoleAsync(user3, Role.Teacher.ToString()))
             {
                 context.UserSubjects.Add(new UserSubject(subject2, user3));
-                context.UserSubjects.Add(new UserSubject(subject2, user5));
+                //context.UserSubjects.Add(new UserSubject(subject2, user5));
                 context.SaveChanges();
             }
         }

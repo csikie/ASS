@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using ASS.Common.Enums
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,20 +18,41 @@
     <header class="border-bottom">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="@Url.Action("Index", "Home")">Home</a>
+                <a class="navbar-brand" asp-action="Index">@localizer["Home"]</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">@ViewBag.Username</a> <!-- Action link to profile, load user data-->
+                            <a class="nav-link" asp-action="Profile">@Context.Session.GetString("name")</a> <!-- Action link to profile, load user data-->
                         </li>
+                        @{
+                            List<string> roles = JsonConvert.DeserializeObject<List<string>>(Context.Session.GetString("userRoles"));
+
+                            if (roles.Count > 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="changeRoleDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @localizer["ChangeRole"]
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="changeRoleDropdown">
+                                        @foreach (string role in roles)
+                                        {
+                                            <li><a class="dropdown-item" asp-action="Index" asp-controller="@role">@localizer[role]</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        @if (User.IsInRole(Role.Admin.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="CreateSubject">@localizer["CreateSubject"]</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Notification</a> <!-- Action link to notification -->
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Logout", "Home")">Logout</a>
+                            <a class="nav-link" asp-action="Logout" asp-controller="Home">@localizer["Logout"]</a>
                         </li>
                     </ul>
                 </div>
