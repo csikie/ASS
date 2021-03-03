@@ -34,9 +34,15 @@ namespace ASS.WEB.Controllers
             {
                 string roles = JsonConvert.SerializeObject(await userManager.GetRolesAsync(await userManager.GetUserAsync(User)));
                 HttpContext.Session.SetString("userRoles", roles);
+                string userName = $"{(await userManager.GetUserAsync(User)).RealName} / {(await userManager.GetUserAsync(User)).UserName}";
+                HttpContext.Session.SetString("name", userName);
                 if (User.IsInRole(Role.Admin.ToString()))
                 {
                     return RedirectToAction("Index", "Admin");
+                }
+                else if (User.IsInRole(Role.Teacher.ToString()))
+                {
+                    return RedirectToAction("Index", "Teacher");
                 }
                 else
                 {

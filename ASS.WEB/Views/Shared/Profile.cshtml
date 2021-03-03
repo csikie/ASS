@@ -1,3 +1,61 @@
-﻿@{
+﻿@using ASS.WEB.Models.DTOs
+@using ASS.Common.Helpers
+@using System.Text;
+@model UserDTO
+@{
     Layout = "_MainLayout";
 }
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-8">
+            <h1>@localizer["PersonalDatasTitle"]</h1>
+            <hr />
+
+            <form>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="RealName" class="form-control" placeholder="@localizer["RealNamePlaceholder"]" value="@Model.RealName" readonly />
+                    <label asp-for="RealName"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="UserName" class="form-control" placeholder="@localizer["UserNamePlaceholder"]" value="@Model.UserName" readonly />
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="email" asp-for="Email" class="form-control" placeholder="@localizer["EmailPlaceholder"]" value="@Model.Email" readonly />
+                    <label asp-for="Email"></label>
+                </div>
+                <div class="form-floating mb-3">
+                    @{ 
+                        StringBuilder builder = new StringBuilder();
+                        foreach (string role in Model.Roles)
+                        {
+                            builder.Append(localizer[role].Value);
+                            builder.Append(", ");
+                        }
+                        builder.Remove(builder.Length - 2, 2);
+
+                    }
+                    <input type="text" asp-for="Roles" class="form-control" placeholder="@localizer["RolesPlaceholder"]" value="@builder.ToString()" readonly />
+                    <label asp-for="Roles"></label>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-8">
+            <h2>@localizer["ChangeLangTitle"]</h2>
+            <hr />
+            @{
+                IEnumerable<string> cultureList = localizationOption.Value.SupportedUICultures.Select(x => x.Name);
+            }
+            <form asp-controller="Admin" asp-action="CultureManagment" method="post">
+                <div class="btn-group d-flex" role="group">
+                    @foreach (var item in cultureList)
+                    {
+                        <button class="btn btn-outline-info" type="submit" name="culture" value="@item">@CultureCodeMapping.CultureCodeToCountryName(item)</button>
+                    }
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

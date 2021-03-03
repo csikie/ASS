@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ASS.BLL.Services
 {
-    class TeacherService : BaseService, ITeacherService
+    public class TeacherService : BaseService, ITeacherService
     {
         public TeacherService(ASSContext context, UserManager<User> userManager) : base(context, userManager) { }
 

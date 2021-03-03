@@ -20,15 +20,14 @@ namespace ASS.WEB.Controllers
         private readonly ILogger<AdminController> logger;
         private readonly AdminService adminService;
 
-        public AdminController(ILogger<AdminController> _logger, AdminService _adminService)
+        public AdminController(ILogger<AdminController> logger, AdminService adminService) : base(adminService)
         {
-            logger = _logger;
-            adminService = _adminService;
+            this.logger = logger;
+            this.adminService = adminService;
         }
 
         public IActionResult Index()
         {
-            HttpContext.Session.SetString("name", adminService.FullName(User.Identity.Name));
             return View();
         }
 
