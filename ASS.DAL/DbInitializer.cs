@@ -35,6 +35,8 @@ namespace ASS.DAL
             {
                 await userManager.AddToRoleAsync(user, Role.Admin.ToString());
                 await userManager.AddToRoleAsync(user, Role.Teacher.ToString());
+                await userManager.AddToRoleAsync(user, Role.Instructor.ToString());
+                await userManager.AddToRoleAsync(user, Role.Student.ToString());
             }
 
             User user2 = new User("student", "Teszt Elek");
@@ -58,6 +60,13 @@ namespace ASS.DAL
                 await userManager.AddToRoleAsync(user4, Role.Instructor.ToString());
             }
 
+            User user6 = new User("bajkoj", "Bajkó János Róbert");
+            IdentityResult res6 = await userManager.CreateAsync(user6, "Ab1234");
+            if (res6.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user6, Role.Instructor.ToString());
+            }
+
             User user5 = new User("bozo_i", "Bozó István");
             IdentityResult res5 = await userManager.CreateAsync(user5, "Ab1234");
             if (res5.Succeeded)
@@ -77,9 +86,17 @@ namespace ASS.DAL
             if (user3 != null && await userManager.IsInRoleAsync(user3, Role.Teacher.ToString()))
             {
                 context.UserSubjects.Add(new UserSubject(subject2, user3));
-                //context.UserSubjects.Add(new UserSubject(subject2, user5));
                 context.SaveChanges();
             }
+
+            Course course = new Course("Gyak #1", subject);
+            context.Instructors.Add(new Instructors(course, user4));
+            context.Instructors.Add(new Instructors(course, user6));
+            context.SaveChanges();
+
+            Course course2 = new Course("Gyak #1", subject2);
+            context.Instructors.Add(new Instructors(course2, user4));
+            context.SaveChanges();
         }
     }
 }

@@ -1,8 +1,11 @@
-﻿using ASS.Common.Enums;
+﻿using ASS.BLL.Interfaces;
 using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ASS.BLL.Services
@@ -11,18 +14,25 @@ namespace ASS.BLL.Services
     {
         public TeacherService(ASSContext context, UserManager<User> userManager) : base(context, userManager) { }
 
-        public async Task<bool> AddUserToCourse(string neptunCode, int subjectId, string courseName)
+        public void AddUserToCourse(string[] neptunCodes, int subjectId, string courseName)
         {
-            User user = context.Users.FirstOrDefault(x => x.UserName == neptunCode);
-            if (user != null && await userManager.IsInRoleAsync(user, Role.Instructor.ToString()))
+            Subject subject = context.Subjects.FirstOrDefault(x => x.Id == subjectId);
+            Course course = new Course(courseName, subject);
+            foreach (string instructor in neptunCodes)
             {
-                Subject subject = context.Subjects.FirstOrDefault(x => x.Id == subjectId);
-                Course course = new Course(courseName, subject);
-                context.UserCourse.Add(new UserCourse(course, user));
-                context.SaveChanges();
-                return true;
+                User user = context.Users.FirstOrDefault(x => x.UserName == instructor);
+                context.Instructors.Add(new Instructors(course, user));
             }
-            return false;
+            context.SaveChanges();
+        }
+
+        public async Task<IEnumerable<Subject>> GetSubjects(ClaimsPrincipal principal)
+        {
+            User teacher = await userManager.GetUserAsync(principal);
+            return context.Subjects.Include(s => s.UserSubject)
+                                   .ThenInclude(u => u.User)
+                                   .Where(x => x.UserSubject.Any(y => y.User.Id == teacher.Id))
+                                   .ToList();
         }
     }
 }

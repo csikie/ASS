@@ -10,10 +10,10 @@ namespace ASS.WEB.Controllers
 {
     public abstract class BaseController : Controller
     {
-        BaseService service;
-        protected BaseController(BaseService _service)
+        private readonly BaseService service;
+        protected BaseController(BaseService service)
         {
-            service = _service ?? throw new ArgumentNullException();
+            this.service = service ?? throw new ArgumentNullException();
         }
 
         public async Task<IActionResult> Profile()

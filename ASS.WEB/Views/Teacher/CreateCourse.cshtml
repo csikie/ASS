@@ -1,0 +1,95 @@
+﻿@using ASS.WEB.Models.ViewModels
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model CreateCourseViewModel
+@{
+    Layout = "_MainLayout";
+}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        @{ 
+            if (ViewData.ModelState.GetValueOrDefault("progressError") != null)
+            {
+                foreach (ModelError error in ViewData.ModelState.GetValueOrDefault("progressError").Errors)
+                {
+                    <div class="col-lg-8">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            @error.ErrorMessage
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                }
+            }
+        }
+        <div class="col-lg-8">
+            <h1>@localizer["CreateCourseTitle"]</h1>
+            <hr />
+
+            <form class="" asp-action="CreateCourse" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="CourseName" class="form-control" placeholder="@localizer["CourseNamePlaceholder"]" />
+                    <label asp-for="CourseName"></label>
+                    <span asp-validation-for="CourseName" class="text-danger"></span>
+                </div>
+
+                <div class="col-lg-12">
+                    <label asp-for="SubjectId">@localizer["SubjectLabel"]</label>
+                </div>
+                <div class="col-lg-12">
+                    <select id="subjectSelect" asp-for="SubjectId"></select>
+                </div>
+                <div class="col-lg-12 mb-3">
+                    <span asp-validation-for="SubjectId" class="text-danger"></span>
+                </div>
+                
+                <div class="col-lg-12">
+                    <label asp-for="InstructorsNeptunCode">@localizer["InstructorsNeptunCodeLabel"]</label>
+                    <select id="instructorMultiselect" multiple="multiple" asp-for="InstructorsNeptunCode"></select>
+                    <span asp-validation-for="InstructorsNeptunCode" class="text-danger"></span>
+                </div>
+
+                <script>
+                    $(document).ready(function() {
+                        $("#instructorMultiselect").kendoMultiSelect({
+                            dataTextField: "InstructorName",
+                            dataValueField: "InstructorNeptun",
+                            itemTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                            tagTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: "@Url.Action("GetInstructors", "Teacher")"
+                                    }
+                                }
+                            }
+                        });
+                    });
+
+                    $(document).ready(function () {
+                        $("#subjectSelect").kendoDropDownList({
+                            index: 0,
+                            dataTextField: "SubjectName",
+                            dataValueField: "Id",
+                            autoWidth: true,
+                            optionLabel: "@localizer["SubjectSelectLabel"]",
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        url: "@Url.Action("GetSubjects", "Teacher")",
+                                        dataType : "json"
+                                    }
+                                }
+                            }
+                        });
+                        $(".k-dropdown").width('100%')
+                    });
+                </script>
+
+                <div class="d-grid gap-2 pt-3">
+                    <button type="submit" class="btn btn-block btn-primary" name="create-btn">@localizer["CreateButton"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

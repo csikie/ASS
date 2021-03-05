@@ -20,5 +20,6 @@ namespace ASS.DAL.Models
         public Subject Subject { get; set; }
 
         public ICollection<UserCourse> UserCourses { get; set; }
+        public ICollection<Instructors> Instructors { get; set; }
     }
 }

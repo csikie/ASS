@@ -47,7 +47,7 @@
             @{
                 IEnumerable<string> cultureList = localizationOption.Value.SupportedUICultures.Select(x => x.Name);
             }
-            <form asp-controller="Admin" asp-action="CultureManagment" method="post">
+            <form asp-action="CultureManagment" method="post">
                 <div class="btn-group d-flex" role="group">
                     @foreach (var item in cultureList)
                     {

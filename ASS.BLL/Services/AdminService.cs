@@ -1,4 +1,5 @@
-﻿using ASS.Common.Enums;
+﻿using ASS.BLL.Interfaces;
+using ASS.Common.Enums;
 using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 
 namespace ASS.BLL.Services
 {
@@ -38,12 +38,7 @@ namespace ASS.BLL.Services
                                    .ToList();
         }
 
-        public async Task<IEnumerable<User>> GetUsersInRole(Role role)
-        {
-            return (await userManager.GetUsersInRoleAsync(role.ToString())).ToList();
-        }
-
-        public IEnumerable<User> GetUsers(Expression<Func<User,bool>> pred)
+        public IEnumerable<User> GetUsers(Expression<Func<User, bool>> pred)
         {
             return context.Users.Where(pred);
         }

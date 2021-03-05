@@ -11,99 +11,119 @@
         <div class="col-lg-12">
             <div id="subjectGrid"></div>
             <script>
-        $(document).ready(function () {
-            $("#subjectGrid").kendoGrid({
-                dataSource: {
-                    transport: {
-                        read: {
-                            dataType: "json",
-                            url: "@Url.Action("GetSubjects","Admin")",
-                        },
-                        update: {
-                            url: "@Url.Action("UpdateSubject", "Admin",null,"https")",
-                            dataType: "json",
-                        },
-                        destroy: {
-                            url: "@Url.Action("DeleteSubject", "Admin",null,"https")",
-                            dataType: "json",
-                        },
-                        parameterMap: function (options, operation) {
-                            if (operation !== "read" && options.models) {
-                                return { models: kendo.stringify(options.models) };
-                            }
-                        }
-                    },
-                    batch: true,
-                    pageSize: 10,
-                    schema: {
-                        model: {
-                            id: "Id",
-                            fields: {
-                                SubjectName: { type: "string" },
-                                TeachersName: { type: "object" }
-                            }
-                        },
-                    }
-                },
-                pageable: {
-                    refresh: true,
-                    buttonCount : 5
-                },
-                toolbar: ["search"],
-                search: {
-                    fields: ["SubjectName"]
-                },
-                height: 550,
-                columns: [
-                    {
-                        field: "SubjectName",
-                        title: "Tantárgy neve"
-                    },
-                    {
-                        field: "TeachersName",
-                        title: "Tárgyfelelős(ök)",
-                        template: function (dataItem) {
-                            let teachers = "";
-                            dataItem.TeachersName.forEach(function (item) {
-                                teachers += item.TeacherName + " (" + item.TeacherNeptun + ") ,";
-                            });
-                            return teachers.slice(0, -1);
-                        },
-                        editor: teachersNameMultiSelect,
-                    },
-                    {
-                        command: ["edit" ,"destroy"],
-                        title: "&nbsp;",
-                    }
-                ],
-                editable: "inline",
-            });
-        });
-
-        function teachersNameMultiSelect(container, options) {
-            $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
-                .appendTo(container)
-                .kendoMultiSelect({
-                    dataTextField: "TeacherName",
-                    dataValueField: "TeacherNeptun",
-                    itemTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
-                    tagTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
-                    dataSource: {
-                        transport: {
-                            read: {
-                                dataType: "json",
-                                url: "@Url.Action("GetTeachers", "Admin")"
+                $(document).ready(function () {
+                    $("#subjectGrid").kendoGrid({
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "@Url.Action("GetSubjects","Admin")",
+                                },
+                                update: {
+                                    url: "@Url.Action("UpdateSubject", "Admin",null,"https")",
+                                    dataType: "json",
+                                },
+                                destroy: {
+                                    url: "@Url.Action("DeleteSubject", "Admin",null,"https")",
+                                    dataType: "json",
+                                },
+                                parameterMap: function (options, operation) {
+                                    if (operation !== "read" && options.models) {
+                                        return { models: kendo.stringify(options.models) };
+                                    }
+                                }
                             },
-                        },
-                        schema: {
-                            model: {
-                                id: "Id",
+                            batch: true,
+                            pageSize: 10,
+                            schema: {
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        SubjectName: { type: "string" },
+                                        TeachersName: { type: "object" },
+                                        Teachers: { type : "string" },
+                                    },
+                                },
+                                parse: function (response) {
+                                    response.forEach(function (data) {
+                                        let str = "";
+                                        data.TeachersName.forEach(function (teacher) {
+                                            str += teacher.TeacherName + " (" + teacher.TeacherNeptun + ") ";
+                                        })
+                                        data.Teachers = str;
+                                    })
+                                    return response;
+                                },
                             }
-                        }
-                    },
-                    value: options.model.TeachersName.toJSON()
+                        },
+                        pageable: {
+                            refresh: true,
+                            buttonCount : 5
+                        },
+                        toolbar: ["search", "excel"],
+                        excel: {
+                            fileName: "Kendo UI Grid Export.xlsx",
+                            allPages: true,
+                        },
+                        search: {
+                            fields: ["SubjectName", "Teachers"]
+                        },
+                        height: 550,
+                        columns: [
+                            {
+                                field: "SubjectName",
+                                title: "Tantárgy neve"
+                            },
+                            {
+                                field: "TeachersName",
+                                title: "Tárgyfelelős(ök)",
+                                template: function (dataItem) {
+                                    let teachers = "";
+                                    dataItem.TeachersName.forEach(function (item) {
+                                        teachers += item.TeacherName + " (" + item.TeacherNeptun + "), ";
+                                    });
+                                    return teachers.slice(0, -2);
+                                },
+                                editor: teachersNameMultiSelect,
+                            },
+                            {
+                                command: ["edit" ,"destroy"],
+                                title: "&nbsp;",
+                            },
+                        ],
+                        editable: "inline",
+                        sortable : true,
+                    });
                 });
-        }
+
+                function teachersNameMultiSelect(container, options) {
+                    $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoMultiSelect({
+                            dataTextField: "TeacherName",
+                            dataValueField: "TeacherNeptun",
+                            itemTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                            tagTemplate: '<span class="k-state-default">#: data.TeacherName # (#: data.TeacherNeptun #)</span>',
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: "@Url.Action("GetTeachers", "Admin")"
+                                    },
+                                },
+                                schema: {
+                                    model: {
+                                        id: "Id",
+                                        fields: {
+                                            TeacherName: { type: "string" },
+                                            TeacherNeptun: { type: "string" }
+                                        }
+                                    }
+                                }
+                            },
+                            value: options.model.TeachersName.toJSON()
+                    });
+                }
             </script>
         </div>
     </div>

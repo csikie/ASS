@@ -5,9 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using ASS.WEB.Models.ViewModels;
+using Newtonsoft.Json;
+using ASS.Common.Enums;
+using ASS.WEB.Models.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ASS.WEB.Controllers
 {
+    [Authorize(Roles = "Teacher")]
     public class TeacherController : BaseController
     {
         private readonly ILogger<TeacherController> logger;
@@ -22,6 +28,36 @@ namespace ASS.WEB.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        
+        public IActionResult CreateCourse()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult CreateCourse(CreateCourseViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId, model.CourseName);
+                ModelState.Clear();
+                ModelState.AddModelError("progressError","asd");
+                return View();
+            }
+            return View();
+        }
+
+        public async Task<string> GetSubjects()
+        {
+            string result = JsonConvert.SerializeObject((await teacherService.GetSubjects(User)).Select(x => new SubjectDTO(x.Id,x.Name)).ToList());
+            return result;
+        }
+        
+        public async Task<string> GetInstructors()
+        {
+            string result = JsonConvert.SerializeObject((await teacherService.GetUsersInRole(Role.Instructor)).Select(x => new InstructorDTO(x.Id, x.RealName, x.UserName)));
+            return result;
         }
     }
 }

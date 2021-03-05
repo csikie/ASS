@@ -9,6 +9,7 @@ namespace ASS.DAL
     {
         public DbSet<Course> Courses { get; set; }
         public DbSet<UserCourse> UserCourse { get; set; }
+        public DbSet<Instructors> Instructors { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<UserSubject> UserSubjects { get; set; }
 
@@ -47,6 +48,17 @@ namespace ASS.DAL
                 .WithMany(c => c.UserCourses)
                 .HasForeignKey(bc => bc.CourseId);
 
+            builder.Entity<Instructors>()
+                   .HasKey(bc => new { bc.UserId, bc.CourseId });
+            builder.Entity<Instructors>()
+                .HasOne(bc => bc.User)
+                .WithMany(b => b.Instructors)
+                .HasForeignKey(bc => bc.UserId);
+            builder.Entity<Instructors>()
+                .HasOne(bc => bc.Course)
+                .WithMany(c => c.Instructors)
+                .HasForeignKey(bc => bc.CourseId);
+
             builder.Entity<UserSubject>()
                    .HasKey(bc => new { bc.UserId, bc.SubjectId });
             builder.Entity<UserSubject>()
@@ -70,6 +82,9 @@ namespace ASS.DAL
                    .HasKey(k => k.Id);
 
             builder.Entity<Subject>()
+                   .HasKey(k => k.Id);
+
+            builder.Entity<Instructors>()
                    .HasKey(k => k.Id);
         }
     }

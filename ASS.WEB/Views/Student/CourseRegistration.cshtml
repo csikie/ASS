@@ -1,0 +1,46 @@
+﻿@using ASS.WEB.Models.ViewModels
+@model CourseRegistrationViewModel
+@{
+    Layout = "_MainLayout";
+}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-8">
+            <h1>@localizer["CourseRegTitle"]</h1>
+            <hr />
+        </div>
+        <div class="col-lg-8">
+            <form asp-action="CourseRegistration" asp-controller="Student" method="post">
+                <div class="mb-3"
+                    <label asp-for="CourseIds">@localizer["CourseIdsLabel"]</label>
+                    <select id="courseMultiSelect" multiple="multiple" asp-for="CourseIds"></select>
+                    <span asp-validation-for="CourseIds" class="text-danger"></span>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="submit">@localizer["CourseRegSubmitBtn"]</button>
+                </div>
+            </form>
+
+            <script>
+                $(document).ready(function() {
+                    $("#courseMultiSelect").kendoMultiSelect({
+                        placeholder : "@localizer["CourseRegPlaceholder"]",
+                        dataTextField: "CourseName",
+                        dataValueField: "Id",
+                        itemTemplate: '<span class="k-state-default">#: data.CourseName # (#: data.Instructors #)</span>',
+                        tagTemplate: '<span class="k-state-default">#: data.CourseName # (#: data.Instructors #)</span>',
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "@Url.Action("GetCourses", "Student")"
+                                }
+                            }
+                        },
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>

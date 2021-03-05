@@ -1,4 +1,5 @@
-﻿using ASS.DAL;
+﻿using ASS.Common.Enums;
+using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -23,12 +24,6 @@ namespace ASS.BLL.Services
             this.disposed = false;
         }
 
-        public string FullName(string username)
-        {
-            User user = context.Users.FirstOrDefault(x => x.UserName == username);
-            return $"{user.RealName} / {user.UserName}";
-        }
-
         public async Task<User> GetUserData(ClaimsPrincipal principal)
         {
             return await userManager.GetUserAsync(principal);
@@ -37,6 +32,11 @@ namespace ASS.BLL.Services
         public async Task<string[]> GetUserRoles(ClaimsPrincipal principal)
         {
             return (await userManager.GetRolesAsync(await GetUserData(principal))).ToArray();
+        }
+
+        public async Task<IEnumerable<User>> GetUsersInRole(Role role)
+        {
+            return (await userManager.GetUsersInRoleAsync(role.ToString())).ToList();
         }
 
         private void Dispose(bool disposing)

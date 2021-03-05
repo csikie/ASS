@@ -11,7 +11,7 @@ namespace ASS.WEB.Models.DTOs
         public string SubjectName { get; set; }
         public TeacherDTO[] TeachersName { get; set; }
 
-        public SubjectDTO(int id, string subjectName, TeacherDTO[] teachersName)
+        public SubjectDTO(int id, string subjectName, TeacherDTO[] teachersName = null)
         {
             Id = id;
             SubjectName = subjectName;

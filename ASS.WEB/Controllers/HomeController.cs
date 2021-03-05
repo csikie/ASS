@@ -44,9 +44,17 @@ namespace ASS.WEB.Controllers
                 {
                     return RedirectToAction("Index", "Teacher");
                 }
+                else if (User.IsInRole(Role.Instructor.ToString()))
+                {
+                    return RedirectToAction("Index", "Instructor");
+                }
+                else if (User.IsInRole(Role.Student.ToString()))
+                {
+                    return RedirectToAction("Index", "Student");
+                }
                 else
                 {
-                    return View("Privacy");
+                    return RedirectToAction("Error");
                 }
             }
             return View();

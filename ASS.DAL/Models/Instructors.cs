@@ -2,10 +2,10 @@
 
 namespace ASS.DAL.Models
 {
-    public class UserCourse
+    public class Instructors
     {
-        public UserCourse() { }
-        public UserCourse(Course course, User user)
+        public Instructors() { }
+        public Instructors(Course course, User user)
         {
             CourseId = course.Id;
             Course = course;
@@ -20,6 +20,5 @@ namespace ASS.DAL.Models
         public Course Course { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public bool? Pending { get; set; }
     }
 }

@@ -87,6 +87,8 @@ namespace ASS.WEB
 
             services.AddScoped<AdminService>();
             services.AddScoped<TeacherService>();
+            services.AddScoped<InstructorService>();
+            services.AddScoped<StudentService>();
 
             services.AddSession(options =>
             {

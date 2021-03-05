@@ -123,6 +123,9 @@
   <data name="ChangeRole" xml:space="preserve">
     <value>Szerepkör váltás</value>
   </data>
+  <data name="CreateCourse" xml:space="preserve">
+    <value>Kurzus létrehozása</value>
+  </data>
   <data name="CreateSubject" xml:space="preserve">
     <value>Tárgy létrehozás</value>
   </data>
