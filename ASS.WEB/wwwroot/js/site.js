@@ -1,63 +1,15 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-let darkModeOn = false;
-
-const createStorage = (name, value) => {
-    localStorage.setItem(name, value);
-}
-
-const readStorage = name => {
-    return localStorage.getItem(name);
-}
-
-const deleteStorage = name => {
-    localStorage.removeItem(name);
-}
-
-const toggleDarkMode = (e) => {
-    if (document.body.classList.contains("dark-mode")) {
-        document.body.classList.remove("dark-mode");
-        darkModeOn = false;
-        createStorage("my_preferredMode", "light-mode");
-    } else {
-        document.body.classList.add("dark-mode");
-        darkModeOn = true;
-        createStorage("my_preferredMode", "dark-mode");
-    }
-}
-
-document.getElementById("darkMode").addEventListener("click", toggleDarkMode)
-
-document.addEventListener("DOMContentLoaded", () => {
-    if (readStorage("my_preferredMode")) {
-        if (readStorage("my_preferredMode") == "dark-mode") {
-            darkModeOn = true;
-        } else {
-            darkModeOn = false;
+﻿function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
         }
-    } else {
-        if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            darkModeOn = true;
-        } else {
-            if (document.body.classList.contains("dark-mode")) {
-                darkModeOn = true;
-            } else {
-                darkModeOn = false;
-            }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
         }
     }
-
-    if (darkModeOn) {
-        if (!document.body.classList.contains("dark-mode")) {
-            document.body.classList.add("dark-mode");
-        }
-        document.getElementById("darkMode").checked = true
-    } else {
-        if (document.body.classList.contains("dark-mode")) {
-            document.body.classList.remove("dark-mode");
-        }
-    }
-})
+    return "";
+}

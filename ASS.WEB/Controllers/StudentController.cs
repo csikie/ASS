@@ -31,7 +31,7 @@ namespace ASS.WEB.Controllers
 
         public async Task<string> GetCourses()
         {
-            string result = JsonConvert.SerializeObject((await studentService.GetCourses()).Select(x => new CourseDTO(x.Id,x.Name, string.Join(", ",x.Instructors.Select(y => y.User.RealName)))));
+            string result = JsonConvert.SerializeObject((await studentService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name, string.Join(", ",x.Instructors.Select(y => y.User.RealName)))));
             return result;
         }
 
@@ -43,6 +43,7 @@ namespace ASS.WEB.Controllers
         [HttpPost]
         public IActionResult CourseRegistration(CourseRegistrationViewModel model)
         {
+            studentService.CourseRegistration(model.CourseIds, User);
             return View();
         }
     }

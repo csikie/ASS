@@ -94,8 +94,14 @@ namespace ASS.DAL
             context.Instructors.Add(new Instructors(course, user6));
             context.SaveChanges();
 
-            Course course2 = new Course("Gyak #1", subject2);
+            Course course2 = new Course("Gyak #2", subject2);
             context.Instructors.Add(new Instructors(course2, user4));
+            context.SaveChanges();
+
+            context.UserCourse.Add(new UserCourse(course, user2));
+            context.SaveChanges();
+
+            context.UserCourse.Add(new UserCourse(course2, user2));
             context.SaveChanges();
         }
     }

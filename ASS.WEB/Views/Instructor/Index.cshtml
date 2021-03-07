@@ -1,3 +1,113 @@
 ﻿@{
     Layout = "_MainLayout";
 }
+
+<div class="container">
+    <div class="row justify-content-md-between">
+        <div class="col-lg-12">
+            <div id="pendingListGrid"></div>
+            <script>
+                $(document).ready(function () {
+                    const grid = $("#pendingListGrid").kendoGrid({
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "@Url.Action("GetPendingList","Instructor")",
+                                },
+                                parameterMap: function (options, operation) {
+                                    if (operation !== "read" && options.models) {
+                                        return { models: kendo.stringify(options.models) };
+                                    }
+                                }
+                            },
+                            pageSize: 10,
+                            schema: {
+                                model: {
+                                    id: "UserCourseId",
+                                    fields: {
+                                        UserCourseId: { type : "int" },
+                                        StudentName: { type: "string" },
+                                        StudentNeptunCode: { type: "string" },
+                                        CourseName: { type: "string" },
+                                    },
+                                },
+                            }
+                        },
+                        pageable: {
+                            refresh: true,
+                            buttonCount : 5
+                        },
+                        toolbar: ["search"],
+                        height: 550,
+                        columns: [
+                            {
+                                field: "StudentName",
+                                title: "Hallgató neve"
+                            },
+                            {
+                                field: "StudentNeptunCode",
+                                title: "Hallgató neptunkódja",
+                            },
+                            {
+                                field: "CourseName",
+                                title: "Csoport neve",
+                            },
+                            {
+                                command: [
+                                    {
+                                        name: "reject",
+                                        click: reject,
+                                        template : '<a role="button" class="k-button k-button-icontext k-grid-reject"><span class="k-icon k-i-delete"></span>@localizer["RejectPendingBtn"]</a>'
+                                    },
+                                    {
+                                        name: "approve",
+                                        click: approve,
+                                        template : '<a role="button" class="k-button k-button-icontext k-grid-approve"><span class="k-icon k-i-check"></span>@localizer["ApprovePendingBtn"]</a>'
+                                    },
+                                ],
+                                title: "&nbsp;",
+                                width: "30%"
+                            },
+                        ],
+                        sortable: true,
+                    }).data("kendoGrid");
+
+                    function reject(e) {
+                        e.preventDefault();
+                        const data = this.dataItem($(e.currentTarget).closest("tr"));
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ProcessPendingStatus","Instructor")",
+                            data: { id: data.UserCourseId, isApprove: false },
+                            success: function (data) {
+                                console.log('Done.');
+                                grid.removeRow("tr:eq(" + data + ")");
+                            },
+                            error: function () {
+                                console.log('Error.');
+                            }
+                        });
+                    }
+
+                    function approve(e) {
+                        e.preventDefault();
+                        const data = this.dataItem($(e.currentTarget).closest("tr"));
+                        $.ajax({
+                            type: "POST",
+                            url: "@Url.Action("ProcessPendingStatus","Instructor")",
+                            data: { id: data.UserCourseId, isApprove: false },
+                            success: function (data) {
+                                console.log('Done.');
+                                grid.removeRow("tr:eq(" + data + ")");
+                            },
+                            error: function () {
+                                console.log('Error.');
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>

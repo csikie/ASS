@@ -78,6 +78,9 @@ namespace ASS.DAL
             builder.Entity<UserSubject>()
                    .HasKey(k => k.Id);
 
+            builder.Entity<UserCourse>()
+                   .HasKey(k => k.Id);
+
             builder.Entity<Course>()
                    .HasKey(k => k.Id);
 

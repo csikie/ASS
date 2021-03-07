@@ -1,7 +1,9 @@
 ﻿using ASS.BLL.Services;
+using ASS.WEB.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,27 @@ namespace ASS.WEB.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<string> GetPendingList()
+        {
+            IEnumerable<PendingDTO> pendingList = (await instructorService.GetPendingList(User)).Select(x => new PendingDTO(x.Id, x.User.RealName, x.User.UserName, x.Course.Name));
+            string result = JsonConvert.SerializeObject(pendingList);
+            return result;
+        }
+
+        [HttpPost]
+        public IActionResult ProcessPendingStatus(int id, bool isApprove)
+        {
+            try
+            {
+                int res = instructorService.ProcessPendingStatus(id, isApprove);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
     }
 }
