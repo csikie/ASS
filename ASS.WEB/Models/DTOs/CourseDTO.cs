@@ -9,9 +9,9 @@ namespace ASS.WEB.Models.DTOs
     {
         public int Id { get; set; }
         public string CourseName { get; set; }
-        public string Instructors { get; set; }
+        public InstructorDTO[] Instructors { get; set; }
 
-        public CourseDTO(int id, string courseName, string instructors)
+        public CourseDTO(int id, string courseName, InstructorDTO[] instructors)
         {
             Id = id;
             CourseName = courseName;

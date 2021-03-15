@@ -4,11 +4,124 @@
 
 <div class="container">
     <div class="row justify-content-md-center">
-        <div class="col-lg-8">
-            <div id="subjectGrid">TODO</div>
+        <div class="col-lg-12">
+            <h1>@localizer["TeacherSubjectGridTitle"]</h1>
+        </div>
+        <div class="col-lg-12">
+            <div id="subjectGrid"></div>
         </div>
         <script>
-            
+            // TODO: update, delete
+            $(document).ready(function () {
+                const grid = $("#subjectGrid").kendoGrid({
+                dataSource: {
+                        transport: {
+                            read: {
+                                dataType: "json",
+                                url: "@Url.Action("Read_SubjectGrid", "Teacher")",
+                            },
+                            parameterMap: function (options, operation) {
+                                if (operation !== "read" && options.models) {
+                                    return { models: kendo.stringify(options.models) };
+                                }
+                            }
+                        },
+                        pageSize: 2,
+                        schema: {
+                            model: {
+                                id: "Id",
+                                fields: {
+                                    SubjectName: { type : "string" },
+                                    Courses: { type : "object" }
+                                },
+                            },
+                        }
+                    },
+                    pageable: {
+                        refresh: true,
+                        buttonCount : 5
+                    },
+                    toolbar: ["search"],
+                    height: 550,
+                    detailInit : detailInit,
+                    columns: [
+                        {
+                            field: "SubjectName",
+                            title: "@localizer["SubjectGridHeaderTitle"]",
+                        },
+                    ],
+                    sortable: true,
+                });
+
+                function detailInit(e) {
+                    $("<div/>").appendTo(e.detailCell).kendoGrid({
+                        dataSource: {
+                            data: e.data.Courses,
+                        },
+                        schema: {
+                            model: {
+                                id: "Id",
+                                fields: {
+                                    CourseName: { type: "string" },
+                                    Instructors: { type: "object" }
+                                },
+                            },
+                        },
+                        columns: [
+                            {
+                                field: "CourseName",
+                                title: "@localizer["CourseNameGridHeader"]",
+                            },
+                            {
+                                field: "Instructors",
+                                title: "@localizer["InstructorsGridHeader"]",
+                                template: function (dataItem) {
+                                    let teachers = "";
+                                    dataItem.Instructors.forEach(function (item) {
+                                        teachers += item.InstructorName + " (" + item.InstructorNeptun + "), ";
+                                    });
+                                    return teachers.slice(0, -2);
+                                },
+                                editor: instructorsNameMultiSelect,
+                            },
+                            {
+                                command: ["edit", "destroy"],
+                                title: "&nbsp;",
+                            },
+                        ],
+                        editable: "inline",
+                    });
+
+                    function instructorsNameMultiSelect(container, options) {
+                        $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
+                            .appendTo(container)
+                            .kendoMultiSelect({
+                                dataTextField: "InstructorName",
+                                dataValueField: "InstructorNeptun",
+                                itemTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                                tagTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            dataType: "json",
+                                            url: "@Url.Action("GetInstructors", "Teacher")"
+                                        },
+                                    },
+                                    schema: {
+                                        model: {
+                                            id: "Id",
+                                            fields: {
+                                                InstructorName: { type: "string" },
+                                                InstructorNeptun: { type: "string" }
+                                            }
+                                        }
+                                    }
+                                },
+                                value: options.model.Instructors.toJSON()
+                            });
+                    }
+                }
+            });
         </script>
     </div>
 </div>

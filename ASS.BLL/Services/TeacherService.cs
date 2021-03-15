@@ -29,10 +29,12 @@ namespace ASS.BLL.Services
         public async Task<IEnumerable<Subject>> GetSubjects(ClaimsPrincipal principal)
         {
             User teacher = await userManager.GetUserAsync(principal);
-            return context.Subjects.Include(s => s.UserSubject)
+            var a = context.Subjects.Include(s => s.UserSubject)
                                    .ThenInclude(u => u.User)
                                    .Where(x => x.UserSubject.Any(y => y.User.Id == teacher.Id))
+                                   .Include(x => x.Courses).ThenInclude(x => x.Instructors).ThenInclude(x => x.User)
                                    .ToList();
+            return a;
         }
     }
 }

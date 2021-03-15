@@ -31,7 +31,7 @@ namespace ASS.WEB.Controllers
 
         public async Task<string> GetCourses()
         {
-            string result = JsonConvert.SerializeObject((await studentService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name, string.Join(", ",x.Instructors.Select(y => y.User.RealName)))));
+            string result = JsonConvert.SerializeObject((await studentService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name, x.Instructors.Select(y => new InstructorDTO(y.UserId,y.User.RealName, y.User.UserName)).ToArray())));
             return result;
         }
 

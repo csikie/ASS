@@ -53,7 +53,7 @@ namespace ASS.DAL
                 await userManager.AddToRoleAsync(user3, Role.Teacher.ToString());
             }
 
-            User user4 = new User("b0vh4g", "Csiki Erik Gergely");
+            User user4 = new User("csikie", "Csiki Erik Gergely");
             IdentityResult res4 = await userManager.CreateAsync(user4, "Ab1234");
             if (res4.Succeeded)
             {
@@ -98,8 +98,8 @@ namespace ASS.DAL
             context.Instructors.Add(new Instructors(course2, user4));
             context.SaveChanges();
 
-            context.UserCourse.Add(new UserCourse(course, user2));
-            context.SaveChanges();
+            /*context.UserCourse.Add(new UserCourse(course, user2));
+            context.SaveChanges();*/
 
             context.UserCourse.Add(new UserCourse(course2, user2));
             context.SaveChanges();

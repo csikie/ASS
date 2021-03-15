@@ -42,16 +42,16 @@ namespace ASS.WEB.Controllers
             {
                 teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId, model.CourseName);
                 ModelState.Clear();
-                ModelState.AddModelError("progressError","asd");
+                ModelState.AddModelError("progressError","asd"); // todo
                 return View();
             }
             return View();
         }
 
-        public async Task<IActionResult> Read_SubjectGrid()
+        public async Task<string> Read_SubjectGrid()
         {
-            var a = await teacherService.GetSubjects(User);
-            return null;
+            var a = (await teacherService.GetSubjects(User)).Select(x => new TeacherSubjectDTO(x.Id, x.Name, x.Courses.Select(y => new CourseDTO(y.Id, y.Name, y.Instructors.Select(z => new InstructorDTO(z.UserId,z.User.RealName,z.User.UserName)).ToArray())).ToArray()));
+            return JsonConvert.SerializeObject(a);
         }
 
         public async Task<string> GetSubjects()

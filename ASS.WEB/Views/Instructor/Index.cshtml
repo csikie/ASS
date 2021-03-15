@@ -92,9 +92,8 @@
                             type: "POST",
                             url: "@Url.Action("ProcessPendingStatus","Instructor")",
                             data: { id: data.UserCourseId, isApprove: false },
-                            success: function (data) {
-                                console.log('Done.');
-                                grid.removeRow("tr:eq(" + data + ")");
+                            success: function () {
+                                grid.dataSource.read();
                             },
                             error: function () {
                                 console.log('Error.');
@@ -108,15 +107,15 @@
                         $.ajax({
                             type: "POST",
                             url: "@Url.Action("ProcessPendingStatus","Instructor")",
-                            data: { id: data.UserCourseId, isApprove: false },
-                            success: function (data) {
-                                console.log('Done.');
-                                grid.removeRow("tr:eq(" + data + ")");
+                            data: { id: data.UserCourseId, isApprove: true },
+                            success: function () {
+                                grid.dataSource.read();
                             },
                             error: function () {
                                 console.log('Error.');
                             }
                         });
+                        grid.refresh();
                     }
                 });
             </script>

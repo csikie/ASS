@@ -50,7 +50,7 @@ namespace ASS.WEB.Controllers
         public string GetSubjects()
         {
             IEnumerable<SubjectDTO> subjects = adminService.GetSubjects()
-                                                           .Select(x => new SubjectDTO(x.Id, x.Name, x.UserSubject.Select(y => new TeacherDTO(y.Id, y.User.RealName, y.User.UserName))
+                                                           .Select(x => new AdminSubjectDTO(x.Id, x.Name, x.UserSubject.Select(y => new TeacherDTO(y.Id, y.User.RealName, y.User.UserName))
                                                                                                                  .ToArray()));
             string result = JsonConvert.SerializeObject(subjects);
             return result;
@@ -66,7 +66,7 @@ namespace ASS.WEB.Controllers
 
         public string UpdateSubject(string models)
         {
-            SubjectDTO subject = JsonConvert.DeserializeObject<List<SubjectDTO>>(models).FirstOrDefault();
+            AdminSubjectDTO subject = JsonConvert.DeserializeObject<List<AdminSubjectDTO>>(models).FirstOrDefault();
             adminService.UpdateSubject(subject.Id, subject.SubjectName, subject.TeachersName.Select(x => x.TeacherNeptun).ToArray());
 
             return GetSubjects();

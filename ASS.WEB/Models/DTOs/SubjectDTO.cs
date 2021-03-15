@@ -9,13 +9,11 @@ namespace ASS.WEB.Models.DTOs
     {
         public int Id { get; set; }
         public string SubjectName { get; set; }
-        public TeacherDTO[] TeachersName { get; set; }
 
-        public SubjectDTO(int id, string subjectName, TeacherDTO[] teachersName = null)
+        public SubjectDTO(int id, string subjectName)
         {
             Id = id;
             SubjectName = subjectName;
-            TeachersName = teachersName;
         }
     }
 }

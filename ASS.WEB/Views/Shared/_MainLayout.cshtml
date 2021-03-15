@@ -4,7 +4,7 @@
 @using Microsoft.AspNetCore.Localization
 <!DOCTYPE html>
 <html>
-<head >
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment Supervisor System - @ViewData["Title"]</title>
@@ -13,9 +13,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <link href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.default.mobile.min.css" />
     <script src="https://kendo.cdn.telerik.com/2021.1.119/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2021.1.224/js/jszip.min.js"></script>
-    @{ 
+    @{
         string cookie = string.Empty;
         Context.Request.Cookies.TryGetValue(CookieRequestCultureProvider.DefaultCookieName, out cookie);
         if (string.IsNullOrEmpty(cookie) || cookie.Contains("hu-HU"))
