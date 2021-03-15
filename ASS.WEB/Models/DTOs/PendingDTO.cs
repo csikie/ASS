@@ -11,13 +11,15 @@ namespace ASS.WEB.Models.DTOs
         public string StudentName { get; set; }
         public string StudentNeptunCode { get; set; }
         public string CourseName { get; set; }
+        public string SubjectName { get; set; }
 
-        public PendingDTO(int userCourseId, string studentName, string studentNeptunCode, string courseName)
+        public PendingDTO(int userCourseId, string studentName, string studentNeptunCode, string courseName, string subjectName)
         {
             UserCourseId = userCourseId;
             StudentName = studentName;
             StudentNeptunCode = studentNeptunCode;
             CourseName = courseName;
+            SubjectName = subjectName;
         }
     }
 }

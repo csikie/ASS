@@ -30,7 +30,7 @@ namespace ASS.WEB.Controllers
 
         public async Task<string> GetPendingList()
         {
-            IEnumerable<PendingDTO> pendingList = (await instructorService.GetPendingList(User)).Select(x => new PendingDTO(x.Id, x.User.RealName, x.User.UserName, x.Course.Name));
+            IEnumerable<PendingDTO> pendingList = (await instructorService.GetPendingList(User)).Select(x => new PendingDTO(x.Id, x.User.RealName, x.User.UserName, x.Course.Name, x.Course.Subject.Name));
             string result = JsonConvert.SerializeObject(pendingList);
             return result;
         }

@@ -18,7 +18,7 @@ namespace ASS.BLL.Services
         {
             User student = await userManager.GetUserAsync(user);
             return await context.Courses.Include(x => x.UserCourses)
-                                        .Where(x => !x.UserCourses.Where(y => y.UserId == student.Id && (y.Pending == null || y.Pending.Value)).Any())
+                                        .Where(x => !x.UserCourses.Where(y => y.UserId == student.Id && (y.Pending == null || !y.Pending.Value)).Any())
                                         .Include(x => x.Instructors)
                                         .ThenInclude(x => x.User)
                                         .ToListAsync();

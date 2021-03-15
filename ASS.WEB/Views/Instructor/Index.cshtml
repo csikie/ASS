@@ -5,6 +5,10 @@
 <div class="container">
     <div class="row justify-content-md-between">
         <div class="col-lg-12">
+            <h1>@localizer["StudentPendingListTitle"]</h1>
+            <hr />
+        </div>
+        <div class="col-lg-12">
             <div id="pendingListGrid"></div>
             <script>
                 $(document).ready(function () {
@@ -21,7 +25,8 @@
                                     }
                                 }
                             },
-                            pageSize: 10,
+                            pageSize: 2,
+                            group: { field: "SubjectName", dir: "asc" },
                             schema: {
                                 model: {
                                     id: "UserCourseId",
@@ -30,6 +35,7 @@
                                         StudentName: { type: "string" },
                                         StudentNeptunCode: { type: "string" },
                                         CourseName: { type: "string" },
+                                        SubjectName: { type: "string" }
                                     },
                                 },
                             }
@@ -41,6 +47,12 @@
                         toolbar: ["search"],
                         height: 550,
                         columns: [
+                            {
+                                field: "SubjectName",
+                                title: "",
+                                groupHeaderTemplate: "#= value #",
+                                hidden: true,
+                            },
                             {
                                 field: "StudentName",
                                 title: "Hallgató neve"
@@ -108,6 +120,15 @@
                     }
                 });
             </script>
+        </div>
+    </div>
+    <div class="row justify-content-md-between pt-5">
+        <div class="col-lg-12">
+            <h2>@localizer["AddStudentToCourseTitle"]</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            TODO
         </div>
     </div>
 </div>

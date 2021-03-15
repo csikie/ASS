@@ -48,6 +48,12 @@ namespace ASS.WEB.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Read_SubjectGrid()
+        {
+            var a = await teacherService.GetSubjects(User);
+            return null;
+        }
+
         public async Task<string> GetSubjects()
         {
             string result = JsonConvert.SerializeObject((await teacherService.GetSubjects(User)).Select(x => new SubjectDTO(x.Id,x.Name)).ToList());

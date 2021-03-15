@@ -23,6 +23,7 @@ namespace ASS.BLL.Services
                                      .Where(x => x.Course.Instructors.Any(y => y.UserId == instructor.Id))
                                      .Where(x => x.Pending == null)
                                      .Include(x => x.User)
+                                     .Include(x => x.Course.Subject)
                                      .ToList();
         }
 
