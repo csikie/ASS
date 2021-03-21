@@ -12,5 +12,7 @@ namespace ASS.BLL.Interfaces
     {
         Task<List<Course>> GetCourses(ClaimsPrincipal user);
         void CourseRegistration(int[] courseIds, ClaimsPrincipal user);
+        Task<List<UserCourse>> Read_AssignmentGrid(ClaimsPrincipal user);
+        Task<Assignment> GetAssignment(int assignmentId, ClaimsPrincipal user);
     }
 }

@@ -1,3 +1,89 @@
 ﻿@{
     Layout = "_MainLayout";
 }
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h1>@localizer["StudentAssignmentsTitle"]</h1>
+            <hr/>
+        </div>
+        <div class="col-lg-12">
+            <div id="assignmentsTable">
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $("#assignmentsTable").kendoGrid({
+                        dataSource: {
+                            transport: {
+                                read: {
+                                    dataType: "json",
+                                    url: "@Url.Action("Read_AssignmentGrid", "Student")",
+                                },
+                            },
+                            pageSize: 2,
+                            schema: {
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        CourseName: { type : "string" },
+                                        Assignments: { type : "object" }
+                                    },
+                                },
+                            }
+                        },
+                        pageable: {
+                            refresh: true,
+                            buttonCount : 5
+                        },
+                        toolbar: ["search"],
+                        height: 550,
+                        detailInit : detailInit,
+                        columns: [
+                            {
+                                field: "CourseName",
+                                title: "@localizer["CourseGridHeaderTitle"]",
+                            },
+                        ],
+                        sortable: true,
+                    });
+
+                    function detailInit(e) {
+                        $("<div/>").appendTo(e.detailCell).kendoGrid({
+                            dataSource: {
+                                data: e.data.Assignments,
+                            },
+                            schema: {
+                                model: {
+                                    id: "Id",
+                                    fields: {
+                                        Name: { type: "string" },
+                                        Description: { type: "string" },
+                                        StartDate: { type: "date" },
+                                        EndDate: { type: "date" },
+                                    },
+                                },
+                            },
+                            columns: [
+                                {
+                                    field: "Name",
+                                    title : "@localizer["AssignmentNameGridHeader"]"
+                                },
+                                {
+                                    field: "EndDate",
+                                    title: "@localizer["EndDateGridHeader"]",
+                                    template: function (item) {
+                                        return kendo.toString(kendo.parseDate(item.EndDate), "g");
+                                    },
+                                },
+                                {
+                                    template: '<a href="Student/Assignment/#: Id #" class="btn btn-outline-dark" target="_blank"><i class="fas fa-eye"></i> @localizer["AssigmentPreviewBtn"]</a>',
+                                }
+                            ],
+                        });
+                    }
+                });
+            </script>
+        </div>
+    </div>
+</div>

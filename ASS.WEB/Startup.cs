@@ -37,7 +37,6 @@ namespace ASS.WEB
             services.AddLocalization(option => option.ResourcesPath = "Resources");
             services.AddMvc()
                     .AddViewLocalization();
-            //.AddDataAnnotationsLocalization();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {

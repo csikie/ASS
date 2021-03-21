@@ -1,0 +1,78 @@
+﻿@using ASS.WEB.Models.DTOs
+@using Markdig
+@model AssignmentDTO
+@{
+    Layout = "_MainLayout";
+}
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+        },
+    };
+</script>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <div class="card border-light mb-3">
+                <div class="card-header">
+                    <table class="table-responsive-md table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Beadási határidő: </th>
+                                <td id="countdownTimer"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", () => {
+                            // Set the date we're counting down to
+                            const countDownDate = new Date("@Model.EndDate").getTime();
+
+                            // Update the count down every 1 second
+                            const x = setInterval(function () {
+
+                                // Get today's date and time
+                                const now = new Date().getTime();
+
+                                // Find the distance between now and the count down date
+                                const distance = countDownDate - now;
+
+                                // Time calculations for days, hours, minutes and seconds
+                                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                                document.getElementById("countdownTimer").innerHTML = `${days} @localizer["CountdownTimerDay"] ${hours}:${minutes}:${seconds}`;
+
+                            }, 1000);
+                        });
+                    </script>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-md-center">
+                        <div class="col-lg-12">
+                            <p class="card-title h1">@Model.Name</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <p class="card-text">@Html.Raw(Markdown.ToHtml(Model.Description))</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    Todo: beadott megoldások listázása
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+
+        </div>
+    </div>
+</div>

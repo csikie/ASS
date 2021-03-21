@@ -8,9 +8,10 @@ namespace ASS.DAL
     public class ASSContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<UserCourse> UserCourse { get; set; }
         public DbSet<Instructors> Instructors { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
         public DbSet<UserSubject> UserSubjects { get; set; }
 
         public ASSContext(DbContextOptions<ASSContext> options)
@@ -75,6 +76,11 @@ namespace ASS.DAL
                    .WithMany(g => g.Courses)
                    .HasForeignKey(s => s.SubjectId);
 
+            builder.Entity<Assignment>()
+                   .HasOne<Course>(c => c.Course)
+                   .WithMany(a => a.Assignments)
+                   .HasForeignKey(s => s.CourseId);
+
             builder.Entity<UserSubject>()
                    .HasKey(k => k.Id);
 
@@ -88,6 +94,9 @@ namespace ASS.DAL
                    .HasKey(k => k.Id);
 
             builder.Entity<Instructors>()
+                   .HasKey(k => k.Id);
+            
+            builder.Entity<Assignment>()
                    .HasKey(k => k.Id);
         }
     }

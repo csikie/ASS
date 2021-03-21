@@ -46,5 +46,27 @@ namespace ASS.WEB.Controllers
             studentService.CourseRegistration(model.CourseIds, User);
             return View();
         }
+
+        public async Task<string> Read_AssignmentGrid()
+        {
+            IEnumerable<StudentCoursesDTO> studentAssignments = (await studentService.Read_AssignmentGrid(User)).Select(x => new StudentCoursesDTO(x.CourseId,
+                                                                                                                                                   x.Course.Name,
+                                                                                                                                                   x.Course.Assignments.Where(y => y.StartDate <= DateTime.Now)
+                                                                                                                                                                       .Select(y => new AssignmentDTO(
+                                                                                                                                                                                                      y.Id,
+                                                                                                                                                                                                      y.Name,
+                                                                                                                                                                                                      y.Description,
+                                                                                                                                                                                                      y.StartDate,
+                                                                                                                                                                                                      y.EndDate))
+                                                                                                                                                                       .ToArray()));
+            string result = JsonConvert.SerializeObject(studentAssignments);
+            return result;
+        }
+
+        public async Task<IActionResult> Assignment(int id)
+        {
+            var assignment = (await studentService.GetAssignment(id, User));
+            return View(new AssignmentDTO(assignment.Id,assignment.Name,assignment.Description,assignment.StartDate,assignment.EndDate));
+        }
     }
 }

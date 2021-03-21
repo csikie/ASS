@@ -3,6 +3,7 @@ using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -33,6 +34,27 @@ namespace ASS.BLL.Services
                 context.UserCourse.Add(new UserCourse(course, student));
                 context.SaveChanges();
             }
+        }
+
+        public async Task<List<UserCourse>> Read_AssignmentGrid(ClaimsPrincipal user)
+        {
+            int studentId = (await userManager.GetUserAsync(user)).Id;
+
+            return context.UserCourse.Where(x => x.UserId == studentId && x.Pending.HasValue && x.Pending.Value)
+                                      .Include(x => x.Course).ThenInclude(x => x.Assignments)
+                                      .ToList();
+        }
+
+        public async Task<Assignment> GetAssignment(int assignmentId, ClaimsPrincipal user)
+        {
+            int userId = (await userManager.GetUserAsync(user)).Id;
+            Assignment assignment = context.Assignments.FirstOrDefault(x => x.Id == assignmentId);
+            int courseId = assignment.CourseId;
+            if (!context.UserCourse.Any(x => x.CourseId == assignment.CourseId && x.UserId == userId))
+            {
+                throw new ArgumentException(); // TODO
+            }
+            return assignment;
         }
     }
 }

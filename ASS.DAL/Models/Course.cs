@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASS.DAL.Models
 {
@@ -21,5 +22,6 @@ namespace ASS.DAL.Models
 
         public ICollection<UserCourse> UserCourses { get; set; }
         public ICollection<Instructors> Instructors { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
     }
 }

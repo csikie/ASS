@@ -1,0 +1,177 @@
+﻿@using ASS.WEB.Models.ViewModels
+@model CreateAssignmentViewModel 
+@{
+    Layout = "_MainLayout";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h1>@localizer["CreateCourseTitle"]</h1>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            <form asp-action="CreateAssignment" method="post">
+                <div class="mb-3">
+                    <div class="col-lg-12 form-floating">
+                        <input asp-for="Name" type="text" class="form-control" placeholder="@localizer["AsignmentNamePlaceholder"]">
+                        <label asp-for="Name"></label>
+                        <span asp-validation-for="Name"class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label asp-for="StartDate"></label>
+                        <input id="startDate" asp-for="StartDate" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-lg-6">
+                        <label asp-for="EndDate"></label>
+                        <input id="endDate" asp-for="EndDate" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            function startChange() {
+                                var startDate = start.value(),
+                                    endDate = end.value();
+
+                                if (startDate) {
+                                    startDate = new Date(startDate);
+                                    startDate.setDate(startDate.getDate());
+                                    end.min(startDate);
+                                } else if (endDate) {
+                                    start.max(new Date(endDate));
+                                } else {
+                                    endDate = new Date();
+                                    start.max(endDate);
+                                    end.min(endDate);
+                                }
+                            }
+
+                            function endChange() {
+                                var endDate = end.value(),
+                                    startDate = start.value();
+
+                                if (endDate) {
+                                    endDate = new Date(endDate);
+                                    endDate.setDate(endDate.getDate());
+                                    start.max(endDate);
+                                } else if (startDate) {
+                                    end.min(new Date(startDate));
+                                } else {
+                                    endDate = new Date();
+                                    start.max(endDate);
+                                    end.min(endDate);
+                                }
+                            }
+
+                            var today = kendo.date.today();
+
+                            var start = $("#startDate").kendoDateTimePicker({
+                                value: today,
+                                change: startChange,
+                                format: "yyyy.MM.dd HH:mm",
+                                timeFormat: "HH:mm",
+                                parseFormat: ["yyyy-MM-ddThh:mm:ss"],
+                                componentType: "modern",
+                            }).data("kendoDateTimePicker");
+
+                            var end = $("#endDate").kendoDateTimePicker({
+                                value: today,
+                                change: endChange,
+                                format: "yyyy.MM.dd HH:mm",
+                                timeFormat: "HH:mm",
+                                parseFormat: ["yyyy-MM-ddThh:mm:ss"],
+                                componentType: "modern",
+                            }).data("kendoDateTimePicker");
+
+                            //start.max(new Date(end.value()));
+                            //end.min(new Date(start.value()));
+                            $("#startDate").closest("span.k-datetimepicker").width('100%');
+                            $("#endDate").closest("span.k-datetimepicker").width('100%');
+                        });
+                    </script>
+                </div>
+                <div class="mb-3">
+                    <div class="col-lg-12">
+                        <label asp-for="Description"></label>
+                        <textarea class="form-control" asp-for="Description" style="height:350px">
+                        </textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-lg-12">
+                        <label asp-for="CourseIds"></label>
+                        <select asp-for="CourseIds" id="courseMultiselect" multiple="multiple"></select>
+                        <span asp-validation-for="CourseIds" class="text-danger"></span>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $("#courseMultiselect").kendoMultiSelect({
+                                dataTextField: "CourseName",
+                                dataValueField: "Id",
+                                dataSource: {
+                                    transport: {
+                                        read: {
+                                            dataType: "json",
+                                            url: "@Url.Action("GetCourses", "Instructor")"
+                                        }
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-4 d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">@localizer["CreateButton"]</button>
+                    </div>
+                    <div class="col-lg-4 d-grid gap-2">
+                        <a class="btn btn-outline-dark" id="previewBtn" data-bs-toggle="modal" data-bs-target="#assignmentDescModal">@localizer["PreviewButton"]</a>
+                    </div>
+                    <div class="col-lg-4 d-grid gap-2">
+                        <button class="btn btn-outline-danger" type="reset">@localizer["ResetButton"]</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal fade" id="assignmentDescModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalBody"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">@localizer["ModalCloseBtn"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.getElementById("previewBtn").addEventListener("click", function () {
+                        const tm = texmath.use(katex);
+                        const md = markdownit().use(tm, {
+                            engine: katex,
+                            delimiters: 'dollars',
+                        });
+
+                        document.getElementById("modalTitle").innerHTML = document.getElementById("Name").value;
+                        document.getElementById("modalBody").innerHTML = md.render(document.getElementById("Description").value);
+                    });
+                });
+            </script>
+
+        </div>
+    </div>
+</div>

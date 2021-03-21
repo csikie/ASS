@@ -1097,7 +1097,8 @@
     if (kendo.ui.Calendar) {
         kendo.ui.Calendar.prototype.options.messages =
             $.extend(true, kendo.ui.Calendar.prototype.options.messages, {
-                "weekColumnHeader": ""
+                "weekColumnHeader": "",
+                "today" : "Ma"
             });
     }
 
@@ -1141,6 +1142,24 @@
                 "minute": "prcek",
                 "second": "másodpercek",
                 "dayperiod": "DE/DU"
+            });
+    }
+
+    /* DateTimePicker messages */
+
+    if (kendo.ui.DateTimePicker) {
+        kendo.ui.DateTimePicker.prototype.options.messages =
+            $.extend(true, kendo.ui.DateTimePicker.prototype.options.messages, {
+                "set": "Beállít",
+                "cancel": "Mégse",
+                "hour": "óra",
+                "minute": "perc",
+                "second": "másodperc",
+                "milisecond": "ezredmásodperc",
+                "now": "Most",
+                "date": "Dátum",
+                "time": "Idő",
+                "today" : "Ma"
             });
     }
 

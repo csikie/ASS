@@ -1,5 +1,6 @@
 ﻿using ASS.BLL.Services;
 using ASS.WEB.Models.DTOs;
+using ASS.WEB.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,29 @@ namespace ASS.WEB.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult CreateAssignment()
+        {
+            return View(new CreateAssignmentViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateAssignment(CreateAssignmentViewModel assignment)
+        {
+            if (ModelState.IsValid)
+            {
+                instructorService.CreateAssignment(assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate, assignment.CourseIds);
+
+            }
+            return View();
+        }
+
+        public async Task<string> GetCourses()
+        {
+            string result = JsonConvert.SerializeObject((await instructorService.GetCourses(User)).Select(x => new CourseDTO(x.Id, x.Name, null)));
+            return result;
         }
 
         public async Task<string> GetPendingList()

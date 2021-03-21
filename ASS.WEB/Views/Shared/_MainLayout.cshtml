@@ -16,12 +16,15 @@
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.default.mobile.min.css" />
     <script src="https://kendo.cdn.telerik.com/2021.1.119/js/kendo.all.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2021.1.224/js/jszip.min.js"></script>
+    <script src="https://kit.fontawesome.com/7e694b1734.js" crossorigin="anonymous"></script>
     @{
         string cookie = string.Empty;
         Context.Request.Cookies.TryGetValue(CookieRequestCultureProvider.DefaultCookieName, out cookie);
         if (string.IsNullOrEmpty(cookie) || cookie.Contains("hu-HU"))
         {
             <script src="~/js/kendo.messages.hu-HU.js"></script>
+            <script src="~/js/kendo.culture.hu-HU.min.js"></script>
+            <script>kendo.culture("hu-HU")</script>
         }
         else
         {
@@ -70,6 +73,12 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-action="CreateCourse" asp-controller="Teacher">@localizer["CreateCourse"]</a>
+                            </li>
+                        }
+                        @if (User.IsInRole(Role.Instructor.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="CreateAssignment" asp-controller="Instructor">@localizer["CreateAssignment"]</a>
                             </li>
                         }
                         @if (User.IsInRole(Role.Student.ToString()))

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Markdig" Version="0.24.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.11" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -16,6 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Models\ViewModels\CreateAssignmentViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateAssignmentViewModel.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\ViewModels\LoginViewModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -24,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CreateAssignmentViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateAssignmentViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\ViewModels\LoginViewModel.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -37,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\Views\Student\" />
     <Folder Include="Resources\Views\Teacher\" />
   </ItemGroup>
 

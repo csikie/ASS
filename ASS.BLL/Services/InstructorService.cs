@@ -3,6 +3,7 @@ using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -33,6 +34,25 @@ namespace ASS.BLL.Services
             context.SaveChanges();
 
             return id;
+        }
+
+        public async Task<List<Course>> GetCourses(ClaimsPrincipal user)
+        {
+            User instructor = await userManager.GetUserAsync(user);
+
+            return context.Courses.Include(x => x.Instructors)
+                                  .Where(x => x.Instructors.Any(y => y.UserId == instructor.Id))
+                                  .ToList();
+        }
+
+        public void CreateAssignment(string name, string desc, DateTime startDate, DateTime endDate, int[] courseIds)
+        {
+            foreach (int courseId in courseIds)
+            {
+                Course course = context.Courses.FirstOrDefault(x => x.Id == courseId);
+                context.Assignments.Add(new Assignment(name,desc,startDate,endDate,course));
+                context.SaveChanges();
+            }
         }
     }
 }
