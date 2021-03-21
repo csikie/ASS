@@ -82,6 +82,9 @@ namespace ASS.WEB
             {
                 options.LoginPath = "/Home/Login";
                 options.AccessDeniedPath = new PathString("/Home/Error");
+                options.LoginPath = new PathString("/Home/Index");
+                options.LogoutPath = new PathString("/Home/Logout");
+                options.ExpireTimeSpan = TimeSpan.FromHours(3);
             });
 
             services.AddScoped<AdminService>();
@@ -91,7 +94,7 @@ namespace ASS.WEB
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(15); // max. 15 percig él a munkamenet
+                options.IdleTimeout = TimeSpan.FromHours(3); // max. 3 óráig él a munkamenet
             });
         }
 
