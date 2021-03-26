@@ -41,6 +41,7 @@ namespace ASS.WEB.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CourseRegistration(CourseRegistrationViewModel model)
         {
             studentService.CourseRegistration(model.CourseIds, User);
@@ -67,6 +68,13 @@ namespace ASS.WEB.Controllers
         {
             var assignment = (await studentService.GetAssignment(id, User));
             return View(new AssignmentDTO(assignment.Id,assignment.Name,assignment.Description,assignment.StartDate,assignment.EndDate));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SubmitSolution()
+        {
+            return View("Assigment");
         }
     }
 }

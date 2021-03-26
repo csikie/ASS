@@ -81,6 +81,15 @@ namespace ASS.DAL
                    .WithMany(a => a.Assignments)
                    .HasForeignKey(s => s.CourseId);
 
+            builder.Entity<Solution>()
+                   .HasOne<Assignment>(c => c.Assignment)
+                   .WithMany(a => a.Solutions)
+                   .HasForeignKey(s => s.AssignmentId);
+            builder.Entity<Solution>()
+                   .HasOne<User>(c => c.User)
+                   .WithMany(a => a.Solutions)
+                   .HasForeignKey(s => s.UserId);
+
             builder.Entity<UserSubject>()
                    .HasKey(k => k.Id);
 
@@ -97,6 +106,9 @@ namespace ASS.DAL
                    .HasKey(k => k.Id);
             
             builder.Entity<Assignment>()
+                   .HasKey(k => k.Id);
+            
+            builder.Entity<Solution>()
                    .HasKey(k => k.Id);
         }
     }

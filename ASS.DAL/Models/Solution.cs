@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace ASS.DAL.Models
 {
@@ -10,6 +8,9 @@ namespace ASS.DAL.Models
         [Key]
         public int Id { get; set; }
         public string SubmittedSolution { get; set; }
+        public DateTime SubmissionTime { get; set; }
+        public string Grade { get; set; }
+        public DateTime EvaluationTime { get; set; }
 
         public int AssignmentId { get; set; }
         public Assignment Assignment { get; set; }
