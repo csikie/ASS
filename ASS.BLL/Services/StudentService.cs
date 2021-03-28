@@ -48,13 +48,27 @@ namespace ASS.BLL.Services
         public async Task<Assignment> GetAssignment(int assignmentId, ClaimsPrincipal user)
         {
             int userId = (await userManager.GetUserAsync(user)).Id;
-            Assignment assignment = context.Assignments.FirstOrDefault(x => x.Id == assignmentId);
+            Assignment assignment = context.Assignments.Include(x => x.Solutions).FirstOrDefault(x => x.Id == assignmentId);
             int courseId = assignment.CourseId;
             if (!context.UserCourse.Any(x => x.CourseId == assignment.CourseId && x.UserId == userId))
             {
                 throw new ArgumentException(); // TODO
             }
             return assignment;
+        }
+
+        public async void SubmitSolution(int assignmentId, ClaimsPrincipal user, string submittedSolution, DateTime submissionTime)
+        {
+            User student = await userManager.GetUserAsync(user);
+            int userId = student.Id;
+            Assignment assignment = context.Assignments.FirstOrDefault(x => x.Id == assignmentId);
+            int courseId = assignment.CourseId;
+            if (assignment.EndDate <= submissionTime && !context.UserCourse.Any(x => x.CourseId == assignment.CourseId && x.UserId == userId))
+            {
+                throw new Exception();
+            }
+            context.Solutions.Add(new Solution(submittedSolution,submissionTime,assignment,student));
+            context.SaveChanges();
         }
     }
 }

@@ -1,0 +1,15 @@
+﻿@using ASS.WEB.Models.ViewModels
+@model SolutionSubmissionViewModel
+
+<form asp-action="SubmitSolution" method="post">
+    <input asp-for="Id" type="hidden" />
+    <div class="mb-3">
+        <label asp-for="SubmittedSolution"></label>
+        <textarea class="form-control" asp-for="SubmittedSolution" style="height:350px">
+        </textarea>
+        <span asp-validation-for="SubmittedSolution" class="text-danger"></span>
+    </div>
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary" type="submit">@localizer["SubmitSolutionButton"]</button>
+    </div>
+</form>

@@ -14,5 +14,6 @@ namespace ASS.BLL.Interfaces
         void CourseRegistration(int[] courseIds, ClaimsPrincipal user);
         Task<List<UserCourse>> Read_AssignmentGrid(ClaimsPrincipal user);
         Task<Assignment> GetAssignment(int assignmentId, ClaimsPrincipal user);
+        void SubmitSolution(int assignmentId, ClaimsPrincipal user, string submittedSolution, DateTime submissionTime);
     }
 }

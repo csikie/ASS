@@ -17,5 +17,17 @@ namespace ASS.DAL.Models
 
         public int UserId { get; set; }
         public User User { get; set; }
+
+        public Solution() { }
+
+        public Solution(string submittedSolution, DateTime submissionTime, Assignment assignment,  User user)
+        {
+            SubmittedSolution = submittedSolution;
+            SubmissionTime = submissionTime;
+            AssignmentId = assignment.Id;
+            Assignment = assignment;
+            UserId = user.Id;
+            User = user;
+        }
     }
 }

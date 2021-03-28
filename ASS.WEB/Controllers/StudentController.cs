@@ -67,14 +67,24 @@ namespace ASS.WEB.Controllers
         public async Task<IActionResult> Assignment(int id)
         {
             var assignment = (await studentService.GetAssignment(id, User));
-            return View(new AssignmentDTO(assignment.Id,assignment.Name,assignment.Description,assignment.StartDate,assignment.EndDate));
+            AssignmentDTO assignmentDTO = new AssignmentDTO(assignment.Id, assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate);
+            if (assignment.Solutions != null)
+            {
+                assignmentDTO.Solutions = assignment.Solutions.Select(x => new SolutionDTO(x.Id,x.SubmittedSolution,x.SubmissionTime,x.Grade,x.EvaluationTime)).ToList();
+            }
+            return View(assignmentDTO);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult SubmitSolution()
+        public IActionResult SubmitSolution(SolutionSubmissionViewModel solution)
         {
-            return View("Assigment");
+            if (ModelState.IsValid)
+            {
+                studentService.SubmitSolution(solution.Id, User, solution.SubmittedSolution, DateTime.Now);
+                return RedirectToAction("Assignment", new { id = solution.Id});
+            }
+            return RedirectToAction("Assignment", solution.Id);
         }
     }
 }

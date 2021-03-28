@@ -10,6 +10,7 @@ namespace ASS.DAL
         public DbSet<Course> Courses { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
+        public DbSet<Solution> Solutions { get; set; }
         public DbSet<UserCourse> UserCourse { get; set; }
         public DbSet<Instructors> Instructors { get; set; }
         public DbSet<UserSubject> UserSubjects { get; set; }
@@ -80,7 +81,8 @@ namespace ASS.DAL
                    .HasOne<Course>(c => c.Course)
                    .WithMany(a => a.Assignments)
                    .HasForeignKey(s => s.CourseId);
-
+            builder.Entity<Solution>()
+                   .HasKey(bc => new { bc.UserId, bc.AssignmentId });
             builder.Entity<Solution>()
                    .HasOne<Assignment>(c => c.Assignment)
                    .WithMany(a => a.Solutions)

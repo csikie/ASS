@@ -12,6 +12,7 @@ namespace ASS.WEB.Models.DTOs
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        public List<SolutionDTO> Solutions { get; set; }
 
         public AssignmentDTO(int id, string name, string description, DateTime startDate, DateTime endDate)
         {

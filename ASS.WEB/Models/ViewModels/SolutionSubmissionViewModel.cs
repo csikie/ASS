@@ -8,9 +8,13 @@ namespace ASS.WEB.Models.ViewModels
 {
     public class SolutionSubmissionViewModel
     {
-        [Required]
+        public int Id { get; set; }
         public string SubmittedSolution { get; set; }
-        [Required]
-        public DateTime SubmissionTime { get; set; }
+
+        public SolutionSubmissionViewModel() { }
+        public SolutionSubmissionViewModel(int id)
+        {
+            Id = id;
+        }
     }
 }
