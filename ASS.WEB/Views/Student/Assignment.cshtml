@@ -33,20 +33,39 @@
                     </table>
                     <script>
                         document.addEventListener("DOMContentLoaded", () => {
-                            //const countDownDate = new Date("@Model.EndDate.ToString("r")").getTime();
                             const countDownDate = new Date("@Model.EndDate.ToString("r")");
-                            const x = setInterval(function () {
-                                //const distance = countDownDate - new Date().getTime();
+                            const countFunc = setInterval(function () {
                                 const distance = countDownDate - new Date();
+                                let coundownTimerString = "";
 
-                                
                                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) - 2;
                                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                document.getElementById("countdownTimer").innerHTML = days + " @localizer["CountdownTimerDay"] " + hours + ":" + minutes + ":" + seconds;
-                                //document.getElementById("countdownTimer").innerHTML = `${days} @localizer["CountdownTimerDay"] ${hours}:${minutes}:${seconds}`;
+                                if (days !== 0) {
+                                    coundownTimerString = days + " @localizer["CountdownTimerDay"] ";
+                                }
+
+                                if (days <= 0 && minutes <= 0 && hours <= 0 && seconds <= 0) {
+                                    coundownTimerString = "@localizer["CountdownTimerExpired"]";
+                                    clearInterval(countFunc);
+                                }
+                                else {
+                                    coundownTimerString += hours + ":";
+                                    if (minutes < 10) {
+                                        coundownTimerString += "0" + minutes + ":";
+                                    } else {
+                                        coundownTimerString += minutes + ":";
+                                    }
+                                    if (seconds < 10) {
+                                        coundownTimerString += "0" + seconds;
+                                    } else {
+                                        coundownTimerString += seconds;
+                                    }
+                                }
+
+                                document.getElementById("countdownTimer").innerHTML = coundownTimerString;
 
                             }, 1000);
                         });
