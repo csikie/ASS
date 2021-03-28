@@ -26,24 +26,27 @@
                     <table class="table-responsive-md table-striped">
                         <tbody>
                             <tr>
-                                <th scope="row">@localizer["AssignmentDeadlineTitle"] </th>
+                                <th scope="row">@localizer["AssignmentDeadlineTitle"]: </th>
                                 <td id="countdownTimer"></td>
                             </tr>
                         </tbody>
                     </table>
                     <script>
                         document.addEventListener("DOMContentLoaded", () => {
-                            const countDownDate = new Date("@Model.EndDate").getTime();
+                            //const countDownDate = new Date("@Model.EndDate.ToString("r")").getTime();
+                            const countDownDate = new Date("@Model.EndDate.ToString("r")");
                             const x = setInterval(function () {
-                                const distance = countDownDate - new Date().getTime();
+                                //const distance = countDownDate - new Date().getTime();
+                                const distance = countDownDate - new Date();
 
-                                // Time calculations for days, hours, minutes and seconds
+                                
                                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                document.getElementById("countdownTimer").innerHTML = `${days} @localizer["CountdownTimerDay"] ${hours}:${minutes}:${seconds}`;
+                                document.getElementById("countdownTimer").innerHTML = days + " @localizer["CountdownTimerDay"] " + hours + ":" + minutes + ":" + seconds;
+                                //document.getElementById("countdownTimer").innerHTML = `${days} @localizer["CountdownTimerDay"] ${hours}:${minutes}:${seconds}`;
 
                             }, 1000);
                         });
