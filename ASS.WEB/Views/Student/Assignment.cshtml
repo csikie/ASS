@@ -49,6 +49,8 @@
 
                                 if (days <= 0 && minutes <= 0 && hours <= 0 && seconds <= 0) {
                                     coundownTimerString = "@localizer["CountdownTimerExpired"]";
+                                    document.getElementById("solutionSubmitBtn").disabled = true;
+                                    document.getElementById("solutionSubmitContainer").remove();
                                     clearInterval(countFunc);
                                 }
                                 else {
@@ -111,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div id="solutionSubmitContainer" class="col-lg-12">
             @*<partial name="_SubmitSolutionForm" model="@new SolutionSubmissionViewModel()"/>*@
             @await Html.PartialAsync("_SubmitSolutionForm", new SolutionSubmissionViewModel(Model.Id))
         </div>
