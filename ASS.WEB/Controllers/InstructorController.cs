@@ -24,9 +24,26 @@ namespace ASS.WEB.Controllers
             this.instructorService = instructorService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<CourseDTO> model = (await instructorService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name,null,x.Subject.Name)
+                                                                                            {
+                                                                                                Assignments = x.Assignments.Select(y => new AssignmentDTO(y.Id, y.Name, y.Description, y.StartDate, y.EndDate)
+                                                                                                                                        {
+                                                                                                                                            Solutions = y.Solutions.Select(z => new SolutionDTO(z.Id,z.SubmittedSolution,z.SubmissionTime,z.Grade,z.EvaluationTime))
+                                                                                                                                                                   .ToList()
+                                                                                                                                        })
+                                                                                                                            .ToList(),
+                                                                                                Students = x.UserCourses.Where(y => y.CourseId == x.Id)
+                                                                                                                        .Select(y => new UserDTO(y.User.RealName, y.User.UserName, null, null)
+                                                                                                                                     {
+                                                                                                                                        Id = y.UserId,
+                                                                                                                                        Solutions = y.User.Solutions.Select(z => new SolutionDTO(z.Id, z.SubmittedSolution, z.SubmissionTime, z.Grade, z.EvaluationTime))
+                                                                                                                                                                    .ToList()
+                                                                                                                        })
+                                                                                                                        .ToList()
+                                                                                            }).ToList();
+            return View(model);
         }
 
         public IActionResult CreateAssignment()

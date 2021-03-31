@@ -2,7 +2,65 @@
     Layout = "_MainLayout";
 }
 
+@using ASS.WEB.Models.DTOs
+@model List<CourseDTO> 
+
+<link rel="stylesheet" href="~/css/site.css"/>
+
 <div class="container">
+    <div class="row justify-content-md-between">
+        <div class="col-lg-12">
+            <h2>@localizer["EvalTableTitle"]</h2>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <h5>@($"{Model[i].SubjectName} - {Model[i].CourseName}")</h5>
+                <div class="table-responsive mb-5" role="region" aria-labelledby="caption-@i" tabindex="0">
+                    <table class="sticky-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">@localizer["StudentNameTableHeader"]</th>
+                                @for (int k = 0; k < Model[i].Assignments.Count; k++)
+                                {
+                                    <th class="text-center" scope="col">@Model[i].Assignments[k].Name</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ 
+                                /*var x = Model[i].Students.Join(Model[i].Assignments.S,
+                                                               student => student.Id,
+                                                               solutution)*/
+                            }
+                            @for (int k = 0; k < Model[i].Students.Count; k++)
+                            {
+                            <tr>
+                                <th scope="row">@($"{Model[i].Students[k].RealName} ({Model[i].Students[k].UserName})")</th>
+                                @{
+
+                                    for (int j = 0; j < Model[i].Assignments.Count; j++)
+                                    {
+                                        var list = Model[i].Assignments[j].Solutions.Join(Model[i].Students[k].Solutions,
+                                                                                          solutionA => solutionA.Id,
+                                                                                          solutionB => solutionB.Id,
+                                                                                          (solutionA, solutionB) => new { Solution = solutionA })
+                                                                                    .ToList();
+                                        if (list.Count > 0)
+                                        {
+                                            <td>OK</td>
+                                        }
+                                    }
+                                }
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
     <div class="row justify-content-md-between">
         <div class="col-lg-12">
             <h1>@localizer["StudentPendingListTitle"]</h1>

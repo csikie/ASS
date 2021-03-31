@@ -22,5 +22,10 @@ namespace ASS.WEB.Models.DTOs
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public AssignmentDTO(int id, string name, string description, DateTime startDate, DateTime endDate, List<SolutionDTO> solutions) : this(id,name,description,startDate,endDate)
+        {
+            Solutions = solutions;
+        }
     }
 }
