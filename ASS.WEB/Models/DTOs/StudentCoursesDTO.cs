@@ -7,7 +7,7 @@ namespace ASS.WEB.Models.DTOs
 {
     public class StudentCoursesDTO : CourseDTO
     {
-        public AssignmentDTO[] Assignments { get; set; }
+        public new AssignmentDTO[] Assignments { get; set; }
         public StudentCoursesDTO(int id, string courseName, AssignmentDTO[] assignments) : base(id, courseName, null)
         {
             Assignments = assignments;

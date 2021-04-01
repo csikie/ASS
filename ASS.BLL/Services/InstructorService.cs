@@ -59,5 +59,29 @@ namespace ASS.BLL.Services
                 context.SaveChanges();
             }
         }
+
+        public async Task<Assignment> GetAssignment(int courseId, int assignmentId, ClaimsPrincipal user)
+        {
+            int userId = (await userManager.GetUserAsync(user)).Id;
+            bool checkPermission = context.Courses.Where(x => x.Id == courseId)
+                                                  .Include(x => x.Instructors)
+                                                  .Any(x => x.Instructors.Any(y => y.UserId == userId));
+            if (!checkPermission)
+            {
+                throw new ArgumentException("Nem köthető a felhasználóhoz ez a kurzus.");
+            }
+
+            return context.Assignments.Where(x => x.Id == assignmentId)
+                                      .Include(x => x.Solutions)
+                                      .FirstOrDefault();
+        }
+
+        public User GetStudent(int studentId)
+        {
+            return context.UserCourse.Where(x => x.UserId == studentId)
+                                     .Include(x => x.User)
+                                     .FirstOrDefault()
+                                     .User;
+        }
     }
 }

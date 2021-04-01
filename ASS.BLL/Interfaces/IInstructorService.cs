@@ -12,5 +12,7 @@ namespace ASS.BLL.Interfaces
         Task<List<UserCourse>> GetPendingList(ClaimsPrincipal user); 
         Task<List<Course>> GetCourses(ClaimsPrincipal user);
         void CreateAssignment(string name, string desc, DateTime startDate, DateTime endDate, int[] courseIds);
+        Task<Assignment> GetAssignment(int courseId, int assignmentId, ClaimsPrincipal user);
+        User GetStudent(int studentId);
     }
 }

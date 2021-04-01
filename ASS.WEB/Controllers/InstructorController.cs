@@ -76,6 +76,25 @@ namespace ASS.WEB.Controllers
             return result;
         }
 
+        public async Task<IActionResult> EvaluateAssignment(int course, int assignment, int student)
+        {
+            var assignmentObject = await instructorService.GetAssignment(course, assignment, User);
+            var studentObject = instructorService.GetStudent(student);
+            AssignmentDTO assignmentDTO = new AssignmentDTO(assignmentObject.Id, assignmentObject.Name, assignmentObject.Description, assignmentObject.StartDate, assignmentObject.EndDate)
+                                  {
+                                        Solutions = assignmentObject.Solutions.Where(x => x.UserId == student)
+                                                                              .Select(x => new SolutionDTO(x.Id,x.SubmittedSolution,x.SubmissionTime,x.Grade,x.EvaluationTime))
+                                                                              .OrderByDescending(x => x.SubmissionTime)
+                                                                              .ToList()
+                                  };
+            EvaluateAssignmentDTO model = new EvaluateAssignmentDTO
+            {
+                Assignment = assignmentDTO,
+                StudentName = $"{studentObject.RealName} ({studentObject.UserName})"
+            }; 
+            return View(model);
+        }
+
         [HttpPost]
         public IActionResult ProcessPendingStatus(int id, bool isApprove)
         {

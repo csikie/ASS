@@ -1,0 +1,76 @@
+﻿@{
+    Layout = "_MainLayout";
+}
+@using ASS.WEB.Models.DTOs
+@model EvaluateAssignmentDTO
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h1>@localizer["EvaluateAssignmentTitle"]</h1>
+            <hr />
+        </div>
+        <div class="col-lg-12 mb-3">
+            <table class="table table-responsive caption-top table-bordered">
+                <caption class="h4">@localizer["InfoTable"]</caption>
+                <tbody>
+                    <tr>
+                        <th scope="row">@localizer["StudentNameRow"]</th>
+                        <td>@Model.StudentName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@localizer["AssignmentNameRow"]</th>
+                        <td>@Model.Assignment.Name</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@localizer["StartDateRow"]</th>
+                        <td>@Model.Assignment.StartDate</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">@localizer["EndDateRow"]</th>
+                        <td>@Model.Assignment.EndDate</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-12 mb-3">
+            <h4>@localizer["SubmittedSolutionTitle"]</h4>
+            <div class="card">
+                <div class="card-body">
+                    <code>
+                        @Model.Assignment.Solutions.FirstOrDefault().SubmittedSolution
+                    </code>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-3">
+            <h4>@localizer["SolutionsTitle"]</h4>
+            <ul class="list-group">
+                @foreach (SolutionDTO solution in Model.Assignment.Solutions)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center" role="button" data-solutionId="@solution.Id">
+                        <span class="badge bg-secondary rounded-pill">@solution.SubmissionTime</span>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-lg-12">
+            <h4>@localizer["EvaluationTitle"]</h4>
+            <div class="card">
+                <div class="card-body">
+                    <form asp-action="EvaluateAssignment" method="post">
+                        <input id="solutionId" name="solutionId" type="hidden" value=""/>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="grade" id="grade" placeholder="@localizer["GradeLabel"]">
+                            <label for="grade">@localizer["GradeLabel"]</label>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="submit">@localizer["SubmitBtn"]</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
