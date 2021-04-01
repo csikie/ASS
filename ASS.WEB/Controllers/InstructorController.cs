@@ -96,6 +96,15 @@ namespace ASS.WEB.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EvaluateAssignment(int solutionId, string grade)
+        {
+            instructorService.EvaluateAssignment(solutionId, grade, DateTime.Now, User);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public IActionResult ProcessPendingStatus(int id, bool isApprove)
         {
             try

@@ -68,7 +68,7 @@ namespace ASS.WEB.Controllers
         {
             var assignment = (await studentService.GetAssignment(id, User));
             AssignmentDTO assignmentDTO = new AssignmentDTO(assignment.Id, assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate);
-            if (assignment.Solutions.Count > 0)
+            if (assignment.Solutions != null)
             {
                 assignmentDTO.Solutions = assignment.Solutions.Select(x => new SolutionDTO(x.Id,x.SubmittedSolution,x.SubmissionTime,x.Grade,x.EvaluationTime)).ToList();
             }

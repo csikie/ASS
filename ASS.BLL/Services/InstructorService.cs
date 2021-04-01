@@ -83,5 +83,25 @@ namespace ASS.BLL.Services
                                      .FirstOrDefault()
                                      .User;
         }
+
+        public async void EvaluateAssignment(int solutionId, string grade, DateTime submissionTime, ClaimsPrincipal user)
+        {
+            int userId = (await userManager.GetUserAsync(user)).Id;
+            IQueryable<Solution> sol = context.Solutions.Where(x => x.Id == solutionId)
+                                            .Include(x => x.Assignment)
+                                            .ThenInclude(x => x.Course)
+                                            .ThenInclude(x => x.Instructors);
+            bool checkPermission = sol.Select(x => x.Assignment.Course.Instructors.Any(y => y.UserId == userId))
+                                      .FirstOrDefault();
+            if (!checkPermission)
+            {
+                throw new ArgumentException("Nem köthető a felhasználóhoz ez a kurzus.");
+            }
+
+            Solution solution = sol.FirstOrDefault();
+            solution.Grade = grade;
+            solution.SubmissionTime = submissionTime;
+            context.SaveChanges();
+        }
     }
 }

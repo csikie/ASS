@@ -37,7 +37,7 @@
             <h4>@localizer["SubmittedSolutionTitle"]</h4>
             <div class="card">
                 <div class="card-body">
-                    <code>
+                    <code id="submittedSolution">
                         @Model.Assignment.Solutions.FirstOrDefault().SubmittedSolution
                     </code>
                 </div>
@@ -48,8 +48,8 @@
             <ul class="list-group">
                 @foreach (SolutionDTO solution in Model.Assignment.Solutions)
                 {
-                    <li class="list-group-item d-flex justify-content-between align-items-center" role="button" data-solutionId="@solution.Id">
-                        <span class="badge bg-secondary rounded-pill">@solution.SubmissionTime</span>
+                    <li class="list-group-item d-flex justify-content-between align-items-center" role="button" data-solution-id="@solution.Id" data-solution-submittedsolution="@solution.SubmittedSolution" onclick="solution_click(this)">
+                        <span class="badge bg-secondary rounded-pill">@localizer["SubmittedTime"]: @solution.SubmissionTime</span>
                     </li>
                 }
             </ul>
@@ -59,7 +59,7 @@
             <div class="card">
                 <div class="card-body">
                     <form asp-action="EvaluateAssignment" method="post">
-                        <input id="solutionId" name="solutionId" type="hidden" value=""/>
+                        <input id="solutionId" name="solutionId" type="hidden"/>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="grade" id="grade" placeholder="@localizer["GradeLabel"]">
                             <label for="grade">@localizer["GradeLabel"]</label>
@@ -70,7 +70,16 @@
                     </form>
                 </div>
             </div>
-            
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("solutionId").value = "@Model.Assignment.Solutions.FirstOrDefault().Id";
+            });
+
+            function solution_click(el) {
+                document.getElementById("solutionId").value = el.getAttribute("data-solution-id");
+                document.getElementById("submittedSolution").innerHTML = el.getAttribute("data-solution-submittedsolution");
+            }
+        </script>
     </div>
 </div>
