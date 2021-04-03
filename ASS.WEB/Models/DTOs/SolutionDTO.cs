@@ -13,6 +13,7 @@ namespace ASS.WEB.Models.DTOs
         public string Grade { get; set; }
         public DateTime EvaluationTime { get; set; }
 
+        public SolutionDTO() { }
         public SolutionDTO(int id, string submittedSolution, DateTime submissionTime, string grade, DateTime evaluationTime)
         {
             Id = id;

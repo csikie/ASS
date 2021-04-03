@@ -93,12 +93,18 @@
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="heading-@item.Id">
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#solution-@item.Id" aria-expanded="false" aria-controls="solution-@item.Id">
-                                                <span class="badge bg-secondary">@item.SubmissionTime</span>
+                                                <span class="badge bg-secondary me-2">@localizer["SubmissionTime"]: @item.SubmissionTime</span>
+                                                @if (!string.IsNullOrEmpty(item.Grade))
+                                                {
+                                                    <span class="badge bg-secondary">@localizer["Evaluation"]: @item.Grade</span>
+                                                }
                                             </button>
                                         </div>
                                         <div id="solution-@item.Id" class="accordion-collapse collapse" aria-labelledby="heading-@item.Id" data-bs-parent="#accordionSolution">
                                             <div class="accordion-body">
-                                                @item.SubmittedSolution
+                                                <code>
+                                                    @item.SubmittedSolution
+                                                </code>
                                             </div>
                                         </div>
                                     </div>

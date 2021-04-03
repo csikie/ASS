@@ -50,6 +50,10 @@
                 {
                     <li class="list-group-item d-flex justify-content-between align-items-center" role="button" data-solution-id="@solution.Id" data-solution-submittedsolution="@solution.SubmittedSolution" onclick="solution_click(this)">
                         <span class="badge bg-secondary rounded-pill">@localizer["SubmittedTime"]: @solution.SubmissionTime</span>
+                        @if (!string.IsNullOrEmpty(solution.Grade))
+                        {
+                            <span class="badge bg-secondary rounded-pill">@localizer["Evaluation"]: @solution.Grade</span>
+                        }
                     </li>
                 }
             </ul>

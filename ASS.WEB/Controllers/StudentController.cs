@@ -53,12 +53,12 @@ namespace ASS.WEB.Controllers
             IEnumerable<StudentCoursesDTO> studentAssignments = (await studentService.Read_AssignmentGrid(User)).Select(x => new StudentCoursesDTO(x.CourseId,
                                                                                                                                                    x.Course.Name,
                                                                                                                                                    x.Course.Assignments.Where(y => y.StartDate <= DateTime.Now)
-                                                                                                                                                                       .Select(y => new AssignmentDTO(
-                                                                                                                                                                                                      y.Id,
-                                                                                                                                                                                                      y.Name,
-                                                                                                                                                                                                      y.Description,
-                                                                                                                                                                                                      y.StartDate,
-                                                                                                                                                                                                      y.EndDate))
+                                                                                                                                                                       .Select(y => new AssignmentDTO(y.Id, y.Name, y.Description, y.StartDate, y.EndDate)
+                                                                                                                                                                                   {
+                                                                                                                                                                                        Solutions = y.Solutions.Where(z => z.EvaluationTime == y.Solutions.Max(v => v.EvaluationTime) && z.Grade != null)
+                                                                                                                                                                                                               .Select(z => new SolutionDTO() { Grade = z.Grade })
+                                                                                                                                                                                                               .ToList()
+                                                                                                                                                                                   })
                                                                                                                                                                        .ToArray()));
             string result = JsonConvert.SerializeObject(studentAssignments);
             return result;

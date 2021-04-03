@@ -41,7 +41,9 @@ namespace ASS.BLL.Services
             int studentId = (await userManager.GetUserAsync(user)).Id;
 
             return context.UserCourse.Where(x => x.UserId == studentId && x.Pending.HasValue && x.Pending.Value)
-                                      .Include(x => x.Course).ThenInclude(x => x.Assignments)
+                                      .Include(x => x.Course)
+                                      .ThenInclude(x => x.Assignments)
+                                      .ThenInclude(x => x.Solutions)
                                       .ToList();
         }
 

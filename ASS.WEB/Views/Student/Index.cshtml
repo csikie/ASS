@@ -61,6 +61,7 @@
                                         Description: { type: "string" },
                                         StartDate: { type: "date" },
                                         EndDate: { type: "date" },
+                                        Solutions: { type: "object"}
                                     },
                                 },
                             },
@@ -74,6 +75,13 @@
                                     title: "@localizer["EndDateGridHeader"]",
                                     template: function (item) {
                                         return kendo.toString(kendo.parseDate(item.EndDate), "g");
+                                    },
+                                },
+                                {
+                                    field: "Solutions",
+                                    title: "@localizer["EvaluationGridHeader"]",
+                                    template: function (item) {
+                                        return item.Solutions.length > 0 ? item.Solutions[0].Grade : "";
                                     },
                                 },
                                 {
