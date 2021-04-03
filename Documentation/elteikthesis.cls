@@ -515,9 +515,10 @@
 \newcommand{\topicdeclaration}{
 	\thispagestyle{empty}
 	\begin{center}
-		\vspace*{\fill}
+		%\vspace*{\fill}
 
-		{\large \declarationplaceholder}
+		{\large \includegraphics[width=\textwidth]{temabejelento}}
+		
 
 		\vspace*{\fill}
 	\end{center}

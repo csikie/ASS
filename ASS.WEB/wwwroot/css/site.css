@@ -8,12 +8,6 @@
     /*border: .5px solid black;*/
 }
 
-    .sticky-table td,
-    .sticky-table th {
-        /*border: .5px solid black;
-         padding: 0.5rem 1rem;*/
-    }
-
     .sticky-table thead th {
         padding: 3px;
         position: sticky;

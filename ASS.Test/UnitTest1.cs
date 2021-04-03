@@ -1,8 +1,16 @@
 using ASS.BLL.Services;
+using ASS.DAL;
 using ASS.DAL.Models;
+using ASS.WEB;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using NUnit.Framework;
+using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ASS.Test
@@ -10,17 +18,24 @@ namespace ASS.Test
     public class Tests
     {
         LoginService LoginService { get; set; }
-        [SetUp]
+        ASSContext Context { get; set; }
+        
+        [OneTimeSetUp]
         public void Setup()
         {
-            LoginService = new LoginService(new Mock<UserManager<User>>().Object, new Mock<SignInManager<User>>().Object);
+            Context = new ASSContext(new DbContextOptionsBuilder<ASSContext>().UseMySQL("server=localhost;database=ASS;uid=root;password=Kicsijoe18").Options);
+        }
+        [OneTimeTearDown]
+        public void Cleanup()
+        {
+            Context.Dispose();
         }
 
         [Test]
-        public async Task Test1()
+        public void Test1()
         {
-            var res = await LoginService.SignIn("admin", "Ab1234");
-            Assert.IsTrue(res);
+            var res = Context.Users.Find(1);
+            Assert.IsTrue(res.UserName == "admin");
         }
     }
 }
