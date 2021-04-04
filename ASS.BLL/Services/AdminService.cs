@@ -15,20 +15,22 @@ namespace ASS.BLL.Services
     {
         public AdminService(ASSContext context, UserManager<User> userManager) : base(context, userManager) { }
 
-        public async void AddUserToSubject(string[] neptunCodes, string subjectName)
+        public void AddUserToSubject(string[] neptunCodes, string subjectName)
         {
+            if (context.Subjects.Any(x => x.Name == subjectName))
+            {
+                throw new ArgumentException("Ez a tárgynév már foglalt!");
+            }
             Subject subject = new Subject(subjectName);
             foreach (string neptunCode in neptunCodes)
             {
                 User user = context.Users.FirstOrDefault(x => x.UserName == neptunCode);
-                if (user != null && await userManager.IsInRoleAsync(user, Role.Teacher.ToString()))
+                if (user != null && userManager.IsInRoleAsync(user, Role.Teacher.ToString()).Result)
                 {
                     context.UserSubjects.Add(new UserSubject(subject, user));
                     context.SaveChanges();
-                    //return true;
                 }
             }
-            //return false;
         }
 
         public IEnumerable<Subject> GetSubjects()

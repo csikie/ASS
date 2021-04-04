@@ -8,9 +8,9 @@
 <div class="container">
     <div class="row justify-content-md-center">
         @{ 
-            if (ViewData.ModelState.GetValueOrDefault("progressError") != null)
+            if (ViewData.ModelState.GetValueOrDefault("") != null)
             {
-                foreach (ModelError error in ViewData.ModelState.GetValueOrDefault("progressError").Errors)
+                foreach (ModelError error in ViewData.ModelState.GetValueOrDefault("").Errors)
                 {
                     <div class="col-lg-8">
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">

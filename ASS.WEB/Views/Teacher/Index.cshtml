@@ -11,7 +11,6 @@
             <div id="subjectGrid"></div>
         </div>
         <script>
-            // TODO: update, delete
             $(document).ready(function () {
                 const grid = $("#subjectGrid").kendoGrid({
                 dataSource: {
@@ -82,44 +81,11 @@
                                     });
                                     return teachers.slice(0, -2);
                                 },
-                                editor: instructorsNameMultiSelect,
                             },
-                            {
-                                command: ["edit", "destroy"],
-                                title: "&nbsp;",
-                            },
+                            // TODO edit link button
+                            
                         ],
-                        editable: "inline",
                     });
-
-                    function instructorsNameMultiSelect(container, options) {
-                        $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
-                            .appendTo(container)
-                            .kendoMultiSelect({
-                                dataTextField: "InstructorName",
-                                dataValueField: "InstructorNeptun",
-                                itemTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
-                                tagTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
-                                dataSource: {
-                                    transport: {
-                                        read: {
-                                            dataType: "json",
-                                            url: "@Url.Action("GetInstructors", "Teacher")"
-                                        },
-                                    },
-                                    schema: {
-                                        model: {
-                                            id: "Id",
-                                            fields: {
-                                                InstructorName: { type: "string" },
-                                                InstructorNeptun: { type: "string" }
-                                            }
-                                        }
-                                    }
-                                },
-                                value: options.model.Instructors.toJSON()
-                            });
-                    }
                 }
             });
         </script>

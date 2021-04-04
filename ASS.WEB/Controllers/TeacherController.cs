@@ -36,14 +36,21 @@ namespace ASS.WEB.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateCourse(CreateCourseViewModel model)
         {
             if (ModelState.IsValid)
             {
-                teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId, model.CourseName);
-                ModelState.Clear();
-                ModelState.AddModelError("progressError","asd"); // todo
-                return View();
+                try
+                {
+                    teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId, model.CourseName);
+                    ModelState.Clear();
+                    return View();
+                }
+                catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
+                {
+                    ModelState.AddModelError("","CourseNameAlreadyUsed");
+                }
             }
             return View();
         }

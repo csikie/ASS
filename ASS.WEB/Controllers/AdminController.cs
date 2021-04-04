@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,10 +42,24 @@ namespace ASS.WEB.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateSubject(CreateSubjectViewModel subject)
         {
-            adminService.AddUserToSubject(subject.TeachersNeptunCode, subject.SubjectName);
-            return Redirect("Index");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    adminService.AddUserToSubject(subject.TeachersNeptunCode, subject.SubjectName);
+                    return View("Index");
+                }
+                catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
+                {
+                    ModelState.AddModelError("", "SubjectNameAlreadyUsed");
+                    return View();
+                }
+            }
+            return View();
+            
         }
 
         public string GetSubjects()

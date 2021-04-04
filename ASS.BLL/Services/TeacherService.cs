@@ -3,6 +3,7 @@ using ASS.DAL;
 using ASS.DAL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -16,7 +17,13 @@ namespace ASS.BLL.Services
 
         public void AddUserToCourse(string[] neptunCodes, int subjectId, string courseName)
         {
-            Subject subject = context.Subjects.FirstOrDefault(x => x.Id == subjectId);
+            Subject subject = context.Subjects.Where(x => x.Id == subjectId)
+                                              .Include(x => x.Courses)
+                                              .FirstOrDefault();
+            if (subject.Courses.Any(x => x.Name == courseName))
+            {
+                throw new ArgumentException("Ez a kurzusnév már foglalt!");
+            }
             Course course = new Course(courseName, subject);
             foreach (string instructor in neptunCodes)
             {

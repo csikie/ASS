@@ -1,5 +1,6 @@
 ﻿@using ASS.WEB.Models.ViewModels
 @using ASS.Common.Helpers
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @model LoginViewModel
 @{
     ViewData["Title"] = "Index";
@@ -13,6 +14,18 @@
             </div>
             <p>@localizer["SiteDesc"]</p>
 
+            @{
+                KeyValuePair<string, ModelStateEntry> state = ViewData.ModelState.FirstOrDefault(x => x.Key == string.Empty);
+                if (state.Value != null)
+                {
+                    <div class="text-center mb-1">
+                        @foreach (ModelError error in state.Value.Errors)
+                        {
+                            <span class="text-danger">@localizer[error.ErrorMessage]</span>
+                        }
+                    </div>
+                }
+            }
             <form asp-controller="Home" asp-action="Login" method="post">
                 <div class="form-floating mb-3">
                     <input type="text" asp-for="Username" class="form-control" placeholder="@localizer["UsernamePlaceholder"]" />

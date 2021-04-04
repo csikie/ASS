@@ -70,6 +70,7 @@ namespace ASS.WEB.Controllers
             }
             else
             {
+                ModelState.AddModelError("", "InvalidUser");
                 return View("Index");
             }
         }
