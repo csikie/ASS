@@ -80,7 +80,6 @@ namespace ASS.WEB
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = "/Home/Login";
                 options.AccessDeniedPath = new PathString("/Home/Error");
                 options.LoginPath = new PathString("/Home/Index");
                 options.LogoutPath = new PathString("/Home/Logout");

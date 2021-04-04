@@ -55,6 +55,7 @@ namespace ASS.WEB.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel loginUser)
         {
             if (!ModelState.IsValid)
@@ -82,6 +83,7 @@ namespace ASS.WEB.Controllers
         }
 
         [HttpPost]
+        [RequireHttps]
         public IActionResult CultureManagment(string culture)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName,

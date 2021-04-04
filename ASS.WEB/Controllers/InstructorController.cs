@@ -40,7 +40,7 @@ namespace ASS.WEB.Controllers
                                                                                                                                         Id = y.UserId,
                                                                                                                                         Solutions = y.User.Solutions.Select(z => new SolutionDTO(z.Id, z.SubmittedSolution, z.SubmissionTime, z.Grade, z.EvaluationTime))
                                                                                                                                                                     .ToList()
-                                                                                                                        })
+                                                                                                                                     })
                                                                                                                         .ToList()
                                                                                             }).ToList();
             return View(model);
@@ -112,7 +112,7 @@ namespace ASS.WEB.Controllers
                 int res = instructorService.ProcessPendingStatus(id, isApprove);
                 return Ok(res);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest();
             }

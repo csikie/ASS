@@ -73,7 +73,17 @@ namespace ASS.BLL.Services
                 }
             }
 
+            string oldSubjectName = subject.Name;
             subject.Name = subjectName;
+
+            if (context.Subjects.Where(x => x.Name == subjectName).Count() > 1)
+            {
+                subject.Name = oldSubjectName;
+                context.Subjects.Update(subject);
+                context.SaveChanges();
+
+                throw new ArgumentException("A tárgynév módpsítás nem sikerült mert az újonnan megadott tárgynév már foglalt!");
+            }
 
             context.Subjects.Update(subject);
             context.SaveChanges();

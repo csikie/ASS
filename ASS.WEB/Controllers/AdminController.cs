@@ -82,7 +82,15 @@ namespace ASS.WEB.Controllers
         public string UpdateSubject(string models)
         {
             AdminSubjectDTO subject = JsonConvert.DeserializeObject<List<AdminSubjectDTO>>(models).FirstOrDefault();
-            adminService.UpdateSubject(subject.Id, subject.SubjectName, subject.TeachersName.Select(x => x.TeacherNeptun).ToArray());
+
+            try
+            {
+                adminService.UpdateSubject(subject.Id, subject.SubjectName, subject.TeachersName.Select(x => x.TeacherNeptun).ToArray());
+            }
+            catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
+            {
+                ModelState.AddModelError("", "SubjectNameAlreadyUsed");
+            }
 
             return GetSubjects();
         }
