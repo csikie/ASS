@@ -34,7 +34,7 @@ namespace ASS.WEB.Controllers
                                                                                                                                                                    .ToList()
                                                                                                                                         })
                                                                                                                             .ToList(),
-                                                                                                Students = x.UserCourses.Where(y => y.CourseId == x.Id)
+                                                                                                Students = x.UserCourses.Where(y => y.CourseId == x.Id && y.Pending.HasValue && y.Pending.Value)
                                                                                                                         .Select(y => new UserDTO(y.User.RealName, y.User.UserName, null, null)
                                                                                                                                      {
                                                                                                                                         Id = y.UserId,

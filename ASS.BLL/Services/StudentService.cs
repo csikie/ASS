@@ -18,11 +18,12 @@ namespace ASS.BLL.Services
         public async Task<List<Course>> GetCourses(ClaimsPrincipal user)
         {
             User student = await userManager.GetUserAsync(user);
-            return await context.Courses.Include(x => x.UserCourses)
-                                        .Where(x => !x.UserCourses.Where(y => y.UserId == student.Id && (y.Pending == null || !y.Pending.Value)).Any())
+            var a = await context.Courses.Include(x => x.UserCourses)
+                                        .Where(x => x.UserCourses.All(y => y.UserId != student.Id) || x.UserCourses.Any(y => y.UserId == student.Id && y.Pending.HasValue && !y.Pending.Value))
                                         .Include(x => x.Instructors)
                                         .ThenInclude(x => x.User)
                                         .ToListAsync();
+            return a;
         }
 
         public async void CourseRegistration(int[] courseIds, ClaimsPrincipal user)
