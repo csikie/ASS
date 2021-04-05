@@ -1,0 +1,57 @@
+﻿@using ASS.WEB.Models.ViewModels
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model EditCourseViewModel
+@{
+    Layout = "_MainLayout";
+}
+
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h1>@localizer["EditCourseTitle"]</h1>
+            <hr />
+        </div>
+        <div class="col-lg-12">
+            <form method="post">
+                <input asp-for="Id" type="hidden" />
+                <div class="form-floating mb-3">
+                    <input type="text" asp-for="CourseName" class="form-control" placeholder="@localizer["CourseNamePlaceholder"]" />
+                    <label asp-for="CourseName"></label>
+                    <span class="text-danger" asp-validation-for="CourseName"></span>
+                </div>
+                <div>
+                    <label asp-for="InstructorUserNames"></label>
+                    <select id="instructorMultiselect" multiple="multiple" asp-for="InstructorUserNames" />
+                    <span class="text-danger" asp-validation-for="InstructorUserNames"></span>
+                </div>
+                <input type="hidden" asp-for="CurrentInstructorsJSON" />
+
+                <div class="d-grid gap-2 pt-3">
+                    <button type="submit" class="btn btn-primary">@localizer["SubmitBtn"]</button>
+                </div>
+            </form>
+
+            <script>
+                    $(document).ready(function () {
+                        $("#instructorMultiselect").kendoMultiSelect({
+                            placeholder: "@localizer["CourseNamePlaceholder"]",
+                            dataTextField: "InstructorName",
+                            dataValueField: "InstructorNeptun",
+                            itemTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                            tagTemplate: '<span class="k-state-default">#: data.InstructorName # (#: data.InstructorNeptun #)</span>',
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: "@Url.Action("GetInstructors", "Teacher")"
+                                    }
+                                }
+                            },
+                            value: JSON.parse('@Html.Raw(Model.CurrentInstructorsJSON)')
+                        });
+                    });
+            </script>
+        </div>
+    </div>
+</div>

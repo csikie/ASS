@@ -72,5 +72,33 @@ namespace ASS.WEB.Controllers
             string result = JsonConvert.SerializeObject((await teacherService.GetUsersInRole(Role.Instructor)).Select(x => new InstructorDTO(x.Id, x.RealName, x.UserName)));
             return result;
         }
+
+        public IActionResult EditCourse(int id)
+        {
+            var model = teacherService.GetCourse(id);
+            return View(new EditCourseViewModel(model.Id, model.Name)
+                        {
+                            CurrentInstructorsJSON = JsonConvert.SerializeObject(model.Instructors.Select(x => new InstructorDTO(x.Id,x.User.RealName,x.User.UserName)).ToList())
+                        });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCourse(EditCourseViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    teacherService.EditCourse(model.Id, model.CourseName, model.InstructorUserNames);
+                    return RedirectToAction("Index","Teacher");
+                }
+                catch (Exception)
+                {
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
     }
 }

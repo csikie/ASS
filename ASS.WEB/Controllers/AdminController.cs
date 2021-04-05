@@ -89,7 +89,7 @@ namespace ASS.WEB.Controllers
             }
             catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
             {
-                ModelState.AddModelError("", "SubjectNameAlreadyUsed");
+                return $"\"errors\": [{{ \"code\": \"400\",\"reason\": \"{ex.Message}\"}}]";
             }
 
             return GetSubjects();

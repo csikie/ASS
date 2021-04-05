@@ -9,5 +9,7 @@ namespace ASS.BLL.Interfaces
     {
         void AddUserToCourse(string[] neptunCodes, int subjectId, string courseName);
         Task<IEnumerable<Subject>> GetSubjects(ClaimsPrincipal principal);
+        Course GetCourse(int courseId);
+        void EditCourse(int courseId, string courseName, string[] instructors);
     }
 }

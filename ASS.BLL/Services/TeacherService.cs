@@ -36,12 +36,53 @@ namespace ASS.BLL.Services
         public async Task<IEnumerable<Subject>> GetSubjects(ClaimsPrincipal principal)
         {
             User teacher = await userManager.GetUserAsync(principal);
-            var a = context.Subjects.Include(s => s.UserSubject)
+            return context.Subjects.Include(s => s.UserSubject)
                                    .ThenInclude(u => u.User)
                                    .Where(x => x.UserSubject.Any(y => y.User.Id == teacher.Id))
                                    .Include(x => x.Courses).ThenInclude(x => x.Instructors).ThenInclude(x => x.User)
                                    .ToList();
-            return a;
+        }
+
+        public Course GetCourse(int courseId)
+        {
+            return context.Courses.Where(x => x.Id == courseId)
+                                  .Include(x => x.Instructors)
+                                  .ThenInclude(x => x.User)
+                                  .FirstOrDefault();
+        }
+
+        public void EditCourse(int courseId, string courseName, string[] instructorNeptunCodes)
+        {
+            Course course = context.Courses.Where(x => x.Id == courseId)
+                                           .Include(s => s.Instructors)
+                                           .ThenInclude(u => u.User)
+                                           .FirstOrDefault();
+
+            List<Instructors> deletedInstructors = new List<Instructors>();
+            foreach (Instructors instructor in course.Instructors)
+            {
+                if (!instructorNeptunCodes.Contains(instructor.User.UserName))
+                {
+                    deletedInstructors.Add(instructor);
+                }
+            }
+
+            foreach (Instructors instructor in deletedInstructors)
+            {
+                course.Instructors.Remove(instructor);
+            }
+
+            foreach (string instructorNeptunCode in instructorNeptunCodes)
+            {
+                if (!course.Instructors.Any(x => x.User.UserName == instructorNeptunCode))
+                {
+                    course.Instructors.Add(new Instructors(course, context.Users.FirstOrDefault(x => x.UserName == instructorNeptunCode)));
+                }
+            }
+
+            course.Name = courseName;
+            context.Courses.Update(course);
+            context.SaveChanges();
         }
     }
 }

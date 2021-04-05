@@ -82,7 +82,9 @@
                                     return teachers.slice(0, -2);
                                 },
                             },
-                            // TODO edit link button
+                            {
+                                template: '<a href="Teacher/EditCourse/#:Id#" role="button" class="btn btn-success"><i class="far fa-edit"></i> @localizer["EditCourse"]</a>'
+                            }
                             
                         ],
                     });

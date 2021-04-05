@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_MainLayout";
 }
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 
 <div class="container">
     <div class="row justify-content-md-center">
@@ -8,6 +9,7 @@
             <h1>@localizer["CreatedSubjectsTitle"]</h1>
             <hr />
         </div>
+        
         <div class="col-lg-12">
             <div id="subjectGrid"></div>
             <script>
@@ -32,6 +34,9 @@
                                         return { models: kendo.stringify(options.models) };
                                     }
                                 }
+                            },
+                            error: function (e) {
+                                console.log(e.errors);
                             },
                             batch: true,
                             pageSize: 10,
@@ -127,7 +132,7 @@
             </script>
         </div>
     </div>
-    
+
     <div class="row justify-content-md-center pt-4">
         <div class="col-lg-12">
             <h2>@localizer["UsersTitle"]</h2>

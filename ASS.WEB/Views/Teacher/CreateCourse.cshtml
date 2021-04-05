@@ -25,7 +25,7 @@
             <h1>@localizer["CreateCourseTitle"]</h1>
             <hr />
 
-            <form class="" asp-action="CreateCourse" method="post">
+            <form asp-action="CreateCourse" method="post">
                 <div class="form-floating mb-3">
                     <input type="text" asp-for="CourseName" class="form-control" placeholder="@localizer["CourseNamePlaceholder"]" />
                     <label asp-for="CourseName"></label>
