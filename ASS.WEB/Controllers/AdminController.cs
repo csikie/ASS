@@ -79,7 +79,7 @@ namespace ASS.WEB.Controllers
 
         }
 
-        public string UpdateSubject(string models)
+        public IActionResult UpdateSubject(string models)
         {
             AdminSubjectDTO subject = JsonConvert.DeserializeObject<List<AdminSubjectDTO>>(models).FirstOrDefault();
 
@@ -89,10 +89,10 @@ namespace ASS.WEB.Controllers
             }
             catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
             {
-                return $"\"errors\": [{{ \"code\": \"400\",\"reason\": \"{ex.Message}\"}}]";
+                return BadRequest(new { errors = new { code = "400", reason = "SubjectNameAlreadyUsed" } });
             }
 
-            return GetSubjects();
+            return Ok(GetSubjects());
         }
     }
 }

@@ -14,7 +14,7 @@
             <div id="subjectGrid"></div>
             <script>
                 $(document).ready(function () {
-                    $("#subjectGrid").kendoGrid({
+                    const grid = $("#subjectGrid").kendoGrid({
                         dataSource: {
                             transport: {
                                 read: {
@@ -35,12 +35,10 @@
                                     }
                                 }
                             },
-                            error: function (e) {
-                                console.log(e.errors);
-                            },
                             batch: true,
                             pageSize: 10,
                             schema: {
+                                errors: "errors",
                                 model: {
                                     id: "Id",
                                     fields: {
@@ -50,6 +48,7 @@
                                     },
                                 },
                                 parse: function (response) {
+                                    console.log(response);
                                     response.forEach(function (data) {
                                         let str = "";
                                         data.TeachersName.forEach(function (teacher) {
@@ -59,17 +58,16 @@
                                     })
                                     return response;
                                 },
-                            }
+                            },
+                            error: function (e) {
+                                window.location.href = '/Home/Error/' + e.xhr.responseJSON.errors.reason;
+                            },
                         },
                         pageable: {
                             refresh: true,
                             buttonCount : 5
                         },
-                        toolbar: ["search", "excel"],
-                        excel: {
-                            fileName: "Kendo UI Grid Export.xlsx",
-                            allPages: true,
-                        },
+                        toolbar: ["search"],
                         search: {
                             fields: ["SubjectName", "Teachers"]
                         },
@@ -99,7 +97,7 @@
                         editable: "inline",
                         sortable : true,
                     });
-                });
+                }).data("kendoGrid");
 
                 function teachersNameMultiSelect(container, options) {
                     $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
