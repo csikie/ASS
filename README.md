@@ -3,10 +3,10 @@ Assignment Supervisor System
 TODO list
 ### Admin
 - [ ] List of Users (make editable)
-- [ ] Add logic error when update subject
+- [x] Add logic error when update subject
 
 ### Teachers
-- [ ] Add course edit
+- [x] Add course edit
 
 ### Localization
 - [ ] Create resx files for views
