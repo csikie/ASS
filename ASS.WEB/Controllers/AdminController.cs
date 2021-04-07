@@ -71,6 +71,7 @@ namespace ASS.WEB.Controllers
             return result;
         }
 
+        [HttpPost]
         public string DeleteSubject(string models)
         {
             SubjectDTO subject = JsonConvert.DeserializeObject<List<SubjectDTO>>(models).FirstOrDefault();
@@ -79,6 +80,7 @@ namespace ASS.WEB.Controllers
 
         }
 
+        [HttpPost]
         public IActionResult UpdateSubject(string models)
         {
             AdminSubjectDTO subject = JsonConvert.DeserializeObject<List<AdminSubjectDTO>>(models).FirstOrDefault();
@@ -93,6 +95,37 @@ namespace ASS.WEB.Controllers
             }
 
             return Ok(GetSubjects());
+        }
+
+        public IActionResult Read_UserGrid()
+        {
+            try
+            {
+                List<UserDTO> users = adminService.GetAllUser().Select(x => new UserDTO(x.RealName,x.UserName,x.Email,(adminService.GetUserRoles(x.Id)))).ToList();
+                return Ok(JsonConvert.SerializeObject(users));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { errors = new { code = "400", reason = ex.Message } });
+            }
+
+        }
+
+        public IActionResult GetAllRole()
+        {
+            try
+            {
+                List<object> roles = new List<object>();
+                foreach (Role role in Enum.GetValues(typeof(Role)))
+                {
+                    roles.Add(new { Role = role.ToString() });
+                }
+                return Ok(JsonConvert.SerializeObject(roles.ToArray()));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

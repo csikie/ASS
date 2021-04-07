@@ -100,5 +100,18 @@ namespace ASS.BLL.Services
 
             context.SaveChanges();
         }
+
+        public List<User> GetAllUser()
+        {
+            return context.Users.Where(x => x.UserName != "admin")
+                                .ToList();
+        }
+
+        public string[] GetUserRoles(int userId)
+        {
+            User user = context.Users.FirstOrDefault(x => x.Id == userId);
+
+            return (userManager.GetRolesAsync(user)).Result.ToArray();
+        }
     }
 }

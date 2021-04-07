@@ -92,11 +92,14 @@ namespace ASS.WEB.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(string id)
         {
-            return View(new ErrorViewModel { RequestId = id ?? HttpContext.TraceIdentifier });
+            return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

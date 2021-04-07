@@ -14,5 +14,7 @@ namespace ASS.BLL.Interfaces
         IEnumerable<User> GetUsers(Expression<Func<User, bool>> pred);
         void UpdateSubject(int id, string subjectName, string[] teacherNeptunCodes);
         void DeleteSubject(int id);
+        public List<User> GetAllUser();
+        public string[] GetUserRoles(int userId);
     }
 }

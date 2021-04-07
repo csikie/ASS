@@ -24,10 +24,12 @@
                                 update: {
                                     url: "@Url.Action("UpdateSubject", "Admin",null,"https")",
                                     dataType: "json",
+                                    type: "POST"
                                 },
                                 destroy: {
                                     url: "@Url.Action("DeleteSubject", "Admin",null,"https")",
                                     dataType: "json",
+                                    type: "POST"
                                 },
                                 parameterMap: function (options, operation) {
                                     if (operation !== "read" && options.models) {
@@ -48,7 +50,6 @@
                                     },
                                 },
                                 parse: function (response) {
-                                    console.log(response);
                                     response.forEach(function (data) {
                                         let str = "";
                                         data.TeachersName.forEach(function (teacher) {
@@ -75,11 +76,11 @@
                         columns: [
                             {
                                 field: "SubjectName",
-                                title: "Tantárgy neve"
+                                title: "@localizer["SubjectNameGridHeader"]"
                             },
                             {
                                 field: "TeachersName",
-                                title: "Tárgyfelelős(ök)",
+                                title: "@localizer["TeachersnameGridHeader"]",
                                 template: function (dataItem) {
                                     let teachers = "";
                                     dataItem.TeachersName.forEach(function (item) {
@@ -137,7 +138,112 @@
             <hr />
         </div>
         <div class="col-lg-12">
-            <div id="usersGrid">TODO</div>
+            <div id="usersGrid"></div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $("#usersGrid").kendoGrid({
+                    dataSource: {
+                        transport: {
+                            read: {
+                                url: "@Url.Action("Read_UserGrid", "Admin")",
+                                dataType: "json",
+                            },
+                            update: {
+                                url: "@Url.Action("UpdateUser", "Admin",null,"https")",
+                                dataType: "json",
+                                type: "POST"
+                            },
+                            destroy: {
+                                url: "@Url.Action("DeleteUser", "Admin",null,"https")",
+                                dataType: "json",
+                                type: "POST"
+                            },
+                            parameterMap: function (options, operation) {
+                                if (operation !== "read" && options.models) {
+                                    return { models: kendo.stringify(options.models) };
+                                }
+                            }
+                        },
+                        batch: true,
+                        pageSize: 10,
+                        schema: {
+                            model: {
+                                id: "Id",
+                                fields: {
+                                    RealName: { editable: false, type: "string"},
+                                    UserName: { editable: false, type: "string"},
+                                    Email: { editable: false, type: "string"},
+                                    Roles: { editable: true, type: "object"},
+                                },
+                            },
+                            parse: function (response) {
+
+                                return response;
+                            },
+                        },
+                        error: function (e) {
+                            window.location.href = '/Home/Error/' + e.xhr.responseJSON.errors.reason;
+                        },
+                    },
+                    pageable: {
+                            refresh: true,
+                            buttonCount: 5
+                    },
+                    toolbar: ["search"],
+                    height: 550,
+                    columns: [
+                        {
+                            field: "RealName",
+                            title: "@localizer["RealNameGridHeader"]",
+                        },
+                        {
+                            field: "UserName",
+                            title: "@localizer["UserNameGridHeader"]"
+                        },
+                        {
+                            field: "Email",
+                            title: "@localizer["EmailGridHeader"]"
+                        },
+                        {
+                            field: "Roles",
+                            title: "@localizer["RolesGridHeader"]",
+                            template: function (dataItem) {
+                                let roles = "";
+                                dataItem.Roles.forEach(function (item) {
+                                    roles += item + ", ";
+                                });
+                                return roles.slice(0, -2);
+                            },
+                            editor: roleMultiSelect,
+                        },
+                        {
+                            command: ["edit", "destroy"],
+                            title: "&nbsp;",
+                        },
+                    ],
+                    editable: "inline",
+                    sortable: true,
+                });
+            });
+
+            function roleMultiSelect(container, options) {
+                    $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
+                        .appendTo(container)
+                        .kendoMultiSelect({
+                            dataTextField: "Role",
+                            dataValueField: "Role",
+                            dataSource: {
+                                transport: {
+                                    read: {
+                                        dataType: "json",
+                                        url: "@Url.Action("GetAllRole", "Admin")"
+                                    },
+                                },
+                            },
+                            value: options.model.Roles.toJSON()
+                        });
+                }
+        </script>
     </div>
 </div>
