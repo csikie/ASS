@@ -101,7 +101,7 @@ namespace ASS.WEB.Controllers
         {
             try
             {
-                List<UserDTO> users = adminService.GetAllUser().Select(x => new UserDTO(x.RealName,x.UserName,x.Email,(adminService.GetUserRoles(x.Id)))).ToList();
+                List<UserDTO> users = adminService.GetAllUser().Select(x => new UserDTO(x.RealName, x.UserName, x.Email, adminService.GetUserRoles(x.Id)) { Id = x.Id}).ToList();
                 return Ok(JsonConvert.SerializeObject(users));
             }
             catch (Exception ex)
@@ -126,6 +126,13 @@ namespace ASS.WEB.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUser(string models)
+        {
+
+            return Ok(models);
         }
     }
 }

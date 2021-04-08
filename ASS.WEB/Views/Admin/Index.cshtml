@@ -174,11 +174,18 @@
                                     RealName: { editable: false, type: "string"},
                                     UserName: { editable: false, type: "string"},
                                     Email: { editable: false, type: "string"},
-                                    Roles: { editable: true, type: "object"},
+                                    Roles: { editable: true, type: "object" },
+                                    RolesParse: { editable: false, type : "string" }
                                 },
                             },
                             parse: function (response) {
-
+                                response.forEach((data) => {
+                                    let roles;
+                                    data.Roles.forEach((role) => {
+                                        roles += role + " ";
+                                    });
+                                    data.RolesParse = roles;
+                                });
                                 return response;
                             },
                         },
@@ -191,6 +198,9 @@
                             buttonCount: 5
                     },
                     toolbar: ["search"],
+                    search: {
+                        fields: ["RealName", "UserName", "RolesParse", "Email"]
+                    },
                     height: 550,
                     columns: [
                         {
@@ -215,35 +225,14 @@
                                 });
                                 return roles.slice(0, -2);
                             },
-                            editor: roleMultiSelect,
                         },
                         {
-                            command: ["edit", "destroy"],
+                            template : "",
                             title: "&nbsp;",
                         },
                     ],
-                    editable: "inline",
-                    sortable: true,
                 });
             });
-
-            function roleMultiSelect(container, options) {
-                    $('<select id="multiselect" multiple="multiple" name="' + options.field + '"/>')
-                        .appendTo(container)
-                        .kendoMultiSelect({
-                            dataTextField: "Role",
-                            dataValueField: "Role",
-                            dataSource: {
-                                transport: {
-                                    read: {
-                                        dataType: "json",
-                                        url: "@Url.Action("GetAllRole", "Admin")"
-                                    },
-                                },
-                            },
-                            value: options.model.Roles.toJSON()
-                        });
-                }
         </script>
     </div>
 </div>
