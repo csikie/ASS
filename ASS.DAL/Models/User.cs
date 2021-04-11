@@ -7,9 +7,10 @@ namespace ASS.DAL.Models
     {
         public string RealName { get; set; }
         public User() : base() { }
-        public User(string neptunCode, string name) : base(neptunCode)
+        public User(string neptunCode, string name, string email) : base(neptunCode)
         {
             RealName = name;
+            Email = email;
         }
 
         public ICollection<UserCourse> UserCourses { get; set; }

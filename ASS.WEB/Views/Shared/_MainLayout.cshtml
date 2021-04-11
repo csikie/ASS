@@ -15,7 +15,6 @@
     <link href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.default.mobile.min.css" />
     <script src="https://kendo.cdn.telerik.com/2021.1.119/js/kendo.all.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2021.1.224/js/jszip.min.js"></script>
     <script src="https://kit.fontawesome.com/7e694b1734.js" crossorigin="anonymous"></script>
     @{
         string cookie = string.Empty;
@@ -67,6 +66,9 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Admin" asp-action="CreateSubject">@localizer["CreateSubject"]</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="CreateUser">@localizer["CreateUser"]</a>
                             </li>
                         }
                         @if (User.IsInRole(Role.Teacher.ToString()))

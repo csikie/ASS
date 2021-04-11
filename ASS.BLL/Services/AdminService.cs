@@ -113,5 +113,65 @@ namespace ASS.BLL.Services
 
             return (userManager.GetRolesAsync(user)).Result.ToArray();
         }
+
+        public void CreateUser(string realName, string userName, string email, string password, string[] roles)
+        {
+            User user = new User(userName, realName, email);
+            IdentityResult createRes = userManager.CreateAsync(user, password).Result;
+            if (!createRes.Succeeded)
+            {
+                throw new Exception($"Nem sikerült létrehozni a felhasználót! ({createRes})");
+            }
+
+            IdentityResult addToRoleRes = userManager.AddToRolesAsync(user, roles).Result;
+            if (!addToRoleRes.Succeeded)
+            {
+                throw new Exception($"Nem sikerült létrehozni a felhasználót! ({addToRoleRes})");
+            }
+        }
+
+        public void UpdateUser(int id, string userName, string realName, string email, string[] roles)
+        {
+            User user = context.Users.FirstOrDefault(x => x.Id == id);
+
+            if (user.UserName != userName)
+            {
+                throw new Exception("A felhasználónév nem egyezik! A felhasználónevet nem lehet módosítani!");
+            }
+
+            user.RealName = realName;
+            user.Email = email;
+
+            IList<string> userRoles = userManager.GetRolesAsync(user).Result;
+            List<string> deletedRoles = new List<string>();
+            foreach (string userRole in userRoles)
+            {
+                if (!roles.Contains(userRole))
+                {
+                    deletedRoles.Add(userRole);
+                }
+            }
+
+            IdentityResult roleDeleteRes = userManager.RemoveFromRolesAsync(user, deletedRoles).Result;
+            if (!roleDeleteRes.Succeeded)
+            {
+                throw new Exception("Hiba történt a szerepkör(ök) eltávolítása során!");
+            }
+
+            foreach (string role in roles)
+            {
+                if (!userRoles.Contains(role))
+                {
+                    IdentityResult addRoleRes = userManager.AddToRoleAsync(user, role).Result;
+                    if (!addRoleRes.Succeeded)
+                    {
+                        throw new Exception("Hiba történt a szerepkör(ök) hozzáadása során!");
+                    }
+                }
+            }
+
+            context.Update(user);
+            context.SaveChanges();
+        }
     }
 }

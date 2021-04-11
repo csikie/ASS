@@ -29,6 +29,11 @@ namespace ASS.BLL.Services
             return await userManager.GetUserAsync(principal);
         }
 
+        public User GetUserData(int id)
+        {
+            return context.Users.FirstOrDefault(x => x.Id == id);
+        }
+
         public async Task<string[]> GetUserRoles(ClaimsPrincipal principal)
         {
             return (await userManager.GetRolesAsync(await GetUserData(principal))).ToArray();

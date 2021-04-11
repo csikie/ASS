@@ -173,8 +173,8 @@
                                 fields: {
                                     RealName: { editable: false, type: "string"},
                                     UserName: { editable: false, type: "string"},
-                                    Email: { editable: false, type: "string"},
-                                    Roles: { editable: true, type: "object" },
+                                    Email: { editable: false, type: "string" },
+                                    Roles: { editable: false, type: "object" },
                                     RolesParse: { editable: false, type : "string" }
                                 },
                             },
@@ -227,8 +227,7 @@
                             },
                         },
                         {
-                            template : "",
-                            title: "&nbsp;",
+                            template : '<a href="Admin/UpdateUser/#:Id#" role="button" class="btn btn-success"><i class="far fa-edit"></i> @localizer["EditUser"]</a>',
                         },
                     ],
                 });
