@@ -79,7 +79,7 @@ namespace ASS.WEB.Controllers
         public IActionResult Logout()
         {
             loginService.SignOut();
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -94,7 +94,11 @@ namespace ASS.WEB.Controllers
 
         public IActionResult Error(string id)
         {
-            return View();
+            if (id == null)
+            {
+                id = "DefaultErrorMessage";
+            }
+            return View((object)id);
         }
 
         public IActionResult AccessDenied()

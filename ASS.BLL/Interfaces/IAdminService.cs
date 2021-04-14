@@ -16,5 +16,7 @@ namespace ASS.BLL.Interfaces
         void DeleteSubject(int id);
         public List<User> GetAllUser();
         public string[] GetUserRoles(int userId);
+        void CreateUser(string realName, string userName, string email, string password, string[] roles);
+        void UpdateUser(int id, string userName, string realName, string email, string[] roles);
     }
 }

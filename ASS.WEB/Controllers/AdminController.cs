@@ -111,6 +111,35 @@ namespace ASS.WEB.Controllers
 
         }
 
+        public IActionResult CreateUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateUser(CreateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    adminService.CreateUser(model.RealName, model.UserName, model.Email, model.Password, model.Roles);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex) when (ex.Message.Contains("Nem sikerült létrehozni a felhasználót!"))
+                {
+                    ModelState.AddModelError("", "ErrorWhileCreatingUser");
+                    return View();
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            return View();
+        }
+
         public IActionResult GetAllRole()
         {
             try
@@ -128,11 +157,41 @@ namespace ASS.WEB.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult UpdateUser(string models)
+        public IActionResult UpdateUser(int id)
         {
+            var data = adminService.GetUserData(id);
+            UpdateUserViewModel model = new UpdateUserViewModel(id, data.RealName, data.UserName, data.Email, adminService.GetUserRoles(id));
+            return View(model);
+        }
 
-            return Ok(models);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateUser(UpdateUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    adminService.UpdateUser(model.Id, model.UserName, model.RealName, model.Email, model.Roles);
+                    return RedirectToAction("Index", "Admin");
+                }
+                catch (Exception ex) when (ex.Message.Contains("nem egyezik"))
+                {
+                    ModelState.AddModelError("", "UserNameCompareError");
+                    return View(model);
+                }
+                catch (Exception ex) when (ex.Message.Contains("eltávolítása során"))
+                {
+                    ModelState.AddModelError("", "RoleRemoveError");
+                    return View(model);
+                }
+                catch (Exception ex) when (ex.Message.Contains("hozzáadása során"))
+                {
+                    ModelState.AddModelError("", "RoleAddError");
+                    return View(model);
+                }
+            }
+            return View(model);
         }
     }
 }
