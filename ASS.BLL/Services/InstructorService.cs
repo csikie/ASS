@@ -52,6 +52,11 @@ namespace ASS.BLL.Services
 
         public void CreateAssignment(string name, string desc, DateTime startDate, DateTime endDate, int[] courseIds)
         {
+            if (startDate > endDate)
+            {
+                throw new ArgumentException("A kezdési dátum nem lehet nagyobb mint a befejezési dátum!");
+            }
+
             foreach (int courseId in courseIds)
             {
                 Course course = context.Courses.FirstOrDefault(x => x.Id == courseId);

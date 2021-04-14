@@ -57,7 +57,16 @@ namespace ASS.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                instructorService.CreateAssignment(assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate, assignment.CourseIds);
+                try
+                {
+                    instructorService.CreateAssignment(assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate, assignment.CourseIds);
+                    return RedirectToAction("Index", "Instructor");
+                }
+                catch (ArgumentException ex) when (ex.Message.Contains("dátum"))
+                {
+                    ModelState.AddModelError("", "WrongDateRange");
+                    return View();
+                }
 
             }
             return View();
