@@ -42,11 +42,12 @@ namespace ASS.BLL.Services
 
             return context.Courses.Include(x => x.Instructors)
                                   .Where(x => x.Instructors.Any(y => y.UserId == instructor.Id))
+                                  .Include(x => x.UserCourses)
+                                  .ThenInclude(x => x.User)
+                                  .ThenInclude(x => x.Solutions)
                                   .Include(x => x.Subject)
                                   .Include(x => x.Assignments)
                                   .ThenInclude(x => x.Solutions)
-                                  .Include(x => x.UserCourses)
-                                  .ThenInclude(x => x.User)
                                   .ToList();
         }
 

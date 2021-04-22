@@ -22,6 +22,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CreateAssignmentViewModel.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\ViewModels\CreateCourseViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateCourseViewModel.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\ViewModels\EditCourseViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EditCourseViewModel.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\ViewModels\LoginViewModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -34,6 +44,20 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateAssignmentViewModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CreateCourseViewModel.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CreateCourseViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateCourseViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\EditCourseViewModel.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\EditCourseViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditCourseViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\ViewModels\LoginViewModel.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -44,11 +68,6 @@
     <EmbeddedResource Update="Resources\Views\Home\Index.en-US.resx">
       <Generator></Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Resources\Views\Student\" />
-    <Folder Include="Resources\Views\Teacher\" />
   </ItemGroup>
 
 </Project>

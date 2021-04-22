@@ -117,37 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
+  <data name="CourseName" xml:space="preserve">
+    <value>Course name</value>
   </data>
-  <data name="ChangeRole" xml:space="preserve">
-    <value>Role change</value>
+  <data name="CourseNameLengthMessage" xml:space="preserve">
+    <value>The course name is not the correct length! Must be between ({2} and {1}) characters!</value>
   </data>
-  <data name="CourseRegistration" xml:space="preserve">
-    <value>Course registration</value>
+  <data name="CourseNameRequired" xml:space="preserve">
+    <value>The {0} is required!</value>
   </data>
-  <data name="CreateAssignment" xml:space="preserve">
-    <value>Create an assignment</value>
+  <data name="InstructorUserNames" xml:space="preserve">
+    <value>Instructors(s)</value>
   </data>
-  <data name="CreateCourse" xml:space="preserve">
-    <value>Course creation</value>
+  <data name="InstructorUserNamesRequired" xml:space="preserve">
+    <value>The {0} is required!</value>
   </data>
-  <data name="CreateSubject" xml:space="preserve">
-    <value>Subject creation</value>
+  <data name="SubjectName" xml:space="preserve">
+    <value>Subject</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Instructor" xml:space="preserve">
-    <value>Instructor</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Student</value>
-  </data>
-  <data name="Teacher" xml:space="preserve">
-    <value>Teacher</value>
+  <data name="SubjectNameRequired" xml:space="preserve">
+    <value>The {0} is required!</value>
   </data>
 </root>

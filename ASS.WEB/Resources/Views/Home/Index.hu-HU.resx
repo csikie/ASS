@@ -120,6 +120,9 @@
   <data name="Greetings" xml:space="preserve">
     <value>Köszöntjük!</value>
   </data>
+  <data name="InvalidUser" xml:space="preserve">
+    <value>A felhasználónév vagy a jelszó helytelen!</value>
+  </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Bejelentkezés</value>
   </data>

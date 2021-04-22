@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASS.WEB.Models.ViewModels
 {
@@ -12,11 +9,15 @@ namespace ASS.WEB.Models.ViewModels
         public int Id { get; set; }
 
         [Required]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), Name = "CourseName")]
+        [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), ErrorMessageResourceName = "CourseNameLengthMessage")]
         public string CourseName { get; set; }
 
         [Required]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), Name = "InstructorUserNames")]
         public string[] InstructorUserNames { get; set; }
-        
+
+        [NotMapped]
         public string CurrentInstructorsJSON { get; set; }
 
         public EditCourseViewModel() { }

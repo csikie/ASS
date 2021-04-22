@@ -120,6 +120,9 @@
   <data name="Greetings" xml:space="preserve">
     <value>Welcome!</value>
   </data>
+  <data name="InvalidUser" xml:space="preserve">
+    <value>Username or password is incorrect!</value>
+  </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Login</value>
   </data>

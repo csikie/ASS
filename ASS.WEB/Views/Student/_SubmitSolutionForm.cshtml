@@ -4,7 +4,7 @@
 <form asp-action="SubmitSolution" method="post">
     <input asp-for="Id" type="hidden" />
     <div class="mb-3">
-        <label asp-for="SubmittedSolution"></label>
+        <label for="SubmittedSolution">@localizer["SubmittedSolution"]</label>
         <textarea class="form-control" asp-for="SubmittedSolution" style="height:350px">
         </textarea>
         <span asp-validation-for="SubmittedSolution" class="text-danger"></span>

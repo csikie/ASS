@@ -118,13 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Admin" xml:space="preserve">
-    <value>Admin</value>
+    <value>Rendszergazda</value>
   </data>
   <data name="ChangeRole" xml:space="preserve">
     <value>Szerepkör váltás</value>
   </data>
+  <data name="CourseRegistration" xml:space="preserve">
+    <value>Csoport jelentkezés</value>
+  </data>
+  <data name="CreateAssignment" xml:space="preserve">
+    <value>Feladat létrehozása</value>
+  </data>
   <data name="CreateCourse" xml:space="preserve">
-    <value>Kurzus létrehozása</value>
+    <value>Csoport létrehozás</value>
   </data>
   <data name="CreateSubject" xml:space="preserve">
     <value>Tárgy létrehozás</value>

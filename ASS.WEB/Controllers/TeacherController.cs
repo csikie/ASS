@@ -43,9 +43,8 @@ namespace ASS.WEB.Controllers
             {
                 try
                 {
-                    teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId, model.CourseName);
-                    ModelState.Clear();
-                    return View();
+                    teacherService.AddUserToCourse(model.InstructorsNeptunCode, model.SubjectId.Value, model.CourseName);
+                    return RedirectToAction("Index", "Teacher");
                 }
                 catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))
                 {

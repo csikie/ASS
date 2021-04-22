@@ -26,7 +26,7 @@ namespace ASS.WEB.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<CourseDTO> model = (await instructorService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name,null,x.Subject.Name)
+            List<CourseDTO> model = (await instructorService.GetCourses(User)).Select(x => new CourseDTO(x.Id,x.Name,new InstructorDTO[0],x.Subject.Name)
                                                                                             {
                                                                                                 Assignments = x.Assignments.Select(y => new AssignmentDTO(y.Id, y.Name, y.Description, y.StartDate, y.EndDate)
                                                                                                                                         {
@@ -35,7 +35,7 @@ namespace ASS.WEB.Controllers
                                                                                                                                         })
                                                                                                                             .ToList(),
                                                                                                 Students = x.UserCourses.Where(y => y.CourseId == x.Id && y.Pending.HasValue && y.Pending.Value)
-                                                                                                                        .Select(y => new UserDTO(y.User.RealName, y.User.UserName, null, null)
+                                                                                                                        .Select(y => new UserDTO(y.User.RealName, y.User.UserName, y.User.Email, new string[0])
                                                                                                                                      {
                                                                                                                                         Id = y.UserId,
                                                                                                                                         Solutions = y.User.Solutions.Select(z => new SolutionDTO(z.Id, z.SubmittedSolution, z.SubmissionTime, z.Grade, z.EvaluationTime))
