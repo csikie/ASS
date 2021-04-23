@@ -2,10 +2,52 @@
 \label{ch:user}
 
 \section{Nyelvválasztás és bejelentkezés}
+Az oldalra érkezve a kezdőoldalt láthatjuk, ahol egy üdvözlő üzenet fogad minket. Majd lehetőségünk nyílik bejelentkezni [TODO:kép ref] a rendszerbe, vagy a rendszer által támogatott lokalizációt tudjuk kiválasztani (erre majd még a bejelentkezés után is lehetőségünk nyílik lásd később,~\hyperref[step:mindenkinek-elerheto-oldal]{\ref{step:mindenkinek-elerheto-oldal}:~``Mindenki számára elérhető oldalak''}) [TODO: kép ref].
+\subsection{Bejelentkezés}
+A rendszerbe bejelentkezni az INF-es felhasználónkkal tudunk. Ha a bejelentkezés sikertelen volt, azt a rendszer hibaüzenetekkel jelzi a számunkra [TODO:kép ref]. Amennyiben a bejelentkezés sikeres volt, a felhasználói csoportnak megfelelő kezdőoldalon találjuk magunkat [TODO: kép ref].
+\subsection{Nyelvválasztás}
+A rendszer kilistázza a támogatott lokalizációkat (jelenleg magyar és angol). Alapértelmezett beállítás a magyar. Ezt felültudjuk írni, ha valamelyik gombra rákattintunk. [TODO: kép ref]
 \section{Felhasználói csoportok}
-\subsection{Rendszergazda}
-\subsection{Tárgyfelelős}
-\subsection{Gyakorlatvezető}
-\subsection{Hallgató}
-\subsection{Mindenki számára elérhető oldalak}
+A felhasználók négy csoportba tartozhatnak:
+\begin{compactitem}
+    \item \hyperref[step:admin-role]{Rendszergazda}
+    \item \hyperref[step:teacher-role]{Tárgyfelelős}
+    \item \hyperref[step:instructor-role]{Gyakorlatvezető}
+    \item \hyperref[step:student-role]{Hallgató}
+\end{compactitem}
+Egy felhasználó tartozhat több felhasználói csoportba. Ha egy felhasználó több felhasználói csoportba is tartozik, akkor a felület menüsorán megjelenik egy "Szerepkör váltás" lenyitható menü, ahol a felhasználóhoz rendelt csoportokat találjuk, a kiválasztott linkre kattintva a csoporthoz tartozó kezdőoldalra navigáljuk magunkat [TODO: kép ref]. A felhasználóhoz a felhasználói csoportokat a felhasználó létrehozásakor is megadhatjuk, valamint a létrehozást követően tudjuk módosítani.
+\subsection{Rendszergazda}\label{step:admin-role}
+A rendszergazda a következő funkciókat érheti el:
+\begin{compactitem}
+    \item Tantárgy létrehozása, módosítása, törlése, tárgyi információk megtekintése
+    \item Felhasználó létrehozása, módosítása, a felhasználók adatainak a megtekintése
+\end{compactitem}
+Ha a rendszergazdaként jelentkezünk be az alábbi két táblázat fogad minket a kezdőoldalon~(\ref{fig:admin-page} ábra). 
+\begin{figure}[H]
+	\centering
+	\subfigure[Tantárgyak táblázata]{
+		\includegraphics[width=0.45\linewidth]{elte_cimer_szines}
+        \label{subfig:admin-subject-table}}
+	\hspace{5pt}
+	\subfigure[Felhasználók táblázata]{
+		\includegraphics[width=0.45\linewidth]{elte_cimer_szines}
+        \label{subfig:admin-users-table}}
+	\caption{Rendszergazdai felhasználó csoport kezdőoldala}
+	\label{fig:admin-page}
+\end{figure}
+Az első táblázatban a rendszerben létrehozott tantárgyak és a hozzájuk tartozó információk olvashatóak le. A táblázatban az egyes tantárgyakhoz tartozó adatok módosíthatóak, illetve az egész tárgyat lehet törölni. A módositás során validálásra kerül, hogy a módosított név létezik-e már a rendszerben, ha igen, akkor ezt a rendszer jelzi számunkra. A második táblázatban a rendszerben létrehozott felhasználókat és a hozzájuk tartozó információkat láthatjuk. A rendszergazdának a felhasználók adatait és felhasználói csoport jogait tudja módosítani~(\ref{fig:admin-user-edit} ábra).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{elte_cimer_szines}
+	\caption{Felhasználó módosítása}
+	\label{fig:admin-user-edit}
+\end{figure}
+\subsubsection{Tantárgy létrehozása}
+A ``Tárgy létrehozás'' linkre kattintva az alkalmazás átnavigál minket egy űrlapra, ahol az új tantárgy szükséges adatait tudjuk kitölteni ([TODO: kép ref]). Ha az adatok validálása és feldolgozása sikeres, akkor vissza navigálódunk a kezdőoldalra. Az esetleges validalási hibákat a rendszer jelzi számukra ([TODO: kép ref]).
+\subsubsection{Felhasználó létrehozása}
+Felhasználót létrehozni a ``Felhasználó létrehozás'' linkre kattintva tudjuk megtenni, ami tovább navigál minket egy űrlapra, ahol az új felhasználónak az adatait tudjuk megadni ([TODO: kép ref]). Az adatok validálása sikeres, akkor a felhasználó elkészült és vissza navigálódunk a kezdőoldalra, ha nem volt sikeres, akkor a rendszer ezt hibaüzenetekkel jelzi nekünk ([TODO: kép ref]).
+\subsection{Tárgyfelelős}\label{step:teacher-role} 
+\subsection{Gyakorlatvezető}\label{step:instructor-role}
+\subsection{Hallgató}\label{step:student-role}
+\subsection{Mindenki számára elérhető oldalak}\label{step:mindenkinek-elerheto-oldal}
 \section{Hibakezelés}

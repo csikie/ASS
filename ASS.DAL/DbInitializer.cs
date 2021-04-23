@@ -14,7 +14,7 @@ namespace ASS.DAL
         public static void Initialize(IServiceProvider serviceProvider, UserManager<User> userManager)
         {
             context = serviceProvider.GetRequiredService<ASSContext>();
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             if (!context.Users.Any())
             {
@@ -34,9 +34,9 @@ namespace ASS.DAL
             if (res.Succeeded)
             {
                 await userManager.AddToRoleAsync(user, Role.Admin.ToString());
-                await userManager.AddToRoleAsync(user, Role.Teacher.ToString());
-                await userManager.AddToRoleAsync(user, Role.Instructor.ToString());
-                await userManager.AddToRoleAsync(user, Role.Student.ToString());
+                //await userManager.AddToRoleAsync(user, Role.Teacher.ToString());
+                //await userManager.AddToRoleAsync(user, Role.Instructor.ToString());
+                //await userManager.AddToRoleAsync(user, Role.Student.ToString());
             }
 
             User user2 = new User("student", "Teszt Elek", "student@inf.elte.hu");
@@ -51,6 +51,7 @@ namespace ASS.DAL
             if (res3.Succeeded)
             {
                 await userManager.AddToRoleAsync(user3, Role.Teacher.ToString());
+                await userManager.AddToRoleAsync(user3, Role.Instructor.ToString());
             }
 
             User user4 = new User("csikie", "Csiki Erik Gergely", "csikie@inf.elte.hu");
