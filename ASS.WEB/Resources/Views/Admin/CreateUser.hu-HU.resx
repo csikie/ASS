@@ -117,34 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedSubjectsTitle" xml:space="preserve">
-    <value>Tantárgyak információi</value>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Jelszó megerősítése</value>
   </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Szerkesztés</value>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Létrehoz</value>
   </data>
-  <data name="EmailGridHeader" xml:space="preserve">
+  <data name="CreateUserTitle" xml:space="preserve">
+    <value>Felhasználó létrehozás</value>
+  </data>
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="HeadTitle" xml:space="preserve">
-    <value>Kezdőoldal</value>
+  <data name="ErrorWhileAddUserToRole" xml:space="preserve">
+    <value>Hiba történt a szerepkörhöz rendelés során!</value>
   </data>
-  <data name="RealNameGridHeader" xml:space="preserve">
+  <data name="ErrorWhileCreatingUser" xml:space="preserve">
+    <value>Hiba történt a felhasználó létrehozása során!</value>
+  </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Felhasználó létrehozás</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Jelszó</value>
+  </data>
+  <data name="RealName" xml:space="preserve">
     <value>Név</value>
   </data>
-  <data name="RolesGridHeader" xml:space="preserve">
-    <value>Szerepkörök</value>
+  <data name="RoleLabel" xml:space="preserve">
+    <value>Szerepkör(ök)</value>
   </data>
-  <data name="SubjectNameGridHeader" xml:space="preserve">
-    <value>Tantárgy neve</value>
-  </data>
-  <data name="TeachersnameGridHeader" xml:space="preserve">
-    <value>Tárgyfelelős(ök)</value>
-  </data>
-  <data name="UserNameGridHeader" xml:space="preserve">
+  <data name="UserName" xml:space="preserve">
     <value>Neptun kód</value>
-  </data>
-  <data name="UsersTitle" xml:space="preserve">
-    <value>Felhasználók listája</value>
   </data>
 </root>

@@ -117,34 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedSubjectsTitle" xml:space="preserve">
-    <value>Tantárgyak információi</value>
+  <data name="AssignmentNameRow" xml:space="preserve">
+    <value>Assignment name</value>
   </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Szerkesztés</value>
+  <data name="EndDateRow" xml:space="preserve">
+    <value>End date</value>
   </data>
-  <data name="EmailGridHeader" xml:space="preserve">
-    <value>Email</value>
+  <data name="EvaluateAssignmentTitle" xml:space="preserve">
+    <value>Evaluate assignment</value>
+  </data>
+  <data name="Evaluation" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="EvaluationTitle" xml:space="preserve">
+    <value>Evaluation</value>
+  </data>
+  <data name="GradeLabel" xml:space="preserve">
+    <value>Grade</value>
   </data>
   <data name="HeadTitle" xml:space="preserve">
-    <value>Kezdőoldal</value>
+    <value>Evaluate assignment</value>
   </data>
-  <data name="RealNameGridHeader" xml:space="preserve">
-    <value>Név</value>
+  <data name="InfoTable" xml:space="preserve">
+    <value>Informations</value>
   </data>
-  <data name="RolesGridHeader" xml:space="preserve">
-    <value>Szerepkörök</value>
+  <data name="SolutionsTitle" xml:space="preserve">
+    <value>Solution(s)</value>
   </data>
-  <data name="SubjectNameGridHeader" xml:space="preserve">
-    <value>Tantárgy neve</value>
+  <data name="StartDateRow" xml:space="preserve">
+    <value>Start date</value>
   </data>
-  <data name="TeachersnameGridHeader" xml:space="preserve">
-    <value>Tárgyfelelős(ök)</value>
+  <data name="StudentNameRow" xml:space="preserve">
+    <value>Student name</value>
   </data>
-  <data name="UserNameGridHeader" xml:space="preserve">
-    <value>Neptun kód</value>
+  <data name="SubmitBtn" xml:space="preserve">
+    <value>Submit</value>
   </data>
-  <data name="UsersTitle" xml:space="preserve">
-    <value>Felhasználók listája</value>
+  <data name="SubmittedSolutionTitle" xml:space="preserve">
+    <value>Submitted solution(s)</value>
+  </data>
+  <data name="SubmittedTime" xml:space="preserve">
+    <value>Submitted time</value>
   </data>
 </root>

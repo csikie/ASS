@@ -1,23 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ASS.WEB.Models.ViewModels
 {
     public class CreateAssignmentViewModel
     {
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), ErrorMessageResourceName = "NameRequired")]
+        [Display(ResourceType =  typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), Name = "AssignmentName")]
         public string Name { get; set; }
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), ErrorMessageResourceName = "DescriptionRequired")]
         [DataType(DataType.MultilineText)]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), Name = "DescriptionName")]
         public string Description { get; set; }
-        [Required]
-        public DateTime StartDate { get; set; }
-        [Required]
-        public DateTime EndDate { get; set; }
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), ErrorMessageResourceName = "StartDateRequired")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), Name = "StartDateName")]
+        public DateTime? StartDate { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), ErrorMessageResourceName = "EndDateRequired")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), Name = "EndDateName")]
+        public DateTime? EndDate { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), ErrorMessageResourceName = "CourseIdsRequired")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateAssignmentViewModel), Name = "CourseIdsName")]
         public int[] CourseIds { get; set; }
 
         public CreateAssignmentViewModel()

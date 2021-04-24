@@ -120,14 +120,23 @@
   <data name="ApprovePendingBtn" xml:space="preserve">
     <value>Elfogad</value>
   </data>
+  <data name="CourseName" xml:space="preserve">
+    <value>Csoport</value>
+  </data>
   <data name="EvalTableTitle" xml:space="preserve">
     <value>Értékelendő beadandók</value>
   </data>
   <data name="RejectPendingBtn" xml:space="preserve">
     <value>Elutasít</value>
   </data>
+  <data name="StudentName" xml:space="preserve">
+    <value>Hallgató neve</value>
+  </data>
   <data name="StudentNameTableHeader" xml:space="preserve">
     <value>Hallgató neve</value>
+  </data>
+  <data name="StudentNeptunCode" xml:space="preserve">
+    <value>Neptun kód</value>
   </data>
   <data name="StudentPendingListTitle" xml:space="preserve">
     <value>Hallagtói várólista</value>

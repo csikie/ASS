@@ -22,14 +22,14 @@ namespace ASS.WEB.Resources.Models.ViewModels {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CreateAssignmentViewModel {
+    public class CreateUserViewModel {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CreateAssignmentViewModel() {
+        internal CreateUserViewModel() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ASS.WEB.Resources.Models.ViewModels {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ASS.WEB.Resources.Models.ViewModels.CreateAssignmentViewModel", typeof(CreateAssignmentViewModel).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ASS.WEB.Resources.Models.ViewModels.CreateUserViewModel", typeof(CreateUserViewModel).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,120 +61,83 @@ namespace ASS.WEB.Resources.Models.ViewModels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Feladat neve.
+        ///   Looks up a localized string similar to A két jelszó nem egyezik meg!.
         /// </summary>
-        public static string AssignmentName {
+        public static string ComparePasswordError {
             get {
-                return ResourceManager.GetString("AssignmentName", resourceCulture);
+                return ResourceManager.GetString("ComparePasswordError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Csoport(ok).
+        ///   Looks up a localized string similar to Jelszó megerősítése.
         /// </summary>
-        public static string CourseIdsName {
+        public static string ConfirmPassword {
             get {
-                return ResourceManager.GetString("CourseIdsName", resourceCulture);
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A {0} megadása kötelező!.
+        ///   Looks up a localized string similar to Email.
         /// </summary>
-        public static string CourseIdsRequired {
+        public static string Email {
             get {
-                return ResourceManager.GetString("CourseIdsRequired", resourceCulture);
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Leírás.
+        ///   Looks up a localized string similar to Jelszó.
         /// </summary>
-        public static string DescriptionName {
+        public static string Password {
             get {
-                return ResourceManager.GetString("DescriptionName", resourceCulture);
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A {0} megadása kötelező!.
+        ///   Looks up a localized string similar to Név.
         /// </summary>
-        public static string DescriptionRequired {
+        public static string RealName {
             get {
-                return ResourceManager.GetString("DescriptionRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ennek a szövegnek markdown formátumban kell lennie.  Íme egy rövid áttekintés:
-        ///
-        ///  - Ez egy lista egyik eleme, *dőlt betűvel*.
-        ///  - Ez pedig egy másik elem, **félkövérrel**. Ügyeljünk
-        ///    arra, hogy a szöveg többi része igazítva maradjon.
-        ///
-        ///Néha előre megformázott szöveget akarunk írni:
-        ///
-        ///~~~~~
-        ///előre megformázott
-        ///  szöveg
-        ///~~~~~
-        ///
-        ///Habár `szavakat` bármikor írhatunk a backtick (`` ` ``) szimbólum segítségével.
-        ///
-        ///Bizonyosan kódrészletet is szeretnénk mutatni:
-        ///
-        ///~~~~{.haskell}
-        ///main :: IO ()
-        ///main = p [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string DescriptionTemplate {
-            get {
-                return ResourceManager.GetString("DescriptionTemplate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Befejezés dátuma.
-        /// </summary>
-        public static string EndDateName {
-            get {
-                return ResourceManager.GetString("EndDateName", resourceCulture);
+                return ResourceManager.GetString("RealName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A {0} megadása kötelező!.
         /// </summary>
-        public static string EndDateRequired {
+        public static string Required {
             get {
-                return ResourceManager.GetString("EndDateRequired", resourceCulture);
+                return ResourceManager.GetString("Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A {0} megadása kötelező!.
+        ///   Looks up a localized string similar to Szerepkör(ök).
         /// </summary>
-        public static string NameRequired {
+        public static string Roles {
             get {
-                return ResourceManager.GetString("NameRequired", resourceCulture);
+                return ResourceManager.GetString("Roles", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kezdés dátuma.
+        ///   Looks up a localized string similar to Neptun kód.
         /// </summary>
-        public static string StartDateName {
+        public static string UserName {
             get {
-                return ResourceManager.GetString("StartDateName", resourceCulture);
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A {0} megadása kötelező!.
+        ///   Looks up a localized string similar to Rossz email formátum!.
         /// </summary>
-        public static string StartDateRequired {
+        public static string WrongEmail {
             get {
-                return ResourceManager.GetString("StartDateRequired", resourceCulture);
+                return ResourceManager.GetString("WrongEmail", resourceCulture);
             }
         }
     }

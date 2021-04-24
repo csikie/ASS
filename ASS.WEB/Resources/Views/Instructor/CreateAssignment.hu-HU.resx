@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AssignmentNamePlaceholder" xml:space="preserve">
+    <value>Feladat neve</value>
+  </data>
+  <data name="CreateAssignmentTitle" xml:space="preserve">
+    <value>Feladat létrehozása</value>
+  </data>
+  <data name="CreateButton" xml:space="preserve">
+    <value>Létrehozás</value>
+  </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Feladat létrehozás</value>
+  </data>
+  <data name="ModalCloseBtn" xml:space="preserve">
+    <value>Bezárás</value>
+  </data>
   <data name="PreviewButton" xml:space="preserve">
     <value>Előnézet</value>
+  </data>
+  <data name="ResetButton" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="WrongDateRange" xml:space="preserve">
+    <value>A kezdés dátuma nem lehet később, mint a befejezés dátuma!</value>
   </data>
 </root>

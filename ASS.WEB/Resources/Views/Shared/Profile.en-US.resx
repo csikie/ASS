@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedSubjectsTitle" xml:space="preserve">
-    <value>Tantárgyak információi</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
   </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Szerkesztés</value>
+  <data name="ChangeLangTitle" xml:space="preserve">
+    <value>Change language</value>
   </data>
-  <data name="EmailGridHeader" xml:space="preserve">
+  <data name="EmailPlaceholder" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="HeadTitle" xml:space="preserve">
-    <value>Kezdőoldal</value>
+  <data name="Instructor" xml:space="preserve">
+    <value>Instructor</value>
   </data>
-  <data name="RealNameGridHeader" xml:space="preserve">
-    <value>Név</value>
+  <data name="PersonalDatasTitle" xml:space="preserve">
+    <value>Personal datas</value>
   </data>
-  <data name="RolesGridHeader" xml:space="preserve">
-    <value>Szerepkörök</value>
+  <data name="RealNamePlaceholder" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="SubjectNameGridHeader" xml:space="preserve">
-    <value>Tantárgy neve</value>
+  <data name="RolesPlaceholder" xml:space="preserve">
+    <value>Role(s)</value>
   </data>
-  <data name="TeachersnameGridHeader" xml:space="preserve">
-    <value>Tárgyfelelős(ök)</value>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
   </data>
-  <data name="UserNameGridHeader" xml:space="preserve">
-    <value>Neptun kód</value>
+  <data name="Teacher" xml:space="preserve">
+    <value>Teacher</value>
   </data>
-  <data name="UsersTitle" xml:space="preserve">
-    <value>Felhasználók listája</value>
+  <data name="UserNamePlaceholder" xml:space="preserve">
+    <value>Neptun code</value>
   </data>
 </root>

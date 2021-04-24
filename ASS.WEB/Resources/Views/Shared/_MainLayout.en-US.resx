@@ -135,6 +135,9 @@
   <data name="CreateSubject" xml:space="preserve">
     <value>Subject creation</value>
   </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>User creation</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>

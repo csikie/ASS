@@ -3,7 +3,7 @@
 @model CreateUserViewModel
 @{
     Layout = "_MainLayout";
-    ViewData["Title"] = localizer["CreateUserHeadTitle"];
+    ViewData["Title"] = localizer["HeadTitle"];
 }
 
 <div class="container">
@@ -19,7 +19,7 @@
                 {
                     <div class="col-lg-8">
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            @error.ErrorMessage
+                            @localizer[error.ErrorMessage]
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Roles">@localizer["SubjectTeachersLabel"]</label>
+                    <label asp-for="Roles">@localizer["RoleLabel"]</label>
                     <select id="multiselect" multiple="multiple" asp-for="Roles"></select>
                     <span asp-validation-for="Roles" class="text-danger"></span>
                 </div>

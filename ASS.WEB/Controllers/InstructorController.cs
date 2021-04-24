@@ -59,7 +59,7 @@ namespace ASS.WEB.Controllers
             {
                 try
                 {
-                    instructorService.CreateAssignment(assignment.Name, assignment.Description, assignment.StartDate, assignment.EndDate, assignment.CourseIds);
+                    instructorService.CreateAssignment(assignment.Name, assignment.Description, assignment.StartDate.Value, assignment.EndDate.Value, assignment.CourseIds);
                     return RedirectToAction("Index", "Instructor");
                 }
                 catch (ArgumentException ex) when (ex.Message.Contains("dátum"))

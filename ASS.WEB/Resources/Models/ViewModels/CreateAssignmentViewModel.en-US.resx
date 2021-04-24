@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AssignmentName" xml:space="preserve">
+    <value>Assignment name</value>
+  </data>
+  <data name="CourseIdsName" xml:space="preserve">
+    <value>Course(s)</value>
+  </data>
+  <data name="CourseIdsRequired" xml:space="preserve">
+    <value>The {0} is required</value>
+  </data>
+  <data name="DescriptionName" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DescriptionRequired" xml:space="preserve">
+    <value>The {0} is required</value>
+  </data>
   <data name="DescriptionTemplate" xml:space="preserve">
     <value>This text shall be in markdown format. Here is a brief overview:
   - This is a bullet list item with *emphasis* (italic).
@@ -138,5 +153,20 @@ Formulas and equations work just like in $\LaTeX$. You can choose between inline
 $$\sum_{j=0}^n (a + bj) = a + (a + b) + \dots + (a + nb)$$
 Complete list of supported $\LaTeX$ macros is available [here](https://katex.org/docs/supported.html).
 Note that links may be also [inserted](http://haskell.org/).</value>
+  </data>
+  <data name="EndDateName" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="EndDateRequired" xml:space="preserve">
+    <value>The {0} is required</value>
+  </data>
+  <data name="NameRequired" xml:space="preserve">
+    <value>The {0} is required</value>
+  </data>
+  <data name="StartDateName" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="StartDateRequired" xml:space="preserve">
+    <value>The {0} is required</value>
   </data>
 </root>

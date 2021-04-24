@@ -3,6 +3,7 @@
 @model CreateSubjectViewModel
 @{
     Layout = "_MainLayout";
+    ViewData["Title"] = localizer["HeadTitle"];
 }
 
 <div class="container">
@@ -18,7 +19,7 @@
                 {
                     <div class="col-lg-8">
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            @error.ErrorMessage
+                            @localizer[error.ErrorMessage]
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     </div>

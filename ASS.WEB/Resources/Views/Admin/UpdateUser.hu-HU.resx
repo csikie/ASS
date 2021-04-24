@@ -117,34 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedSubjectsTitle" xml:space="preserve">
-    <value>Tantárgyak információi</value>
-  </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Szerkesztés</value>
-  </data>
-  <data name="EmailGridHeader" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
   <data name="HeadTitle" xml:space="preserve">
-    <value>Kezdőoldal</value>
+    <value>Felhasználó módosítása</value>
   </data>
-  <data name="RealNameGridHeader" xml:space="preserve">
+  <data name="RealName" xml:space="preserve">
     <value>Név</value>
   </data>
-  <data name="RolesGridHeader" xml:space="preserve">
-    <value>Szerepkörök</value>
+  <data name="RoleAddError" xml:space="preserve">
+    <value>Hiba a szerepkörhöz adás során!</value>
   </data>
-  <data name="SubjectNameGridHeader" xml:space="preserve">
-    <value>Tantárgy neve</value>
+  <data name="RoleRemoveError" xml:space="preserve">
+    <value>Hiba a szerepkör eltávolítása során!</value>
   </data>
-  <data name="TeachersnameGridHeader" xml:space="preserve">
-    <value>Tárgyfelelős(ök)</value>
+  <data name="RolesLabel" xml:space="preserve">
+    <value>Szerepkör(ök)</value>
   </data>
-  <data name="UserNameGridHeader" xml:space="preserve">
+  <data name="UpdateButton" xml:space="preserve">
+    <value>Módosít</value>
+  </data>
+  <data name="UpdateUserTitle" xml:space="preserve">
+    <value>Felhasználó módosítása</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
     <value>Neptun kód</value>
   </data>
-  <data name="UsersTitle" xml:space="preserve">
-    <value>Felhasználók listája</value>
+  <data name="UserNameCompareError" xml:space="preserve">
+    <value>A felhaszanálónév nem módosítható!</value>
   </data>
 </root>

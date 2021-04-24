@@ -117,34 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreatedSubjectsTitle" xml:space="preserve">
-    <value>Tantárgyak információi</value>
-  </data>
-  <data name="EditUser" xml:space="preserve">
-    <value>Szerkesztés</value>
-  </data>
-  <data name="EmailGridHeader" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="HeadTitle" xml:space="preserve">
-    <value>Kezdőoldal</value>
-  </data>
-  <data name="RealNameGridHeader" xml:space="preserve">
-    <value>Név</value>
-  </data>
-  <data name="RolesGridHeader" xml:space="preserve">
-    <value>Szerepkörök</value>
-  </data>
-  <data name="SubjectNameGridHeader" xml:space="preserve">
+  <data name="SubjectName" xml:space="preserve">
     <value>Tantárgy neve</value>
   </data>
-  <data name="TeachersnameGridHeader" xml:space="preserve">
+  <data name="SubjectNameRequired" xml:space="preserve">
+    <value>A {0} megadása kötelező!</value>
+  </data>
+  <data name="TeachersNeptunCode" xml:space="preserve">
     <value>Tárgyfelelős(ök)</value>
-  </data>
-  <data name="UserNameGridHeader" xml:space="preserve">
-    <value>Neptun kód</value>
-  </data>
-  <data name="UsersTitle" xml:space="preserve">
-    <value>Felhasználók listája</value>
   </data>
 </root>

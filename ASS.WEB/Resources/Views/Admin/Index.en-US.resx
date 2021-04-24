@@ -120,6 +120,30 @@
   <data name="CreatedSubjectsTitle" xml:space="preserve">
     <value>Subject information</value>
   </data>
+  <data name="EditUser" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="EmailGridHeader" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="RealNameGridHeader" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RolesGridHeader" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="SubjectNameGridHeader" xml:space="preserve">
+    <value>Subject name</value>
+  </data>
+  <data name="TeachersnameGridHeader" xml:space="preserve">
+    <value>Teacher(s)</value>
+  </data>
+  <data name="UserNameGridHeader" xml:space="preserve">
+    <value>Neptun code</value>
+  </data>
   <data name="UsersTitle" xml:space="preserve">
     <value>List of users</value>
   </data>

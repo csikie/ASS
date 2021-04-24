@@ -27,6 +27,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CreateCourseViewModel.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\ViewModels\CreateSubjectViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateSubjectViewModel.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\ViewModels\CreateUserViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateUserViewModel.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\ViewModels\EditCourseViewModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -36,6 +46,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>LoginViewModel.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Models\ViewModels\UpdateUserViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UpdateUserViewModel.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -51,6 +66,14 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateCourseViewModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CreateSubjectViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateSubjectViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CreateUserViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateUserViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\ViewModels\EditCourseViewModel.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -64,6 +87,10 @@
     <EmbeddedResource Update="Resources\Models\ViewModels\LoginViewModel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\UpdateUserViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UpdateUserViewModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Home\Index.en-US.resx">
       <Generator></Generator>

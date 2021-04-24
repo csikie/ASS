@@ -126,7 +126,7 @@ namespace ASS.BLL.Services
             IdentityResult addToRoleRes = userManager.AddToRolesAsync(user, roles).Result;
             if (!addToRoleRes.Succeeded)
             {
-                throw new Exception($"Nem sikerült létrehozni a felhasználót! ({addToRoleRes})");
+                throw new Exception($"Nem sikerült a felhasználót a szerepkürhöz adni! ({addToRoleRes})");
             }
         }
 

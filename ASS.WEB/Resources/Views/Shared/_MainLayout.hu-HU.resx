@@ -135,6 +135,9 @@
   <data name="CreateSubject" xml:space="preserve">
     <value>Tárgy létrehozás</value>
   </data>
+  <data name="CreateUser" xml:space="preserve">
+    <value>Felhasználó létrehozás</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Főoldal</value>
   </data>

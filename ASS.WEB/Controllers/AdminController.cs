@@ -132,6 +132,12 @@ namespace ASS.WEB.Controllers
                     ModelState.AddModelError("", "ErrorWhileCreatingUser");
                     return View();
                 }
+
+                catch (Exception ex) when (ex.Message.Contains("szerepkör"))
+                {
+                    ModelState.AddModelError("", "ErrorWhileAddUserToRole");
+                    return View();
+                }
                 catch (Exception)
                 {
                     return RedirectToAction("Error", "Home");

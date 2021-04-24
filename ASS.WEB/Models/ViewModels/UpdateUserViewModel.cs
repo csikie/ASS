@@ -9,17 +9,21 @@ namespace ASS.WEB.Models.ViewModels
         [NotMapped]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), Name = "RealName")]
         public string RealName { get; set; }
 
         [NotMapped]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), Name = "UserName")]
         public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), ErrorMessageResourceName = "WrongEmail")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateUserViewModel), Name = "Roles")]
         public string[] Roles { get; set; }
 
         public UpdateUserViewModel() { }
