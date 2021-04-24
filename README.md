@@ -1,8 +1,9 @@
 # ASS
 Assignment Supervisor System
+
 TODO list
 ### Admin
-- [ ] List of Users (make editable)
+- [x] List of Users (make editable)
 - [x] Add logic error when update subject
 
 ### Teachers
