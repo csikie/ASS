@@ -126,6 +126,9 @@
   <data name="EvalTableTitle" xml:space="preserve">
     <value>Értékelendő beadandók</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Kezdőoldal</value>
+  </data>
   <data name="RejectPendingBtn" xml:space="preserve">
     <value>Elutasít</value>
   </data>

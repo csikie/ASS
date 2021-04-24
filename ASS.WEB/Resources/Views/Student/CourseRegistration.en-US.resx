@@ -129,4 +129,7 @@
   <data name="CourseRegTitle" xml:space="preserve">
     <value>Course registration</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Course registration</value>
+  </data>
 </root>

@@ -126,6 +126,9 @@
   <data name="EvalTableTitle" xml:space="preserve">
     <value>Evaluation table</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="RejectPendingBtn" xml:space="preserve">
     <value>Reject</value>
   </data>

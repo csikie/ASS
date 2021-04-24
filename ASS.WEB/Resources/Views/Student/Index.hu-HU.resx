@@ -132,6 +132,9 @@
   <data name="EvaluationGridHeader" xml:space="preserve">
     <value>Értékelés</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Kezdőoldal</value>
+  </data>
   <data name="StudentAssignmentsTitle" xml:space="preserve">
     <value>Feladatok</value>
   </data>

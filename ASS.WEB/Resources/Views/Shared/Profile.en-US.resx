@@ -126,6 +126,9 @@
   <data name="EmailPlaceholder" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
   <data name="Instructor" xml:space="preserve">
     <value>Instructor</value>
   </data>

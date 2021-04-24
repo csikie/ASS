@@ -132,6 +132,9 @@
   <data name="EvaluationGridHeader" xml:space="preserve">
     <value>Evaluation</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="StudentAssignmentsTitle" xml:space="preserve">
     <value>Assignments</value>
   </data>

@@ -129,6 +129,9 @@
   <data name="Evaluation" xml:space="preserve">
     <value>Evaluation</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Assignment</value>
+  </data>
   <data name="NoSolutions" xml:space="preserve">
     <value>No solution has been submitted</value>
   </data>

@@ -129,6 +129,9 @@
   <data name="Evaluation" xml:space="preserve">
     <value>Értékelés</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Feladat</value>
+  </data>
   <data name="NoSolutions" xml:space="preserve">
     <value>Nincs beadott megoldás</value>
   </data>
