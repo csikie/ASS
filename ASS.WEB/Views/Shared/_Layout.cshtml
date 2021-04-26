@@ -3,15 +3,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assignment Supervisor System - @ViewData["Title"]</title>
+    <title>ASS - @ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href='@Url.Content("~/ass-head-logo.ico")' type="image/x-icon" />
 </head>
 <body>
     <header>
         <div class="navbar navbar-default border-bottom">
             <div class="container">
                 <div class="navbar-header">
-                    <span class="navbar-brand">Assignment Supervisor System</span>
+                    <span class="navbar-brand">
+                        <img src='@Url.Content("~/images/ass-brand-logo.png")' alt="" width="45" height="45">
+                        Assignment Supervisor System
+                    </span>
                 </div>
             </div>
         </div>
@@ -19,10 +23,10 @@
     <main class="pt-5">
         @RenderBody()
     </main>
-    <footer class="navbar fixed-bottom">
-        <div class="conatiner justify-content-center">
-            <span class="text-muted">
-                © Csiki Erik 🥀
+    <footer class="navbar fixed-bottom" >
+        <div class="container d-flex justify-content-end">
+            <span class="text-muted text-end">
+                © @DateTime.Now.Year - Csiki Erik 🥀
             </span>
         </div>
     </footer>

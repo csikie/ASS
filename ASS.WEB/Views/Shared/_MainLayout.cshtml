@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="shortcut icon" href='@Url.Content("~/ass-head-logo.ico")' type="image/x-icon" />
     <link href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.common-bootstrap.min.css" rel="stylesheet" />
     <link href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2021.1.119/styles/kendo.default.mobile.min.css" />
@@ -35,7 +36,10 @@
     <header class="border-bottom">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" asp-action="Index">@localizer["Home"]</a>
+                <a class="navbar-brand p-0" asp-action="Index">
+                    <img src='@Url.Content("~/images/ass-brand-logo.png")' alt="" width="45" height="45">
+                    @localizer["Home"]
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
