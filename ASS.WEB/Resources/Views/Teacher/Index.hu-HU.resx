@@ -132,4 +132,7 @@
   <data name="TeacherSubjectGridTitle" xml:space="preserve">
     <value>Tantárgyak</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Kezdőoldal</value>
+  </data>
 </root>

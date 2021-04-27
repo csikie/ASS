@@ -129,4 +129,7 @@
   <data name="SubmitBtn" xml:space="preserve">
     <value>Modify</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Modify course</value>
+  </data>
 </root>

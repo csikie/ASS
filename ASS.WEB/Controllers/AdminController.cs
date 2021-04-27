@@ -94,7 +94,7 @@ namespace ASS.WEB.Controllers
                 return BadRequest(new { errors = new { code = "400", reason = "SubjectNameAlreadyUsed" } });
             }
 
-            return Ok(GetSubjects());
+            return Ok(models);
         }
 
         public IActionResult Read_UserGrid()

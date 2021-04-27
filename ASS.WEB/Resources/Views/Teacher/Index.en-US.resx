@@ -132,4 +132,7 @@
   <data name="TeacherSubjectGridTitle" xml:space="preserve">
     <value>Subjects</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Home</value>
+  </data>
 </root>

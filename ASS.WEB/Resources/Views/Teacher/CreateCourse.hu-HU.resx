@@ -138,4 +138,7 @@
   <data name="SubjectSelectLabel" xml:space="preserve">
     <value>Tantárgy</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Csoport létrehozás</value>
+  </data>
 </root>

@@ -138,4 +138,7 @@
   <data name="SubjectSelectLabel" xml:space="preserve">
     <value>Subject</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Course creation</value>
+  </data>
 </root>
