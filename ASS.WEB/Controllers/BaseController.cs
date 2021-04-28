@@ -19,8 +19,9 @@ namespace ASS.WEB.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = await service.GetUserData(User);
-            UserDTO res = new UserDTO(user.RealName, user.UserName, user.Email, await service.GetUserRoles(User));
-
+            string[] roles = await service.GetUserRoles(User);
+            UserDTO res = new UserDTO(user.RealName, user.UserName, user.Email, roles);
+            
             return View(res);
         }
 

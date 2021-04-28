@@ -97,7 +97,7 @@ namespace ASS.WEB.Controllers
                     return View(model);
                 }
             }
-            return View(model);
+            return View();
         }
     }
 }

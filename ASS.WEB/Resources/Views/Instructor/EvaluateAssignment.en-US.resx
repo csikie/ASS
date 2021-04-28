@@ -154,7 +154,7 @@
     <value>Submit</value>
   </data>
   <data name="SubmittedSolutionTitle" xml:space="preserve">
-    <value>Submitted solution(s)</value>
+    <value>Submitted solution</value>
   </data>
   <data name="SubmittedTime" xml:space="preserve">
     <value>Submitted time</value>

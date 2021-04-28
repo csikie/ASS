@@ -33,7 +33,7 @@ namespace ASS.WEB
             string appMode = Configuration.GetSection("Mode").Value;
             IdentitySettings identitySettings = Configuration.GetSection("IdentitySettings").GetSection(appMode).Get<IdentitySettings>();
 
-            // Lokalizáció hozzáadása
+            // Lokaliz?ci? hozz?ad?sa
             services.AddLocalization(option => option.ResourcesPath = "Resources");
             services.AddMvc()
                     .AddViewLocalization();
@@ -54,14 +54,14 @@ namespace ASS.WEB
 
             services.AddDbContext<ASSContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
-            // Dependency injection beállítása az authentikációhoz
+            // Dependency injection be?ll?t?sa az authentik?ci?hoz
             services.AddIdentity<User, IdentityRole<int>>()
-                    .AddEntityFrameworkStores<ASSContext>() // EF használata a ASSContext entitás kontextussal
-                    .AddDefaultTokenProviders(); // Alapértelmezett token generátor használata (pl. SecurityStamp-hez)
+                    .AddEntityFrameworkStores<ASSContext>() // EF haszn?lata a ASSContext entit?s kontextussal
+                    .AddDefaultTokenProviders(); // Alap?rtelmezett token gener?tor haszn?lata (pl. SecurityStamp-hez)
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Jelszó komplexitására vonatkozó konfiguráció
+                // Jelsz? komplexit?s?ra vonatkoz? konfigur?ci?
                 options.Password.RequireDigit = identitySettings.Password.RequireDigit;
                 options.Password.RequiredLength = identitySettings.Password.RequiredLength;
                 options.Password.RequireNonAlphanumeric = identitySettings.Password.RequireNonAlphanumeric;
@@ -69,12 +69,12 @@ namespace ASS.WEB
                 options.Password.RequireLowercase = identitySettings.Password.RequireLowercase;
                 options.Password.RequiredUniqueChars = identitySettings.Password.RequiredUniqueChars;
 
-                // Hibás bejelentkezés esetén az (ideiglenes) kizárásra vonatkozó konfiguráció
+                // Hib?s bejelentkez?s eset?n az (ideiglenes) kiz?r?sra vonatkoz? konfigur?ci?
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(identitySettings.Lockout.DefaultLockoutTimeSpanInMins);
                 options.Lockout.MaxFailedAccessAttempts = identitySettings.Lockout.MaxFailedAccessAttempts;
                 options.Lockout.AllowedForNewUsers = identitySettings.Lockout.AllowedForNewUsers;
 
-                // Felhasználókezelésre vonatkozó konfiguráció
+                // Felhaszn?l?kezel?sre vonatkoz? konfigur?ci?
                 options.User.RequireUniqueEmail = identitySettings.User.RequireUniqueEmail;
             });
 
@@ -94,7 +94,7 @@ namespace ASS.WEB
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(3); // max. 3 óráig él a munkamenet
+                options.IdleTimeout = TimeSpan.FromHours(3); // max. 3 ?r?ig ?l a munkamenet
             });
         }
 

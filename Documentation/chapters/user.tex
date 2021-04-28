@@ -46,8 +46,52 @@ Az első táblázatban a rendszerben létrehozott tantárgyak és a hozzájuk ta
 A ``Tárgy létrehozás'' linkre kattintva az alkalmazás átnavigál minket egy űrlapra, ahol az új tantárgy szükséges adatait tudjuk kitölteni ([TODO: kép ref]). Ha az adatok validálása és feldolgozása sikeres, akkor vissza navigálódunk a kezdőoldalra. Az esetleges validalási hibákat a rendszer jelzi számukra ([TODO: kép ref]).
 \subsubsection{Felhasználó létrehozása}
 Felhasználót létrehozni a ``Felhasználó létrehozás'' linkre kattintva tudjuk megtenni, ami tovább navigál minket egy űrlapra, ahol az új felhasználónak az adatait tudjuk megadni ([TODO: kép ref]). Az adatok validálása sikeres, akkor a felhasználó elkészült és vissza navigálódunk a kezdőoldalra, ha nem volt sikeres, akkor a rendszer ezt hibaüzenetekkel jelzi nekünk ([TODO: kép ref]).
-\subsection{Tárgyfelelős}\label{step:teacher-role} 
+\subsection{Tárgyfelelős}\label{step:teacher-role}
+Ha tárgyfelelősként jelentekzünk be a rendszerbe, akkor az alábbi kezdőoldal fogad minket ([TODO: kép ref]).
+A kezdőoldalon egy tablázat található, amiben látjuk azokat a tantárgyakat, és a tantárgyakhoz tartozó csoportokat, amelyeknek a felelősei vagyunk.
+A tárgyfelelős a következő funkciókat használhatja:
+\begin{compactitem}
+    \item \hyperref[step:teacher-create-course]{Csoport létrehozása egy tantárgyhoz}
+    \item \hyperref[step:teacher-create-course]{Csoport módosítása}
+\end{compactitem}
+\subsubsection{Csoport létrehozása}
+\label{step:teacher-create-course}
+A menüsoron a ``Csoport létrehozás'' linkre kattintva a rendszer átirányít minket egy űrlapra. Ahol egy űrlapon létre tudunk hozni egy csoportot ([TODO: kép ref]). Az adatokat a rendszer validálja, és az esetleges hibákat jelzi számunkra.
+\subsubsection{Csoport módosítása}
+\label{step:teacher-edit-course}
+Csoportokat szerkeszteni a kezdőoldalon található táblázat segítségével tudunk. A táblázatban lenyitható minden kilistázott tantárgy ([TODO: kép ref]). Itt találjuk a tantárgyakhoz már létrehozott csoportokat. Minden tantárgy mellett találunk egy ``Szerkesztés'' gombot, melyre kattintva elérhetővé válik a csoport szerkesztése. Az adatok validálásra kerülnek, az esetleges hibákat a rendszer jelzi számunkra ([TODO: kép ref]).
 \subsection{Gyakorlatvezető}\label{step:instructor-role}
-\subsection{Hallgató}\label{step:student-role}
-\subsection{Mindenki számára elérhető oldalak}\label{step:mindenkinek-elerheto-oldal}
+Gyakorlatvezetőként bejelentkezve a rendszerbe a(z) [TODO: kép ref] ábrán látható kezdőoldal fogad minket. Az oldalon az ``Értékelendő beadandók'' cím alatt, a hozzánk rendelt csoportok hallgatóit láthatjuk egy-egy táblázatban, ahol láthatjuk, hogy egy hallgató az adott feladatra adott-e be megoldást. A ``Hallgatói várolista'' cím alatt szintén egy táblázatot találunk ([TODO: kép ref]), ahol tantárgyanként csoportosítva a következő információkat olvashatjuk le:
+\begin{compactitem}
+    \item Hallgató neve
+	\item Hallgató neptun kódja
+	\item Csoport neve
+\end{compactitem}
+A gyakorlatvezető az alábbi funkciókat éri el:
+\begin{compactitem}
+    \item \hyperref[step:instructor-create-assignment]{Feladat kiírása}
+	\item \hyperref[step:instructor-pending]{Jelentkezések bírálata}
+	\item \hyperref[step:instructor-eval]{Beadott munka értékelése}
+\end{compactitem}
+\subsubsection{Feladat kiírása}
+\label{step:instructor-create-assignment}
+Feladatot kiírni a ``Feladat létrehozása'' menüpont alatt tudunk, ahol egy űrlapot találunk ([TODO: kép ref]). Ahhoz hogy létrehozzunk egy feladatot, a következő információkat szükséges megadunk:
+\begin{compactitem}
+    \item A feladat neve
+    \item Kezdés és befejezés dátuma
+	\item Feladat leírása
+	\item Mely csoporthoz legyen létrehozva (többet is meg lehet adni)
+\end{compactitem}
+A rendszer támogatja, hogy a feladatnak leírása ne csak egyszerű szöveg legyen. A szövegdobozban megadhatunk \texttt{Markdown} és \LaTeX\ kifejezéseket is. Mielőtt létrehoznánk a feladatot, meg tudjuk tekinteni, hogy a hallgató milyen formában fogja látni a kiírva a feladatot. Így le tudjuk ellenőrizni kényelmesen a feladat leírását, valamint azt is tudjuk ellenőrizni, hogy a \texttt{Markdown} és \LaTeX\ kifejezéseinket helyesen írtuk-e meg. Ha végeztünk a ``Létrehozás'' gombal tudjuk elküldeni a rendszernek az adatokat. Az adatokat a rendszer leellenőrzi, az esetleges hibákat jelzi számunkra ([TODO: kép ref]).
+\subsubsection{Jelentkezések bírálata}
+\label{step:instructor-pending}
+Egy hallgatónak a csoportba való jelentkezését a ``Hallgatói várólista'' táblázatában tudjuk megtenni, az utolsó oszlopban lévő gombok segítségével. Miután elvégeztük a bírálatot, a táblázatból törlődik a jelentkezett hallgató, és az oldal frissítése után, a megfelelő táblázatban látjuk, hogy a hallgatót a rendszer felvette a jelentkezett csoportba.
+\subsubsection{Beadott munka értékelése}
+\label{step:instructor-eval}
+Egy feladatra beadott megoldás értékeléséhez, a kívánt feladat oszlopában kattintsunk a szürke négyzetre. Ilyenkor a rendszer átirányít minket az értékelő felületre ([TODO: kép ref]). A rendszer a felületre a ``Megoldás(ok)'' alatt kilistázza a hallgatónak az összes beadott megoldását a beküldés ideje szerint csökkenően rendezve. Elég egy megoldást értekelnünk, de értékelhetjük az összeset is. Viszont a rendszer a legutololsó értékelést veszi számításba. Ezt fogja a hallgató is látni. A beadott megoldások között a kívánt sorra kattintva tudjuk változtatni, hogy melyik megoldást szeretnénk változtatni. Ilyenkor a ``Beadott megoldás'' alatt látjuk, mi a hallgatónak a beadott megoldása. Az értékelésünket az oldal alján található űrlapon tudjuk megtenni. Az értékelés után a rendszer a kezdőoldalra navigál minket. Az értékelt feladatnál a szürke négyzet egy körben lévő pipára cserélődik ([TODO: kép ref]).
+\subsection{Hallgató}
+\label{step:student-role}
+
+\subsection{Mindenki számára elérhető oldalak}
+\label{step:mindenkinek-elerheto-oldal}
 \section{Hibakezelés}

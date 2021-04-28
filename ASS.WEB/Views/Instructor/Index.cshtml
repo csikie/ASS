@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row justify-content-md-between">
         <div class="col-lg-12">
-            <h2>@localizer["EvalTableTitle"]</h2>
+            <h1>@localizer["EvalTableTitle"]</h1>
             <hr />
         </div>
         <div class="col-lg-12">
@@ -52,6 +52,10 @@
                                         {
                                             <td><a href="Instructor/EvaluateAssignment/?course=@Model[i].Id&assignment=@Model[i].Assignments[j].Id&student=@Model[i].Students[k].Id" class="link-success fs-3"><i class="fas fa-check-circle"></i></a></td>
                                         }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
                                     }
                                 }
                             </tr>
@@ -64,7 +68,7 @@
     </div>
     <div class="row justify-content-md-between">
         <div class="col-lg-12">
-            <h1>@localizer["StudentPendingListTitle"]</h1>
+            <h2>@localizer["StudentPendingListTitle"]</h2>
             <hr />
         </div>
         <div class="col-lg-12">

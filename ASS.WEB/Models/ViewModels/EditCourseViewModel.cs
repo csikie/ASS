@@ -13,7 +13,7 @@ namespace ASS.WEB.Models.ViewModels
         [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), ErrorMessageResourceName = "CourseNameLengthMessage")]
         public string CourseName { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateCourseViewModel), ErrorMessageResourceName = "InstructorUserNamesRequired")]
         [Display(ResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), Name = "InstructorUserNames")]
         public string[] InstructorUserNames { get; set; }
 

@@ -1,5 +1,4 @@
 ﻿@{
-    Layout = "_MainLayout";
     ViewData["Title"] = localizer["HeadTitle"];
 }
 
@@ -8,6 +7,7 @@
         <div class="col-lg-8">
             <h1 class="text-danger">@localizer["AccessDeniedTitle"].</h1>
             <h3 class="text-danger">@localizer["AccessDeniedDesc"]</h3>
+            <a class="btn btn-primary" asp-action="Index" role="button">@localizer["BackLink"]</a>
         </div>
     </div>
 </div>

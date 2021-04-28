@@ -45,12 +45,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
+                        @{
+                            List<string> roles = JsonConvert.DeserializeObject<List<string>>(Context.Session.GetString("userRoles"));
+                        }
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Profile">@Context.Session.GetString("name")</a>
                         </li>
                         @{
-                            List<string> roles = JsonConvert.DeserializeObject<List<string>>(Context.Session.GetString("userRoles"));
-
                             if (roles.Count > 1)
                             {
                                 <li class="nav-item dropdown">

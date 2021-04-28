@@ -135,4 +135,7 @@
   <data name="UsernamePlaceholder" xml:space="preserve">
     <value>INF-es felhasználónév</value>
   </data>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Főoldal</value>
+  </data>
 </root>
