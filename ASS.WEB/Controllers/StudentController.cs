@@ -44,7 +44,11 @@ namespace ASS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CourseRegistration(CourseRegistrationViewModel model)
         {
-            studentService.CourseRegistration(model.CourseIds, User);
+            if (ModelState.IsValid)
+            {
+                studentService.CourseRegistration(model.CourseIds, User);
+                return RedirectToAction("Index");
+            }
             return View();
         }
 

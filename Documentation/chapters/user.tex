@@ -4,10 +4,10 @@
 \section{Nyelvválasztás és bejelentkezés}
 Az oldalra érkezve a kezdőoldalt láthatjuk, ahol egy üdvözlő üzenet fogad minket. Majd lehetőségünk nyílik bejelentkezni [TODO:kép ref] a rendszerbe, vagy a rendszer által támogatott lokalizációt tudjuk kiválasztani (erre majd még a bejelentkezés után is lehetőségünk nyílik lásd később,~\hyperref[step:mindenkinek-elerheto-oldal]{\ref{step:mindenkinek-elerheto-oldal}:~``Mindenki számára elérhető oldalak''}) [TODO: kép ref].
 \subsection{Bejelentkezés}
-A rendszerbe bejelentkezni az INF-es felhasználónkkal tudunk. Ha a bejelentkezés sikertelen volt, azt a rendszer hibaüzenetekkel jelzi a számunkra [TODO:kép ref]. Amennyiben a bejelentkezés sikeres volt, a felhasználói csoportnak megfelelő kezdőoldalon találjuk magunkat [TODO: kép ref].
+A rendszerbe bejelentkezni az INF-es felhasználónkkal tudunk. Ha a bejelentkezés sikertelen volt, azt a rendszer hibaüzenetekkel jelzi a számunkra [TODO:kép ref]. Amennyiben a bejelentkezés sikeres volt, a szerepkörnek megfelelő kezdőoldalon találjuk magunkat [TODO: kép ref].
 \subsection{Nyelvválasztás}
 A rendszer kilistázza a támogatott lokalizációkat (jelenleg magyar és angol). Alapértelmezett beállítás a magyar. Ezt felültudjuk írni, ha valamelyik gombra rákattintunk. [TODO: kép ref]
-\section{Felhasználói csoportok}
+\section{Szerepkörök}
 A felhasználók négy csoportba tartozhatnak:
 \begin{compactitem}
     \item \hyperref[step:admin-role]{Rendszergazda}
@@ -15,7 +15,7 @@ A felhasználók négy csoportba tartozhatnak:
     \item \hyperref[step:instructor-role]{Gyakorlatvezető}
     \item \hyperref[step:student-role]{Hallgató}
 \end{compactitem}
-Egy felhasználó tartozhat több felhasználói csoportba. Ha egy felhasználó több felhasználói csoportba is tartozik, akkor a felület menüsorán megjelenik egy "Szerepkör váltás" lenyitható menü, ahol a felhasználóhoz rendelt csoportokat találjuk, a kiválasztott linkre kattintva a csoporthoz tartozó kezdőoldalra navigáljuk magunkat [TODO: kép ref]. A felhasználóhoz a felhasználói csoportokat a felhasználó létrehozásakor is megadhatjuk, valamint a létrehozást követően tudjuk módosítani.
+Egy felhasználó tartozhat több szerepkörbe. Ha egy felhasználó több szerepkörbe is tartozik, akkor a felület menüsorán megjelenik egy "Szerepkör váltás" lenyitható menü, ahol a felhasználóhoz rendelt csoportokat találjuk, a kiválasztott linkre kattintva a csoporthoz tartozó kezdőoldalra navigáljuk magunkat [TODO: kép ref]. A felhasználóhoz a szerepköröket a felhasználó létrehozásakor is megadhatjuk, valamint a létrehozást követően tudjuk módosítani.
 \subsection{Rendszergazda}\label{step:admin-role}
 A rendszergazda a következő funkciókat érheti el:
 \begin{compactitem}
@@ -32,10 +32,10 @@ Ha a rendszergazdaként jelentkezünk be az alábbi két táblázat fogad minket
 	\subfigure[Felhasználók táblázata]{
 		\includegraphics[width=0.45\linewidth]{elte_cimer_szines}
         \label{subfig:admin-users-table}}
-	\caption{Rendszergazdai felhasználó csoport kezdőoldala}
+	\caption{Rendszergazdai szerepkör kezdőoldala}
 	\label{fig:admin-page}
 \end{figure}
-Az első táblázatban a rendszerben létrehozott tantárgyak és a hozzájuk tartozó információk olvashatóak le. A táblázatban az egyes tantárgyakhoz tartozó adatok módosíthatóak, illetve az egész tárgyat lehet törölni. A módositás során validálásra kerül, hogy a módosított név létezik-e már a rendszerben, ha igen, akkor ezt a rendszer jelzi számunkra. A második táblázatban a rendszerben létrehozott felhasználókat és a hozzájuk tartozó információkat láthatjuk. A rendszergazdának a felhasználók adatait és felhasználói csoport jogait tudja módosítani~(\ref{fig:admin-user-edit} ábra).
+Az első táblázatban a rendszerben létrehozott tantárgyak és a hozzájuk tartozó információk olvashatóak le. A táblázatban az egyes tantárgyakhoz tartozó adatok módosíthatóak, illetve az egész tárgyat lehet törölni. A módositás során validálásra kerül, hogy a módosított név létezik-e már a rendszerben, ha igen, akkor ezt a rendszer jelzi számunkra. A második táblázatban a rendszerben létrehozott felhasználókat és a hozzájuk tartozó információkat láthatjuk. A rendszergazda a felhasználók adatait és szerepköreit tudja módosítani~(\ref{fig:admin-user-edit} ábra).
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth]{elte_cimer_szines}
@@ -43,11 +43,11 @@ Az első táblázatban a rendszerben létrehozott tantárgyak és a hozzájuk ta
 	\label{fig:admin-user-edit}
 \end{figure}
 \subsubsection{Tantárgy létrehozása}
-A ``Tárgy létrehozás'' linkre kattintva az alkalmazás átnavigál minket egy űrlapra, ahol az új tantárgy szükséges adatait tudjuk kitölteni ([TODO: kép ref]). Ha az adatok validálása és feldolgozása sikeres, akkor vissza navigálódunk a kezdőoldalra. Az esetleges validalási hibákat a rendszer jelzi számukra ([TODO: kép ref]).
+A ``Tárgy létrehozás'' linkre kattintva az alkalmazás átnavigál minket egy űrlapra, ahol az új tantárgy szükséges adatait tudjuk kitölteni ([TODO: kép ref]). Ha az adatok validálása és feldolgozása sikeres, akkor visszanavigálódunk a kezdőoldalra. Az esetleges validalási hibákat a rendszer jelzi számukra ([TODO: kép ref]).
 \subsubsection{Felhasználó létrehozása}
-Felhasználót létrehozni a ``Felhasználó létrehozás'' linkre kattintva tudjuk megtenni, ami tovább navigál minket egy űrlapra, ahol az új felhasználónak az adatait tudjuk megadni ([TODO: kép ref]). Az adatok validálása sikeres, akkor a felhasználó elkészült és vissza navigálódunk a kezdőoldalra, ha nem volt sikeres, akkor a rendszer ezt hibaüzenetekkel jelzi nekünk ([TODO: kép ref]).
+Felhasználót létrehozni a ``Felhasználó létrehozás'' linkre kattintva tudjuk megtenni, ami továbbnavigál minket egy űrlapra, ahol az új felhasználónak az adatait tudjuk megadni ([TODO: kép ref]). Ha az adatok validálása sikeres, akkor a felhasználó elkészült és visszanavigálódunk a kezdőoldalra, ha nem volt sikeres, akkor a rendszer ezt hibaüzenetekkel jelzi nekünk ([TODO: kép ref]).
 \subsection{Tárgyfelelős}\label{step:teacher-role}
-Ha tárgyfelelősként jelentekzünk be a rendszerbe, akkor az alábbi kezdőoldal fogad minket ([TODO: kép ref]).
+Ha tárgyfelelősként jelentkezünk be a rendszerbe, akkor az alábbi kezdőoldal fogad minket ([TODO: kép ref]).
 A kezdőoldalon egy tablázat található, amiben látjuk azokat a tantárgyakat, és a tantárgyakhoz tartozó csoportokat, amelyeknek a felelősei vagyunk.
 A tárgyfelelős a következő funkciókat használhatja:
 \begin{compactitem}
@@ -56,12 +56,12 @@ A tárgyfelelős a következő funkciókat használhatja:
 \end{compactitem}
 \subsubsection{Csoport létrehozása}
 \label{step:teacher-create-course}
-A menüsoron a ``Csoport létrehozás'' linkre kattintva a rendszer átirányít minket egy űrlapra. Ahol egy űrlapon létre tudunk hozni egy csoportot ([TODO: kép ref]). Az adatokat a rendszer validálja, és az esetleges hibákat jelzi számunkra.
+A menüsoron a ``Csoport létrehozás'' linkre kattintva a rendszer átirányít minket egy űrlapra, ahol létre tudunk hozni egy csoportot ([TODO: kép ref]). Az adatokat a rendszer validálja, és az esetleges hibákat jelzi számunkra.
 \subsubsection{Csoport módosítása}
 \label{step:teacher-edit-course}
 Csoportokat szerkeszteni a kezdőoldalon található táblázat segítségével tudunk. A táblázatban lenyitható minden kilistázott tantárgy ([TODO: kép ref]). Itt találjuk a tantárgyakhoz már létrehozott csoportokat. Minden tantárgy mellett találunk egy ``Szerkesztés'' gombot, melyre kattintva elérhetővé válik a csoport szerkesztése. Az adatok validálásra kerülnek, az esetleges hibákat a rendszer jelzi számunkra ([TODO: kép ref]).
 \subsection{Gyakorlatvezető}\label{step:instructor-role}
-Gyakorlatvezetőként bejelentkezve a rendszerbe a(z) [TODO: kép ref] ábrán látható kezdőoldal fogad minket. Az oldalon az ``Értékelendő beadandók'' cím alatt, a hozzánk rendelt csoportok hallgatóit láthatjuk egy-egy táblázatban, ahol láthatjuk, hogy egy hallgató az adott feladatra adott-e be megoldást. A ``Hallgatói várolista'' cím alatt szintén egy táblázatot találunk ([TODO: kép ref]), ahol tantárgyanként csoportosítva a következő információkat olvashatjuk le:
+Gyakorlatvezetőként bejelentkezve a rendszerbe a(z) [TODO: kép ref] ábrán látható kezdőoldal fogad minket. Az oldalon az ``Értékelendő beadandók'' cím alatt, a hozzánk rendelt csoportok hallgatóit láthatjuk egy-egy táblázatban, ahol láthatjuk, hogy egy hallgató az adott feladatra adott-e be megoldást. A ``Hallgatói várólista'' cím alatt szintén egy táblázatot találunk ([TODO: kép ref]), ahol tantárgyanként csoportosítva a következő információkat olvashatjuk le:
 \begin{compactitem}
     \item Hallgató neve
 	\item Hallgató neptun kódja
@@ -75,23 +75,61 @@ A gyakorlatvezető az alábbi funkciókat éri el:
 \end{compactitem}
 \subsubsection{Feladat kiírása}
 \label{step:instructor-create-assignment}
-Feladatot kiírni a ``Feladat létrehozása'' menüpont alatt tudunk, ahol egy űrlapot találunk ([TODO: kép ref]). Ahhoz hogy létrehozzunk egy feladatot, a következő információkat szükséges megadunk:
+Feladatot kiírni a ``Feladat létrehozása'' menüpont alatt tudunk, ahol egy űrlapot találunk ([TODO: kép ref]). Ahhoz hogy létrehozzunk egy feladatot, a következő információkat szükséges megadnunk:
 \begin{compactitem}
     \item A feladat neve
     \item Kezdés és befejezés dátuma
 	\item Feladat leírása
 	\item Mely csoporthoz legyen létrehozva (többet is meg lehet adni)
 \end{compactitem}
-A rendszer támogatja, hogy a feladatnak leírása ne csak egyszerű szöveg legyen. A szövegdobozban megadhatunk \texttt{Markdown} és \LaTeX\ kifejezéseket is. Mielőtt létrehoznánk a feladatot, meg tudjuk tekinteni, hogy a hallgató milyen formában fogja látni a kiírva a feladatot. Így le tudjuk ellenőrizni kényelmesen a feladat leírását, valamint azt is tudjuk ellenőrizni, hogy a \texttt{Markdown} és \LaTeX\ kifejezéseinket helyesen írtuk-e meg. Ha végeztünk a ``Létrehozás'' gombal tudjuk elküldeni a rendszernek az adatokat. Az adatokat a rendszer leellenőrzi, az esetleges hibákat jelzi számunkra ([TODO: kép ref]).
+A rendszer támogatja, hogy a feladatnak leírása ne csak egyszerű szöveg legyen. A szövegdobozban megadhatunk \texttt{Markdown} és \LaTeX\ kifejezéseket is. Mielőtt létrehoznánk a feladatot, meg tudjuk tekinteni, hogy a hallgató milyen formában fogja látni a kiírva a feladatot. Így le tudjuk ellenőrizni kényelmesen a feladat leírását, valamint azt is tudjuk ellenőrizni, hogy a \texttt{Markdown} és \LaTeX\ kifejezéseinket helyesen írtuk-e meg. Ha végeztünk, a ``Létrehozás'' gombbal tudjuk elküldeni a rendszernek az adatokat. Az adatokat a rendszer leellenőrzi, az esetleges hibákat jelzi számunkra ([TODO: kép ref]).
 \subsubsection{Jelentkezések bírálata}
 \label{step:instructor-pending}
 Egy hallgatónak a csoportba való jelentkezését a ``Hallgatói várólista'' táblázatában tudjuk megtenni, az utolsó oszlopban lévő gombok segítségével. Miután elvégeztük a bírálatot, a táblázatból törlődik a jelentkezett hallgató, és az oldal frissítése után, a megfelelő táblázatban látjuk, hogy a hallgatót a rendszer felvette a jelentkezett csoportba.
 \subsubsection{Beadott munka értékelése}
 \label{step:instructor-eval}
-Egy feladatra beadott megoldás értékeléséhez, a kívánt feladat oszlopában kattintsunk a szürke négyzetre. Ilyenkor a rendszer átirányít minket az értékelő felületre ([TODO: kép ref]). A rendszer a felületre a ``Megoldás(ok)'' alatt kilistázza a hallgatónak az összes beadott megoldását a beküldés ideje szerint csökkenően rendezve. Elég egy megoldást értekelnünk, de értékelhetjük az összeset is. Viszont a rendszer a legutololsó értékelést veszi számításba. Ezt fogja a hallgató is látni. A beadott megoldások között a kívánt sorra kattintva tudjuk változtatni, hogy melyik megoldást szeretnénk változtatni. Ilyenkor a ``Beadott megoldás'' alatt látjuk, mi a hallgatónak a beadott megoldása. Az értékelésünket az oldal alján található űrlapon tudjuk megtenni. Az értékelés után a rendszer a kezdőoldalra navigál minket. Az értékelt feladatnál a szürke négyzet egy körben lévő pipára cserélődik ([TODO: kép ref]).
+Egy feladatra beadott megoldás értékeléséhez a kívánt feladat oszlopában kattintsunk a szürke négyzetre. Ilyenkor a rendszer átirányít minket az értékelő felületre ([TODO: kép ref]). A rendszer a felületre a ``Megoldás(ok)'' alatt kilistázza a hallgatónak az összes beadott megoldását a beküldés ideje szerint csökkenően rendezve. Elég egy megoldást értékelnünk, de értékelhetjük az összeset is. Viszont a rendszer a legutolsó értékelést veszi számításba. Ezt fogja a hallgató is látni. A beadott megoldások között a kívánt sorra kattintva tudjuk kiválasztani, hogy melyik megoldást szeretnénk változtatni. Ilyenkor a ``Beadott megoldás'' alatt látjuk, mi a hallgatónak a beadott megoldása. Az értékelésünket az oldal alján található űrlapon tudjuk megtenni. Az értékelés után a rendszer a kezdőoldalra navigál minket. Az értékelt feladatnál a szürke négyzet egy körben lévő pipára cserélődik ([TODO: kép ref]).
 \subsection{Hallgató}
 \label{step:student-role}
-
+Hallgatókénet bejelentkezve az alábbi [TODO: kép ref] ábrán látható kezdőoldal fogad minket. A ``Feladatok'' cím alatti táblázatban a hallgató számára kilistázódik az összes olyan csoportja, ahova elfogadták a jelentkezését. A táblázatban csoportonként csoportosítva jelennek meg a hallgató számára a kiírt feladatok. A táblázatban egy feladtokról a következő információkat láthatjuk: neve, határideje, kapott értékelés. (kép)
+A hallgató az alábbi funkciókat használhatja:
+\begin{compactitem}
+    \item \hyperref[step:student-course-reg]{Csoportba jelentkezés}
+	\item \hyperref[step:student-solution]{Megoldás beadása}
+\end{compactitem}
+\subsubsection{Csoportba jelentkezés}
+\label{step:student-course-reg}
+Csoportba jelentkezni a ``Csoport jelentkezés'' menüpontra kattintva tudunk ([TODO: kép ref]). A rendszer egy űrlapot biztosít számunkra, ahol kilistázódnak a rendszerben található csoportok, amelyekre még nem jelentkeztünk. A rendszer lehetőséget biztosít számunkra, hogy akár egyszerre több csoportra is leadjuk a jelentkezésünket. Jelentkezésünket a ``Jelentkezés'' gombbal tudjuk továbbítani a rendszer számára. Az űrlap validálásra kerül, hogy üresen ne tudjuk beküldeni azt. Sikeres jelentkezés esetén a rendszer a kezdőoldalra navigál minket.
+\subsubsection{Megoldás beadása}
+\label{step:student-solution}
+Megoldás beküldéséhez válasszuk ki a kivánt feladatot, amire megoldás szeretnénk beküldeni, majd kattintsunk a ``Feladat megtekintése'' gombra. Ekkor a rendszer egy új ablakban megnyitja a feladatot ([TODO: kép ref]). Az oldalon a következő információkat látjuk:
+\begin{compactitem}
+    \item Határidő visszaszámláló
+    \item Feladat neve, leírása
+    \item Beküldött megoldások
+    \item Űrlap a megoldás beküldéséhez
+\end{compactitem}
 \subsection{Mindenki számára elérhető oldalak}
 \label{step:mindenkinek-elerheto-oldal}
-\section{Hibakezelés}
+A rendszerben jelenleg három olyan oldal található, amelyet minden szerepkörben elérhetünk. Az egyik oldal a felhasználónk adatainak megtekintésére szolgál. Ezt a funkciót a menüsoron a nevünkre kattintva tudjuk elérni. Ezen a felületen (\ref{fig:profile} ábra) a következőket tekinthetjük meg a ``Személyes adatok'' cím alatt: név, neptun kód, email és a felhasználónkhoz rendelt szerepkörök. Ezen felületen továbbá be tudjuk állítani, hogy a rendszer milyen lokalizációval működjön (magyar és angol). Ezt a megfelelő gombra kattintva tudjuk változtatni.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{elte_cimer_szines}
+	\caption{Profil oldal}
+	\label{fig:profile}
+\end{figure}
+A másik két oldal az esetleges nem várt hibákról tájékoztat minket. Ezen hibákat két kategóriába osztódnak: jogosualtlan kérés a rendszer felé, egyéb nem várt hiba. Jogosulatlan kérés akkor lép fel, ha megpróbálunk a szerepkörünkhöz nem tartozó funkciót elérni a rendszerben. Például: csak hallgatói szerepkörrel rendelkező felhasználóval vagyunk bejelentkezve a rendszerbe és a webcím végén a ``Student''-et lecseréljük ``Admin''-ra. Ezzel olyan kérést indítunk a rendszernek, hogy navigáljon minket a rendszargazdai szerepkörhöz tartozó kezdőoldalra, amihez nincs jogosultságunk, ezért a rendszer megtadja a hozzáférést a kért oldalhoz. Ilyenkor a rendszer az alábbi \ref{subfig:access-denied} ábrán látható oldalra navigál minket, ahonnan lehetőségünk van visszatérni a szerepkörünkhöz tartozó kezdőoldalra.
+
+Egyéb nem várt hiba lehet például, hogy a rendszer nem tud csatlakozni a hozzá tartozó adatbázishoz. Ilyenkor az alábbi \ref{subfig:error} ábrán látható oldalra navigál minket.
+\begin{figure}[H]
+	\centering
+	\subfigure[Jogosulatlan kérés]{
+		\includegraphics[width=0.45\linewidth]{elte_cimer_szines}
+        \label{subfig:access-denied}}
+	\hspace{5pt}
+	\subfigure[Nem várt hiba]{
+		\includegraphics[width=0.45\linewidth]{elte_cimer_szines}
+        \label{subfig:error}}
+	\caption{Hiba oldalak}
+	\label{fig:errors}
+\end{figure}

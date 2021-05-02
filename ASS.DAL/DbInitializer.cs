@@ -14,7 +14,7 @@ namespace ASS.DAL
         public static void Initialize(IServiceProvider serviceProvider, UserManager<User> userManager)
         {
             context = serviceProvider.GetRequiredService<ASSContext>();
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             if (!context.Users.Any())
             {
