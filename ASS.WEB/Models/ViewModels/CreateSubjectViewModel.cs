@@ -13,6 +13,7 @@ namespace ASS.WEB.Models.ViewModels
         public string SubjectName { get; set; }
 
         [Display(ResourceType = typeof(Resources.Models.ViewModels.CreateSubjectViewModel), Name = "TeachersNeptunCode")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateSubjectViewModel), ErrorMessageResourceName = "SubjectNameRequired")]
         public string[] TeachersNeptunCode { get; set; }
     }
 }

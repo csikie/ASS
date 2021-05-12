@@ -222,7 +222,15 @@
                             template: function (dataItem) {
                                 let roles = "";
                                 dataItem.Roles.forEach(function (item) {
-                                    roles += item + ", ";
+                                    if (item === "Student") {
+                                        roles += "Hallgató, ";
+                                    } else if (item === "Teacher") {
+                                        roles += "Tárgyfelelős, ";
+                                    } else if (item === "Admin") {
+                                        roles += "Rendszergazda, ";
+                                    } else if (item === "Instructor") {
+                                        roles += "Gyakorlatvezető, ";
+                                    }
                                 });
                                 return roles.slice(0, -2);
                             },

@@ -8,7 +8,7 @@ namespace ASS.WEB.Models.ViewModels
         [Required]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.CreateCourseViewModel), ErrorMessageResourceName = "InstructorUserNamesRequired")]
         [Display(ResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), Name = "CourseName")]
         [StringLength(maximumLength: 30, MinimumLength = 2, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.EditCourseViewModel), ErrorMessageResourceName = "CourseNameLengthMessage")]
         public string CourseName { get; set; }

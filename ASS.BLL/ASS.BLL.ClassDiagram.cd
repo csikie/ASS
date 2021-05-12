@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ASS.BLL.Services.AdminService">
+    <Position X="0.5" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAQAAAAAABAAAIAAAAZAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Services\AdminService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASS.BLL.Services.BaseService">
+    <Position X="2.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIICAAAAACAAAAAAAgAABAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Services\BaseService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASS.BLL.Services.InstructorService">
+    <Position X="10.75" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAQACIAAAABQABAAAAAAAA=</HashCode>
+      <FileName>Services\InstructorService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASS.BLL.Services.LoginService" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AIAAACCAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\LoginService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.273" />
+  </Class>
+  <Class Name="ASS.BLL.Services.StudentService">
+    <Position X="3.5" Y="4.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAABAgAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Services\StudentService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ASS.BLL.Services.TeacherService">
+    <Position X="7.25" Y="4.25" Width="3.25" />
+    <InheritanceLine Type="ASS.BLL.Services.BaseService" ManuallyRouted="true">
+      <Path>
+        <Point X="4.125" Y="3.209" />
+        <Point X="4.125" Y="3.87" />
+        <Point X="8.875" Y="3.87" />
+        <Point X="8.875" Y="4.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABBAAAAAAAAACABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\TeacherService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ASS.BLL.Interfaces.IAdminService">
+    <Position X="0.5" Y="7.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAQAAAAAABAAAIAAAAZAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IAdminService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASS.BLL.Interfaces.IInstructorService">
+    <Position X="10.75" Y="7.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAQACAAAAABQABAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IInstructorService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASS.BLL.Interfaces.ILoginService">
+    <Position X="9.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ILoginService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASS.BLL.Interfaces.IStudentService">
+    <Position X="3.5" Y="6.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAABAgAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IStudentService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ASS.BLL.Interfaces.ITeacherService">
+    <Position X="7.25" Y="6.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABBAAAAAAAAACABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITeacherService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
