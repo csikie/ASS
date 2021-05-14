@@ -88,11 +88,11 @@ Az alkalmazás fájl szintű logolást tartalmaz, amit a \emph{Serilog.Extension
 \section{Adatbázis}
 \label{sec:database}
 \subsection{Technológiák}
-Az alkalmazáshoz szükséges telepítünk egy \emph{MySQL Community Server}-re, ajánlott a \emph{8.0.25}-ös verzió.\footnote{Az alkalmazás működik régebbi verzióval is. Viszont az alkalmazás nincs felkészítve az esetleges verziók közötti különbségekre.} Az autentikáció és autorizáció megvalósításához a Microsoft által készített \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} nyílt forráskódú programkönyvtárat használja rendszer. A programkönyvtár tartalmaz meglévő adatbázis táblákat melyeknek a tartalma és működése elolvasható a Microsoft hivatalos honlapján \cite{Identity}.
+Az alkalmazáshoz szükséges telepítünk egy \emph{MySQL Community Server}-re, ajánlott a \emph{8.0.25}-ös verzió.\footnote{Az alkalmazás működik régebbi verzióval is. Viszont az alkalmazás nincs felkészítve az esetleges verziók közötti különbségekre.} Az autentikáció és autorizáció megvalósításához a Microsoft által készített \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} nyílt forráskódú programkönyvtárat használja rendszer. A programkönyvtár tartalmaz meglévő adatbázis táblákat melyeknek a tartalma és működése elolvasható a Microsoft hivatalos honlapján \cite{Identity}. A programkönyvtár gondoskodik a jelszavak biztonságos tárolásáról, melyet időfüggő sózással és a jelszó hashelésével valósít meg.
 
 Az adatbázis \emph{code first} módszerrel van megvalósítva, tehát nem az adatbázis szerveren \emph{SQL} kódot futattva hozzuk létre az adatbázis táblákat, hanem modell osztályokkal definiáljuk az adatbázis táblákat \cite{CodeFirst}. Ezen modelleket az \emph{ASS.DAL.Models} névtérben tároljuk.
 
-Az adatelérést az \emph{Entity Framework Core ORM}\footnote{Jelentése: objektum-relációs leképzés, egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között.} keretrendszer biztosítja \cite{EFCore}. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD}\footnote{Create,Read,Update,Delete műveleteknek a rövidítése} műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatatt \emph{LINQ} (Language Integrated Queries) metódus hívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
+Az adatelérést az \emph{Entity Framework Core ORM}\footnote{Jelentése: objektum-relációs leképzés, egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között.} keretrendszer biztosítja \cite{EFCore}. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD}\footnote{Create,Read,Update,Delete műveleteknek a rövidítése} műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatott \emph{LINQ} (Language Integrated Queries) metódus hívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
 
 Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{appsettings.json}) tudjuk megadni illetve módosítani.
 \lstset{caption={Adatbázis elérése}, label=src:json}
@@ -104,13 +104,35 @@ Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{apps
 ...
 \end{lstlisting}
 \subsection{Az adatbázis táblái}
-Az alkalmazás adatbázis diagramját a \ref{fig:dbdiagram} ábrán tekinthetjük meg\footnote{Az \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} keretrendszer által létrehozott táblákból csak azon a táblák kerülnek részletezésre, melyeket a rendszer aktívan használ.}.
-\begin{figure}
+Az alkalmazás adatbázis diagramját a \ref{fig:dbdiagram} ábrán tekinthetjük meg. A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} keretrendszer által létrehozott táblákból csak azon a táblák és mezők kerülnek részletezésre, melyeket a rendszer aktívan használ. \footnote{A táblák amik nem kerülnek részletezésre a Microsoft hivatalos honlapján meg lehet tekinteni.}
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{developerguide/dbdiagram}
 	\caption{Az adatbázis táblái}
 	\label{fig:dbdiagram}
 \end{figure}
+\subsubsection{aspnetusers}
+A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár által automatikusan létrehozott tábla. A felhasználók adatait tárolja.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & int & Elsődleges kulcs \\
+		\hline
+		UserName & string & Felhaszálónév (neptun kód) \\
+		\hline
+		Email & string & Felhasználó e-mail címe \\
+		\hline
+		RealName & string & Felhasználó neve \\
+		\hline
+		PasswordHash & string & Felhasználó hashelt jelszava \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: felhasználók táblája}
+	\label{tab:db-users}
+\end{table}
 \section{Model réteg}
 \label{sec:model}
 \section{Vezérlő réteg}
