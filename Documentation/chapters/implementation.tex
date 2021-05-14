@@ -1,21 +1,21 @@
 \chapter{Fejlesztői dokumentáció} % Developer guide
 \label{ch:developer}
 
-\section{Keretrendszer és az alkalmazás felépítése}
+\section{Keretrendszerek és az alkalmazás felépítése}
 \label{sec:framework-app}
-\subsection{Keretrendszer}
+\subsection{Keretrendszerek}
 \label{subsec:framework}
-Az alkalmazás ASP.NET core 3.1 keretrendszerben készült \cite{ASPDOTNETCORE3_1}, ami egy nyílt forráskódú, webes alkalmazások készítésére szolgáló programkönyvtár, melyet a \emph{Microsoft} fejleszt. A keretrendszer lehetővé teszi, hogy az alkalmazás több platformon is tudjon futni (\emph{Linux}, \emph{macOS} és \emph{Windows}). Továbbá az alkalmazás rendelkezik autentikációval és autorizációval.
+Az alkalmazás ASP.NET core 3.1 keretrendszerben készült \cite{ASPDOTNETCORE3_1}, ami egy nyílt forráskódú, webes alkalmazások készítésére szolgáló programkönyvtár, melyet a \emph{Microsoft} fejleszt. A keretrendszer lehetővé teszi, hogy az alkalmazás több platformon is tudjon futni (\emph{Linux}, \emph{macOS} és \emph{Windows}). Továbbá a \emph{Kendo UI Core for jQuery}\cite{KendoUIforJquery} keretrendszer biztosítja számunkra a felületen található felhasználóbarát táblázatokat, űrlap elemeket. A saját \emph{HTML} elemek stílusait a \emph{Bootstrap}\cite{Bootstrap} keretrendszer biztosítja.
 \subsection{Az alkalmazás felépítése}
 \label{subsec:app} 
-Az alkalmazás az \emph{MVC} architektúrára épül (\ref{fig:mvc-pattern} ábra)\cite{MVC}. Tehát három rétegre bontható a felépítése, Modell-Nézet-Vezérlő. A Modell réteg tartalmazza az üzleti logikát, amely az adatokat kezeli és kapcsolatban van az adatbázissal. A nézet réteg (angolul \emph{View}) felelős a megjelenítésért. A vezérlő réteg (angolul \emph{Controller}) fogadja a kliens a kéréseit és válaszol a kérésekre. Az \emph{MVC} architektúra fő előnye, hogy jól elkülöníthetőek a rétegek, így a nézet független marad a modelltől. Ezáltal, ha szükséges könnyedén le tudjuk cserélni az egész alkalmazás nézetét, vagy fordítva újra implementálhatjuk a modell réteg működését, anélkül hogy ez a nézeten bármi gondot okozna.
+Az alkalmazás az \emph{MVC} architektúrára épül (\ref{fig:mvc-pattern} ábra)\cite{MVC}. Tehát három rétegre bontható a felépítése, Modell-Nézet-Vezérlő. A Modell (angolul \emph{Model}) réteg tartalmazza az üzleti logikát, amely az adatokat kezeli és kapcsolatban van az adatbázissal. A nézet réteg (angolul \emph{View}) felelős a megjelenítésért. A vezérlő réteg (angolul \emph{Controller}) fogadja a kliens a kéréseit és válaszol a kérésekre. Az \emph{MVC} architektúra fő előnye, hogy jól elkülöníthetőek a rétegek, így a nézet független marad a modelltől. Ezáltal, ha szükséges könnyedén le tudjuk cserélni az egész alkalmazás nézetét, vagy fordítva újra implementálhatjuk a modell réteg működését, anélkül hogy ez a nézeten bármi gondot okozna.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{developerguide/mvc-pattern}
-	\caption{A Model-View-Controller architektúra}
+	\caption{A Modell-Nézet-Vezérlő architektúra}
 	\label{fig:mvc-pattern}
 \end{figure}
-Az alkalmazásban a könnyebb és egyszerűbb fejleszthetőség miatt, a \emph{Model} réteget több komponensre bontjuk. Így az alábbi komponensekből áll össze a \emph{Model} réteg:
+Az alkalmazásban a könnyebb és egyszerűbb fejleszthetőség miatt a \emph{Model} réteget több komponensre bontjuk. Így az alábbi komponensekből áll össze a \emph{Model} réteg:
 \begin{center}
 	\begin{forest}
 		for tree={
@@ -50,7 +50,7 @@ Az alkalmazásban a könnyebb és egyszerűbb fejleszthetőség miatt, a \emph{M
 			[ASS.WEB/
 				[Models/
 					[DTOs/]
-					[ViewModels]
+					[ViewModels/]
 				]
 			]
 		]
@@ -60,19 +60,19 @@ Az alkalmazásban a könnyebb és egyszerűbb fejleszthetőség miatt, a \emph{M
 	\item[ASS.BLL:]  az üzleti logikai réteget megvalósító komponens (angolul \emph{Business Logic Layer}).
 	\item[ASS.DAL:] az adatelérési réteget megvalósító komponens (angolul \emph{Data Access Layer}).
 	\item[ASS.WEB.Models:] ebben a komponensben tároljuk az adatok bevitelére és az adatok megjelenítésére szolgáló osztályokat.
-	\item[ASSContext.cs:] Az adatbázist leíró osztály.
-	\item[DbInitializer.cs:] Az adatbázist létrehozó statikus osztály.    
+	\item[ASSContext.cs:] az adatbázist leíró osztály.
+	\item[DbInitializer.cs:] az adatbázist létrehozó statikus osztály.    
 \end{description}
-\section{Logolás}
+\section{Naplózás}
 \label{sec:log}
-Az alkalmazás fájl szintű logolást tartalmaz, amit a \emph{Serilog.Extensions.Logging.File} nyílt forráskódú programkönyvtár használatával valósítjuk meg \cite{SERILOG}. Az alkalmazás automatikusan logolja a futás közbeni eseményeket és az esetleges kivételeket. Természetesen támogatott a saját logüzenetek létrehozása is. A logolás beállításait az \emph{appsettings.json} (\ref{src:json} ábra) fájlban tudjuk személyreszabni. Az alábbi négy értéket szablyuk személyre az alkalmazáshoz:
+Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensions.Logging.File} nyílt forráskódú programkönyvtár használatával valósítjuk meg \cite{SERILOG}. Az alkalmazás automatikusan naplózza a futás közbeni eseményeket és az esetleges kivételeket. Természetesen támogatott a saját bejegyzések létrehozása is. A naplózás beállításait az \emph{appsettings.json} (\ref{src:json} ábra) fájlban tudjuk személyreszabni. Az alábbi négy értéket szabjuk személyre az alkalmazáshoz:
 \begin{itemize}
-	\item PathFormat: itt tudjuk megadni az alkalmazás logfájljainak a mentési helyét, és egy sablont a fájlok nevére. A \emph{\{Date\}} paraméter helyére az aktuális dátum kerül beillesztésre (pl.: 20210513). Ha az elérési útban található mappa nem létezik azt a programkönyvtár automatikusan létrehozza a számunkra.
-	\item OutputTemplate: itt adható meg a log üzenetek sablonja, hogy hogyan nézzenek ki a logolt üzenetek\footnote{Az \href{https://github.com/serilog/serilog/wiki/Formatting-Output}{alábbi linken} részletes leírást olvashatunk az \emph{OutputTemplate}-ben használható paraméterekről.}. Az alkalmazás a következő sablont használja a logokra: [\emph{Időbélyeg}] - [\emph{Log szintje}] - [\emph{Üzenet}] \emph{Új sor} [\emph{Kivétel (ha van)}].
-	\item LogLevel: itt állíthatjuk be, hogy milyen minimum szintű események kerüljenek logolásra \cite{LogLevels}. A jelenlegi beállítással az alkalmazás minden legalább \emph{Information} szinttel rendelkező eseményt logol.
+	\item PathFormat: itt tudjuk megadni az alkalmazás naplófájljainak a mentési helyét, és egy sablont a fájlok nevére. A \emph{\{Date\}} paraméter helyére az aktuális dátum kerül beillesztésre (pl.: 20210513). Ha az elérési útban található mappa nem létezik azt a programkönyvtár automatikusan létrehozza a számunkra.
+	\item OutputTemplate: itt adható meg a bejegyzések sablonja, hogy hogyan nézzenek ki a bejegyzés\footnote{\href{https://github.com/serilog/serilog/wiki/Formatting-Output}{Ezen a linken} részletes leírást olvashatunk az \emph{OutputTemplate}-ben használható paraméterekről.}. Az alkalmazás a következő sablont használja a bejegyzésekre: [\emph{Időbélyeg}] - [\emph{Esemény súlyossági szintje}] - [\emph{Üzenet}] \emph{Új sor} [\emph{Kivétel (ha van)}].
+	\item LogLevel: itt állíthatjuk be, hogy milyen minimum szintű események kerüljenek naplózásra \cite{LogLevels}. A jelenlegi beállítással az alkalmazás minden legalább \emph{Information} szinttel rendelkező eseményt naplóz.
 \end{itemize}
-\newpage
-\lstset{caption={Logolás beállításai}, label=src:json}
+%\newpage
+\lstset{caption={Naplózás beállításai}, label=src:json}
 \begin{lstlisting}[language=json]
 ...
 "Logging": {
@@ -88,11 +88,11 @@ Az alkalmazás fájl szintű logolást tartalmaz, amit a \emph{Serilog.Extension
 \section{Adatbázis}
 \label{sec:database}
 \subsection{Technológiák}
-Az alkalmazáshoz szükséges telepítünk egy \emph{MySQL Community Server}-re, ajánlott a \emph{8.0.25}-ös verzió.\footnote{Az alkalmazás működik régebbi verzióval is. Viszont az alkalmazás nincs felkészítve az esetleges verziók közötti különbségekre.} Az autentikáció és autorizáció megvalósításához a Microsoft által készített \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} nyílt forráskódú programkönyvtárat használja rendszer. A programkönyvtár tartalmaz meglévő adatbázis táblákat melyeknek a tartalma és működése elolvasható a Microsoft hivatalos honlapján \cite{Identity}. A programkönyvtár gondoskodik a jelszavak biztonságos tárolásáról, melyet időfüggő sózással és a jelszó hashelésével valósít meg.
+Az alkalmazáshoz szükséges telepítünk egy \emph{MySQL Community Server}-re, ajánlott a \emph{8.0.25}-ös verzió.\footnote{Az alkalmazás működik régebbi verzióval is. Viszont az alkalmazás nincs felkészítve az esetleges verziók közötti különbségekre.} Az autentikáció és autorizáció megvalósításához a Microsoft által készített \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} nyílt forráskódú programkönyvtárat használja rendszer. A programkönyvtár tartalmaz meglévő adatbázis táblákat, melyeknek a tartalma és működése elolvasható a Microsoft hivatalos honlapján \cite{Identity}. A programkönyvtár gondoskodik a jelszavak biztonságos tárolásáról, melyet időfüggő sózással és a jelszó hashelésével valósít meg.
 
 Az adatbázis \emph{code first} módszerrel van megvalósítva, tehát nem az adatbázis szerveren \emph{SQL} kódot futattva hozzuk létre az adatbázis táblákat, hanem modell osztályokkal definiáljuk az adatbázis táblákat \cite{CodeFirst}. Ezen modelleket az \emph{ASS.DAL.Models} névtérben tároljuk.
 
-Az adatelérést az \emph{Entity Framework Core ORM}\footnote{Jelentése: objektum-relációs leképzés, egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között.} keretrendszer biztosítja \cite{EFCore}. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD}\footnote{Create,Read,Update,Delete műveleteknek a rövidítése} műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatott \emph{LINQ} (Language Integrated Queries) metódus hívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
+Az adatelérést az \emph{Entity Framework Core ORM} keretrendszer biztosítja \cite{EFCore}. Az objektum-relációs leképzés (angolul \emph{Object-Relational Mapping}), egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD} (Create,Read,Update,Delete műveleteknek a rövidítése) műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatott \emph{LINQ} (Language Integrated Queries) metódushívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
 
 Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{appsettings.json}) tudjuk megadni illetve módosítani.
 \lstset{caption={Adatbázis elérése}, label=src:json}
@@ -104,7 +104,7 @@ Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{apps
 ...
 \end{lstlisting}
 \subsection{Az adatbázis táblái}
-Az alkalmazás adatbázis diagramját a \ref{fig:dbdiagram} ábrán tekinthetjük meg. A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} keretrendszer által létrehozott táblákból csak azon a táblák és mezők kerülnek részletezésre, melyeket a rendszer aktívan használ. \footnote{A táblák amik nem kerülnek részletezésre a Microsoft hivatalos honlapján meg lehet tekinteni.}
+Az alkalmazás adatbázis diagramját a \ref{fig:dbdiagram} ábrán tekinthetjük meg. A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} keretrendszer által létrehozott táblákból csak azon a táblák és mezők kerülnek részletezésre, melyeket a rendszer aktívan használ. A táblák, amik nem kerülnek részletezésre a Microsoft hivatalos honlapján meg lehet tekinteni \cite{Identity}.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{developerguide/dbdiagram}
@@ -119,19 +119,191 @@ A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár ál
 		\hline
 		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
 		\hline \hline
-		Id & int & Elsődleges kulcs \\
+		Id & egész & Elsődleges kulcs \\
 		\hline
-		UserName & string & Felhaszálónév (neptun kód) \\
+		UserName & szöveg & Felhaszálónév (neptun kód) \\
 		\hline
-		Email & string & Felhasználó e-mail címe \\
+		Email & szöveg & Felhasználó e-mail címe \\
 		\hline
-		RealName & string & Felhasználó neve \\
+		RealName & szöveg & Felhasználó neve \\
 		\hline
-		PasswordHash & string & Felhasználó hashelt jelszava \\
+		PasswordHash & szöveg & Felhasználó hashelt jelszava \\
 		\hline
 	\end{tabular}
 	\caption{Adatbázis: felhasználók táblája}
 	\label{tab:db-users}
+\end{table}
+\subsubsection{aspnetroles}
+A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár által automatikusan létrehozott tábla. A rendszerben használt szerepköröket tárolja.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		Name & szöveg & Szerepkör megnevezése \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: szerepkörök táblája}
+	\label{tab:db-roles}
+\end{table}
+\subsubsection{aspnetuserroles}
+A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár által automatikusan létrehozott tábla. Egy kapcsolótábla, mely tárolja a felhasználókhoz rendelt szerepköröket.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		UserId & egész & Elsődleges kulcs \\
+		\hline
+		RoleId & egész & Elsődleges kulcs \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: felhasználók és szerepkörök kapcsolótáblája}
+	\label{tab:db-userroles-map}
+\end{table}
+\subsubsection{assignments}
+Az \emph{assignments} tábla a csoportokhoz létrehozott beadandó feladatok adatainak tárolására szolgál.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		Name & szöveg & A feladat neve \\
+		\hline
+		Description & szöveg & A feladat leírása \\
+		\hline
+		StartDate & dátum & A feladat kiírásának dátuma \\
+		\hline
+		EndDate & dátum & A feladat határidejének dátuma \\
+		\hline
+		CourseId & egész & Arra vonatkozó kulcs, hogy a feladat melyik csoporthoz tartozik \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: feladatok táblája}
+	\label{tab:db-assignments}
+\end{table}
+\subsubsection{courses}
+A \emph{courses} tábla a tantárgyakhoz létrehozott csoportok adatait tárolja.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		Name & szöveg & A csoport neve \\
+		\hline
+		SubjectId & egész & Arra vonatkozó kulcs, hogy a csoport melyik tantárgyhoz tartozik \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: csoportok táblája}
+	\label{tab:db-courses}
+\end{table}
+\subsubsection{instructors}
+A \emph{instructors} tábla egy kapcsolótábla, melyben a \emph{Gyakorlatvezető} szerepkörrel rendelkező felhasználókat kapcsoljuk a hozzájuk tartozó csoportokhoz. 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		CourseId & egész & A csoportra vonatkozó kulcs \\
+		\hline
+		UserId & egész & A felhasználóra vonatkozó kulcs \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: gyakorlatvezetők táblája}
+	\label{tab:db-instructors}
+\end{table}
+\subsubsection{solutions}
+A \emph{solutions} tábla a feladatokra beadott megoldásokat tárolja.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		SubmittedSolution & szöveg & A feladatra beadott megoldás \\
+		\hline
+		SubmissionTime & dátum & A megoldás beküldésének az időpontja \\
+		\hline
+		Grade & szöveg & A feladatra adott értékelése \\
+		\hline
+		EvaluationTime & dátum & A feladat értékelésének időpontja \\
+		\hline
+		AssignmentId & egész & Arra vonatkozó kulcs, hogy a megoldás melyik feladathoz tartozik\\
+		\hline
+		UserId & egész & Arra vonatkozó kulcs, hogy melyik felhasználó adta be a megoldást\\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: megoldások táblája}
+	\label{tab:db-solutions}
+\end{table}
+\subsubsection{subjects}
+A \emph{subjects} tábla a rendszerben létrehozott tantárgyak adatait tárolja.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		Name & szöveg & A tantárgy neve\\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: megoldások táblája}
+	\label{tab:db-subjects}
+\end{table}
+\subsubsection{usercourse}
+A \emph{usercourse} tábla egy kapcsoló tábla, melyben a hallgatókat és a csoportok összerendelése valósul meg.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		CourseId & egész & A csoportra vonatkozó kulcs\\
+		\hline
+		UserId & egész & A felhasználóra vonatkozó kulcs\\
+		\hline
+		Pending & igaz/hamis & Annak az értéke, hogy a felhasználónak a jelentkezése elfogadásra, vagy elutasításra került \\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: hallgatók és csoportok kapcsolótáblája}
+	\label{tab:db-usercourse}
+\end{table}
+\subsubsection{usersubjects}
+A \emph{usersubjects} tábla egy kapcsoló tábla, melyben a tárgyfelelősök és a tantárgyak összerendelése valósul meg.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | m{0.25\textwidth} | m{0.25\textwidth} | m{0.40\textwidth} | }
+		\hline
+		\textbf{Mező neve} & \textbf{Típus} & \textbf{Leírás} \\
+		\hline \hline
+		Id & egész & Elsődleges kulcs \\
+		\hline
+		SubjectId & egész & A tantárgyra vonatkozó kulcs\\
+		\hline
+		UserId & egész & A felhasználóra vonatkozó kulcs\\
+		\hline
+	\end{tabular}
+	\caption{Adatbázis: tárgyfelelősök és tantárgyak kapcsolótáblája}
+	\label{tab:db-usersubjects}
 \end{table}
 \section{Model réteg}
 \label{sec:model}
@@ -139,3 +311,11 @@ A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár ál
 \label{sec:controller}
 \section{Nézet réteg}
 \label{sec:view}
+\subsection{\emph{Home} vezérlő nézetei}
+\subsection{\emph{Admin} vezérlő nézetei}
+\subsection{\emph{Instructor} vezérlő nézetei}
+\subsection{\emph{Teacher} vezérlő nézetei}
+\subsection{\emph{Studnet} vezérlő nézetei}
+\subsection{Megosztott nézetek}
+\section{Lokalizáció}
+\label{sec:localization}
