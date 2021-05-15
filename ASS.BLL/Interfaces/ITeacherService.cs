@@ -7,7 +7,7 @@ namespace ASS.BLL.Interfaces
 {
     public interface ITeacherService
     {
-        void AddUserToCourse(string[] neptunCodes, int subjectId, string courseName);
+        void CreateCourse(string[] neptunCodes, int subjectId, string courseName);
         Task<IEnumerable<Subject>> GetSubjects(ClaimsPrincipal principal);
         Course GetCourse(int courseId);
         void EditCourse(int courseId, string courseName, string[] instructors);

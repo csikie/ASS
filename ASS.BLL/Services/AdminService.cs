@@ -15,7 +15,7 @@ namespace ASS.BLL.Services
     {
         public AdminService(ASSContext context, UserManager<User> userManager) : base(context, userManager) { }
 
-        public void AddUserToSubject(string[] neptunCodes, string subjectName)
+        public void CreateSubject(string[] neptunCodes, string subjectName)
         {
             if (context.Subjects.Any(x => x.Name == subjectName))
             {
@@ -38,11 +38,6 @@ namespace ASS.BLL.Services
             return context.Subjects.Include(s => s.UserSubject)
                                    .ThenInclude(u => u.User)
                                    .ToList();
-        }
-
-        public IEnumerable<User> GetUsers(Expression<Func<User, bool>> pred)
-        {
-            return context.Users.Where(pred);
         }
 
         public void UpdateSubject(int id, string subjectName, string[] teacherNeptunCodes)

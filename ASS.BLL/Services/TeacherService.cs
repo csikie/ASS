@@ -15,7 +15,7 @@ namespace ASS.BLL.Services
     {
         public TeacherService(ASSContext context, UserManager<User> userManager) : base(context, userManager) { }
 
-        public void AddUserToCourse(string[] neptunCodes, int subjectId, string courseName)
+        public void CreateCourse(string[] neptunCodes, int subjectId, string courseName)
         {
             Subject subject = context.Subjects.Where(x => x.Id == subjectId)
                                               .Include(x => x.Courses)
@@ -53,6 +53,11 @@ namespace ASS.BLL.Services
 
         public void EditCourse(int courseId, string courseName, string[] instructorNeptunCodes)
         {
+            if (string.IsNullOrEmpty(courseName) || string.IsNullOrEmpty(courseName))
+            {
+                throw new ArgumentException("A csoport neve nem lehet whitespace/üres string/null");
+            }
+
             Course course = context.Courses.Where(x => x.Id == courseId)
                                            .Include(s => s.Instructors)
                                            .ThenInclude(u => u.User)

@@ -187,7 +187,7 @@ Az \emph{assignments} tábla a csoportokhoz létrehozott beadandó feladatok ada
 		\hline
 		Description & szöveg & A feladat leírása \\
 		\hline
-		StartDate & dátum & A feladat kiírásának dátuma \\
+		StartDate & dátum & A feladat elérésének dátuma \\
 		\hline
 		EndDate & dátum & A feladat határidejének dátuma \\
 		\hline
@@ -316,15 +316,76 @@ A \emph{usersubjects} tábla egy kapcsoló tábla, melyben a tárgyfelelősök �
 \section{Model réteg}
 \label{sec:model}
 \subsection{Üzleti logika}
-Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg.
+Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le\footnote{Kivéve a \emph{LoginService} osztályt.} (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg. A vezérlő osztályok ezen \emph{service} osztályok metódusainak segítségével dolgozzák fel a kliens kéréseit és állítják elő a megfelelő válaszokat.
+\todo{képe beszúrása}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{developerguide/baseservice}
 	\caption{Service osztályok őse}
 	\label{fig:bll-baseservice}
 \end{figure}
+\subsubsection{BaseService osztály}
+\begin{description}
+	\item[GetUserData(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót\footnote{\href{https://docs.microsoft.com/en-us/dotnet/api/system.security.claims.claimsprincipal?view=netcore-3.1}{Ezen a linken} elolvashatjuk a \emph{ClaimsPrincipal} osztály dokumentációját.} kapja a metódus, majd eredményül a paraméterül kapott felhasználónak az adataival tér vissza.
+	\item[GetUserData(int):] az előbbi metódus túlterhelése, itt az keresendő felhasználó egyedi kulcsát kapja a metódus paraméterül.
+	\item[GetUserRoles(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó szerepköreivel tér vissza.
+	\item[GetUsersInRole(Role):] paraméterül egy \emph{Role enum} értéket kap, majd a paraméterül kapott szerepkörrel rendelkező felhasználókkal tér vissza.
+	\item[Dispose():] az \emph{IDisposeable interface} metódusa, mely gondoskodik a külső erőforrások felszabadításáról.
+\end{description}
+\subsubsection{LoginService osztály}
+Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentkeztetésért, valamint a bejelentkeztetett felhasználó fontos adatait (felhasználónév, név, szerepkörök)lekérdezni, hogy a felhasználó munkamenetébe (angolul \emph{session}) tárol a rendszer.
+\begin{description}
+	\item[CreateFullUserName(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó polgári nevéből és felhaszálónevéből képzett \emph{string}-el tér vissza.
+	\item[CreateUserRolesJson(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó szerepköreivel tér vissza.
+	\item[SignIn(string,string,bool,bool):] paraméterül a bejelentkezési adatokat kapja, majd egy igaz/hamis értékkel tér vissza, ami a bejelentkezés sikerességét jelzi.
+	\item[SignOut():] kijelentkezteti a felhasználót az alkalmazásból.
+\end{description}
+\todo{képe beszúrása}
+\subsubsection{AdminService osztály}
+\begin{description}
+	\item[CreateSubject(string{[]},string):] 
+	\item[GetSubjects():] 
+	\item[UpdateSubject(int,string,string{[]}):] 
+	\item[DeleteSubject(int):] 
+	\item[GetAllUser():] 
+	\item[GetUserRoles(int):] 
+	\item[CreateUser(string,string,string,string,string{[]}):] 
+	\item[UpdateUser(int,string,string,string,string{[]}):] 
+\end{description}
+\todo{képe beszúrása}
+\subsubsection{TeacherService osztály}
+Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó funkciókat.
+\begin{description}
+	\item[CreateCourse(string{[]},int,string):] paraméterül felhasználónevek tömbjét, egy tantárgynak az egyedi azonosítóját illetve egy csoport nevet kap. A metódus létrehozza a paraméterül kapott tantárgyhoz az új csoportot, amennyiben ez lehetséges. Ha sikeres volt a csoport létrehozása, akkor a paraméterül kapott felhasználókat hozzárendeli a csoporthoz.
+	\item[GetSubjects(ClaimsPrincipal):] paraméterül kap egy bejelentkezett felhasználót, majd a hozzá rendelt tantárgyakkal tér vissza egy listában.
+	\item[GetCourse(int):] paraméterül egy csoportnak az egyedi azonosítóját kapja, majd visszatér ezen csoport adataival.
+	\item[EditCourse(int,string,string{[]}):] paraméterül egy csoportnak az egyedi azonosítóját, a csoport nevét, és gyakorlatvezetők felhasználóneveit kapja. A metódus a paraméterül kapott adatokkal módosítja a megfelelő csoportot. 
+\end{description}
+\todo{képe beszúrása}
+\subsubsection{InstructorService osztály}
+\begin{description}
+	\item[GetPendingList(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, visszatérési értéke a felhasználóhoz tartozó csoportba jelenkezett hallgatók listája.
+	\item[ProcessPendingStatus(int,bool):] paraméterül a jelentkezéseket tároló kapcsolótábla (\emph{UserCourses}) egyedi azonosítóját és egy igaz/hamis érték kap. A metódus az igaz/hamis érték alapján frissíti a megfelelő jelentkezési státuszt.
+	\item[GetCourses(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, eredményül pedig a felhasználóhoz tartozó csoportokkal tér vissza.
+	\item[CreateAssignment(string,string,DateTime,DateTime,int{[]}):] paraméterül egy feladatnak az adatait kapja. A metódus leellenőrzi hogy a feladat elérésének a dátum kisebb-e mint a beadási határidő, ha igen akkor elmenti a feladatot, ha nem teljesül a feltétel, akkor kivétel váltódik ki.
+	\item[GetAssignment(int,int,ClaimsPrincipal):] paraméterül egy csoport és egy feladat egyedi azonosítóját valamint a bejelentkezett felhasználót kapja. A metódus a paraméterül kapott feladat adataival tér vissza, amennyiben a felhasználó gyakorlatvezetője a paraméterül kapott csoportnak, egyébként kivétel váltódik ki.
+	\item[GetStudent(int):] paraméterül egy hallgató egyedi azonosítóját kapja, visszatérési értéke a megfelelő felhasználó adatai.
+	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó aki az értékelést végrehajtja, a kiiírt feladat csoportjának a gyakorlatvezetője-e, ha igen elmentődik az értékelés, egyébként kivétel váltódik ki.
+\end{description}
+\todo{képe beszúrása}
+\subsubsection{StudentService osztály}
+Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
+\begin{description}
+	\item[GetCourses(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja meg, majd a felhasználóhoz tartozó csoportokkal tér vissza.
+	\item[CourseRegistration(int{[]},ClaimsPrincipal):] paraméterül csoportok egyedi azonosítójának a tömbjét és a bejelentkezett felhasználót kapja, majd a felhasználót felveszi a paraméterül kapott csoportokba\footnote{Ezen a ponton még a hallgató csak jelentkezést adott le az adott csoport(ok)ba.}
+	\item[Read\_AssignmentGrid(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a hozzátartozó csoportok listájával tér vissza.
+	\item[GetAssignment(int,ClaimsPrincipal):] paraméterül egy feladatnak az egyedi azonosítóját és a bejelentkezett felhasználót kapja, majd visszatér a paraméterül kapott feladat adataival, ha a felhasználó tagja annak a csoportnak, amelyiket lekérdeztük.
+	\item[SubmitSolution(int,ClaimsPrincipal,string,DateTime):] paraméterül egy feladat egyedi azonosítóját, a bejelentkezett felhasználót, a feladat megoldását és a beadás időpontját kapja. A metódus leellenőrzi, hogy a beadás időpontja kisebb mint a feladat beadási határideje. Amennyiben helyes a beadási idő, elmenti a beadott megoldást, ellenkező esetben kivétel váltódik ki.
+\end{description}
+\todo{képe beszúrása}
 \subsection{Adatok megjelenítésére szolgáló modellek}
 \subsection{Adatok bevitelére szolgáló modellek}
+\subsection{Egyéb segédosztályok}
 \section{Vezérlő réteg}
 \label{sec:controller}
 \subsection{\emph{Home} vezérlő}

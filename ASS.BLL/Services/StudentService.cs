@@ -55,7 +55,7 @@ namespace ASS.BLL.Services
             int courseId = assignment.CourseId;
             if (!context.UserCourse.Any(x => x.CourseId == assignment.CourseId && x.UserId == userId))
             {
-                throw new ArgumentException(); // TODO
+                throw new ArgumentException();
             }
             return assignment;
         }

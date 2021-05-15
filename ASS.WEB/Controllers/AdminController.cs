@@ -49,7 +49,7 @@ namespace ASS.WEB.Controllers
             {
                 try
                 {
-                    adminService.AddUserToSubject(subject.TeachersNeptunCode, subject.SubjectName);
+                    adminService.CreateSubject(subject.TeachersNeptunCode, subject.SubjectName);
                     return View("Index");
                 }
                 catch (ArgumentException ex) when (ex.Message.Contains("foglalt"))

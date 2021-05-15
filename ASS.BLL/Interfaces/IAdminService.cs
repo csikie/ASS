@@ -9,9 +9,8 @@ namespace ASS.BLL.Interfaces
 {
     public interface IAdminService
     {
-        void AddUserToSubject(string[] neptunCodes, string subjectName);
+        void CreateSubject(string[] neptunCodes, string subjectName);
         IEnumerable<Subject> GetSubjects();
-        IEnumerable<User> GetUsers(Expression<Func<User, bool>> pred);
         void UpdateSubject(int id, string subjectName, string[] teacherNeptunCodes);
         void DeleteSubject(int id);
         public List<User> GetAllUser();
