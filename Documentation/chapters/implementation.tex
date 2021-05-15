@@ -103,6 +103,14 @@ Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{apps
 },
 ...
 \end{lstlisting}
+\subsection{Adatbázis \emph{code first} objektumai}
+A \emph{C\#} objektumok amelyekből az adatbázis képződik a \ref{fig:daldiagram} ábrán tekinthetjük meg. Maga az adatbázis az \emph{ASSContext} osztályból képződik. Minden egyes \emph{DbSet<T>}\footnote{Ahol a \emph{T} egy generikus típusparaméter.} típusú tulajdonság (angolul Property), egy adatbázis táblát jelent. Az osztály \emph{OnModelCreating} metódusában számos adatbázisra vonatkozó beállítást van lehetőségünk beállítani (pl.: táblák elsődleges kulcsai, külső kulcsai). A \emph{DbInitializer} osztály egy nyilvános \emph{Initialize} metódussal rendelkezik, mely létrehozza az adatbázis szerveren az adatbázist, ha még nem létezik, illetve a szükséges konstans adatokkal tölti fel az adatbázist (szerepkörök felvétele és rendszergazdai felhasználó létrehozása).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/daldiagram}
+	\caption{Az adatbázist leképző objektumok}
+	\label{fig:daldiagram}
+\end{figure}
 \subsection{Az adatbázis táblái}
 Az alkalmazás adatbázis diagramját a \ref{fig:dbdiagram} ábrán tekinthetjük meg. A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} keretrendszer által létrehozott táblákból csak azon a táblák és mezők kerülnek részletezésre, melyeket a rendszer aktívan használ. A táblák, amik nem kerülnek részletezésre a Microsoft hivatalos honlapján meg lehet tekinteni \cite{Identity}.
 \begin{figure}[H]
@@ -307,15 +315,30 @@ A \emph{usersubjects} tábla egy kapcsoló tábla, melyben a tárgyfelelősök �
 \end{table}
 \section{Model réteg}
 \label{sec:model}
+\subsection{Üzleti logika}
+Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/baseservice}
+	\caption{Service osztályok őse}
+	\label{fig:bll-baseservice}
+\end{figure}
+\subsection{Adatok megjelenítésére szolgáló modellek}
+\subsection{Adatok bevitelére szolgáló modellek}
 \section{Vezérlő réteg}
 \label{sec:controller}
+\subsection{\emph{Home} vezérlő}
+\subsection{\emph{Admin} vezérlő}
+\subsection{\emph{Instructor} vezérlő}
+\subsection{\emph{Teacher} vezérlő}
+\subsection{\emph{Studnet} vezérlő}
 \section{Nézet réteg}
 \label{sec:view}
 \subsection{\emph{Home} vezérlő nézetei}
 \subsection{\emph{Admin} vezérlő nézetei}
 \subsection{\emph{Instructor} vezérlő nézetei}
 \subsection{\emph{Teacher} vezérlő nézetei}
-\subsection{\emph{Studnet} vezérlő nézetei}
+\subsection{\emph{Student} vezérlő nézetei}
 \subsection{Megosztott nézetek}
 \section{Lokalizáció}
 \label{sec:localization}

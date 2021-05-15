@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="ASS.DAL.Models.Assignment">
-    <Position X="3.5" Y="1.75" Width="2.25" />
+    <Position X="9.5" Y="0.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAGABAAAAAgAAAAAIAAAAQgAAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>Models\Assignment.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.Course">
-    <Position X="8.25" Y="1.75" Width="1.75" />
+    <Position X="9" Y="3.75" Width="3" />
     <TypeIdentifier>
       <HashCode>AAICAAAAEIAAAAAAAIAAAAQAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Course.cs</FileName>
@@ -22,56 +22,53 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.Solution">
-    <Position X="5.25" Y="5.25" Width="2" />
+    <Position X="6.5" Y="3" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAALAAAAAAAgAAAAAIAAAQgAAAAAAAAAAAAAAAEAAQA=</HashCode>
       <FileName>Models\Solution.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.Subject">
-    <Position X="6" Y="1.75" Width="2" />
+    <Position X="6.5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAABAEAAA=</HashCode>
       <FileName>Models\Subject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.User">
-    <Position X="10.25" Y="1.75" Width="1.75" />
+    <Position X="3.5" Y="1.25" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAIAAAAAAACAAAAAAAAAABAAAAAAAAAAEAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.UserCourse">
-    <Position X="0.5" Y="5.25" Width="2" />
+    <Position X="1" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAHAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Models\UserCourse.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.Models.UserSubject">
-    <Position X="2.75" Y="5.25" Width="2.25" />
+    <Position X="3.75" Y="4" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAADAAAAEAAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\UserSubject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ASS.DAL.ASSContext">
-    <Position X="0.5" Y="1.75" Width="2.75" />
+    <Position X="0.5" Y="1.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAIAAFAAAIAACAAAAAAAAAAAEAAAAAAAAAAAABAEAAA=</HashCode>
       <FileName>ASSContext.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ASS.DAL.DbInitializer">
-    <Position X="7.5" Y="5.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DbInitializer.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext&lt;TUser, TRole, TKey&gt;" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="Microsoft.AspNetCore.Identity.IdentityUser&lt;TKey&gt;" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.75" />
     <TypeIdentifier />
   </Class>
   <Font Name="Segoe UI" Size="9" />
