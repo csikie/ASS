@@ -317,10 +317,9 @@ A \emph{usersubjects} tábla egy kapcsoló tábla, melyben a tárgyfelelősök �
 \label{sec:model}
 \subsection{Üzleti logika}
 Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le\footnote{Kivéve a \emph{LoginService} osztályt.} (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg. A vezérlő osztályok ezen \emph{service} osztályok metódusainak segítségével dolgozzák fel a kliens kéréseit és állítják elő a megfelelő válaszokat.
-\todo{képe beszúrása}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.0\textwidth]{developerguide/baseservice}
+	\includegraphics[width=0.7\textwidth]{developerguide/baseservice}
 	\caption{Service osztályok őse}
 	\label{fig:bll-baseservice}
 \end{figure}
@@ -340,19 +339,29 @@ Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentke
 	\item[SignIn(string,string,bool,bool):] paraméterül a bejelentkezési adatokat kapja, majd egy igaz/hamis értékkel tér vissza, ami a bejelentkezés sikerességét jelzi.
 	\item[SignOut():] kijelentkezteti a felhasználót az alkalmazásból.
 \end{description}
-\todo{képe beszúrása}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/loginservice}
+	\caption{LoginService osztály és interface}
+	\label{fig:bll-loginservice}
+\end{figure}
 \subsubsection{AdminService osztály}
 \begin{description}
-	\item[CreateSubject(string{[]},string):] 
-	\item[GetSubjects():] 
-	\item[UpdateSubject(int,string,string{[]}):] 
-	\item[DeleteSubject(int):] 
-	\item[GetAllUser():] 
-	\item[GetUserRoles(int):] 
-	\item[CreateUser(string,string,string,string,string{[]}):] 
-	\item[UpdateUser(int,string,string,string,string{[]}):] 
+	\item[CreateSubject(string{[]},string):] paraméterül \emph{tárgyfelelős}i szerepkörrel rendelkező felhasználók felhasználóneveit és a létrehozandó tantárgy nevét kapja. A metódus leellenőrzi, hogy a paraméterül kapott tantárgy név létezik-e már a rendszerben, ha nem, akkor a rendszer létrehozza a tantárgyat, egyébként kivétel váltódik ki.
+	\item[GetSubjects():] a metódus visszatérési értéke a rendszerben létrehozott összes tantárgy.
+	\item[UpdateSubject(int,string,string{[]}):] paraméterül egy tantárgy egyedi azonosítóját, tantárgy nevet és \emph{tárgyfelelős}i szerepkörrel rendelkező felhasználók felhasználóneveit kapja. A metódus módosítja a kapott paraméterek alapján a tantárgy adatait, ha az új tantárgynév még nem foglalt, egyébként kivétel váltódik ki.
+	\item[DeleteSubject(int):] paraméterül egy tantárgy egyedi azonosítóját kapja, majd a megfelelő tantárgyat a metódus törli a rendszerből.
+	\item[GetAllUser():] a metódus listázza a rendszerben tárolt összes felhasználót.
+	\item[GetUserRoles(int):] paraméterül egy felhasználó egyedi azonosítóját kapja, majd a megfelelő felhasználó szerepköreivel tér vissza.
+	\item[CreateUser(string,string,string,string,string{[]}):] a metódus egy új felhasználótt hoz létre a rendszerben a paraméterül kapott adatok alapján.
+	\item[UpdateUser(int,string,string,string,string{[]}):] paraméterül egy felhasználó adatait kapja (egyedi azonosító, felhasználónév, polgári név, e-mail cím, szerepkörök). A metódus a megfelelő felhasználó adatait módosítja.
 \end{description}
-\todo{képe beszúrása}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/adminservice}
+	\caption{AdminService osztály és interface}
+	\label{fig:bll-adminservice}
+\end{figure}
 \subsubsection{TeacherService osztály}
 Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó funkciókat.
 \begin{description}
@@ -361,7 +370,12 @@ Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó f
 	\item[GetCourse(int):] paraméterül egy csoportnak az egyedi azonosítóját kapja, majd visszatér ezen csoport adataival.
 	\item[EditCourse(int,string,string{[]}):] paraméterül egy csoportnak az egyedi azonosítóját, a csoport nevét, és gyakorlatvezetők felhasználóneveit kapja. A metódus a paraméterül kapott adatokkal módosítja a megfelelő csoportot. 
 \end{description}
-\todo{képe beszúrása}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/teacherservice}
+	\caption{TeacherService osztály és interface}
+	\label{fig:bll-teacherservice}
+\end{figure}
 \subsubsection{InstructorService osztály}
 \begin{description}
 	\item[GetPendingList(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, visszatérési értéke a felhasználóhoz tartozó csoportba jelenkezett hallgatók listája.
@@ -372,7 +386,12 @@ Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó f
 	\item[GetStudent(int):] paraméterül egy hallgató egyedi azonosítóját kapja, visszatérési értéke a megfelelő felhasználó adatai.
 	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó aki az értékelést végrehajtja, a kiiírt feladat csoportjának a gyakorlatvezetője-e, ha igen elmentődik az értékelés, egyébként kivétel váltódik ki.
 \end{description}
-\todo{képe beszúrása}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/instructorservice}
+	\caption{InstructorService osztály és interface}
+	\label{fig:bll-instructorservice}
+\end{figure}
 \subsubsection{StudentService osztály}
 Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 \begin{description}
@@ -382,7 +401,12 @@ Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 	\item[GetAssignment(int,ClaimsPrincipal):] paraméterül egy feladatnak az egyedi azonosítóját és a bejelentkezett felhasználót kapja, majd visszatér a paraméterül kapott feladat adataival, ha a felhasználó tagja annak a csoportnak, amelyiket lekérdeztük.
 	\item[SubmitSolution(int,ClaimsPrincipal,string,DateTime):] paraméterül egy feladat egyedi azonosítóját, a bejelentkezett felhasználót, a feladat megoldását és a beadás időpontját kapja. A metódus leellenőrzi, hogy a beadás időpontja kisebb mint a feladat beadási határideje. Amennyiben helyes a beadási idő, elmenti a beadott megoldást, ellenkező esetben kivétel váltódik ki.
 \end{description}
-\todo{képe beszúrása}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{developerguide/studentservice}
+	\caption{StudentService osztály és interface}
+	\label{fig:bll-studentservice}
+\end{figure}
 \subsection{Adatok megjelenítésére szolgáló modellek}
 \subsection{Adatok bevitelére szolgáló modellek}
 \subsection{Egyéb segédosztályok}

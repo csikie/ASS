@@ -46,6 +46,21 @@ namespace ASS.BLL.Services
                                               .ThenInclude(u => u.User)
                                               .FirstOrDefault(x => x.Id == id);
 
+
+            string oldSubjectName = subject.Name;
+            subject.Name = subjectName;
+
+            context.Subjects.Update(subject);
+
+            List<Subject> subjects = context.Subjects.ToList();
+            if (subjects.Where(x => x.Name == subjectName).Count() > 1)
+            {
+                context.Entry(subject).Reload();
+                context.SaveChanges();
+
+                throw new ArgumentException("A tárgynév módosítás nem sikerült mert az újonnan megadott tárgynév már foglalt!");
+            }
+
             List<UserSubject> deletedTeachers = new List<UserSubject>();
             foreach (UserSubject teacher in subject.UserSubject)
             {
@@ -67,22 +82,6 @@ namespace ASS.BLL.Services
                     subject.UserSubject.Add(new UserSubject(subject, context.Users.FirstOrDefault(x => x.UserName == teacherNeptunCode)));
                 }
             }
-
-            string oldSubjectName = subject.Name;
-            subject.Name = subjectName;
-
-            context.Subjects.Update(subject);
-            context.SaveChanges();
-
-            if (context.Subjects.Where(x => x.Name == subjectName).Count() > 1)
-            {
-                subject.Name = oldSubjectName;
-                context.Subjects.Update(subject);
-                context.SaveChanges();
-
-                throw new ArgumentException("A tárgynév módosítás nem sikerült mert az újonnan megadott tárgynév már foglalt!");
-            }
-
         }
 
         public void DeleteSubject(int id)
@@ -98,8 +97,7 @@ namespace ASS.BLL.Services
 
         public List<User> GetAllUser()
         {
-            return context.Users.Where(x => x.UserName != "admin")
-                                .ToList();
+            return context.Users.ToList();
         }
 
         public string[] GetUserRoles(int userId)
