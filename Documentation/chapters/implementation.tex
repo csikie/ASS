@@ -8,7 +8,7 @@
 Az alkalmazás ASP.NET core 3.1 keretrendszerben készült \cite{ASPDOTNETCORE3_1}, ami egy nyílt forráskódú, webes alkalmazások készítésére szolgáló programkönyvtár, melyet a \emph{Microsoft} fejleszt. A keretrendszer lehetővé teszi, hogy az alkalmazás több platformon is tudjon futni (\emph{Linux}, \emph{macOS} és \emph{Windows}). Továbbá a \emph{Kendo UI Core for jQuery}\cite{KendoUIforJquery} keretrendszer biztosítja számunkra a felületen található felhasználóbarát táblázatokat, űrlap elemeket. A saját \emph{HTML} elemek stílusait a \emph{Bootstrap}\cite{Bootstrap} keretrendszer biztosítja.
 \subsection{Az alkalmazás felépítése}
 \label{subsec:app} 
-Az alkalmazás az \emph{MVC} architektúrára épül (\ref{fig:mvc-pattern} ábra)\cite{MVC}. Tehát három rétegre bontható a felépítése, Modell-Nézet-Vezérlő. A Modell (angolul \emph{Model}) réteg tartalmazza az üzleti logikát, amely az adatokat kezeli és kapcsolatban van az adatbázissal. A nézet réteg (angolul \emph{View}) felelős a megjelenítésért. A vezérlő réteg (angolul \emph{Controller}) fogadja a kliens a kéréseit és válaszol a kérésekre. Az \emph{MVC} architektúra fő előnye, hogy jól elkülöníthetőek a rétegek, így a nézet független marad a modelltől. Ezáltal, ha szükséges könnyedén le tudjuk cserélni az egész alkalmazás nézetét, vagy fordítva újra implementálhatjuk a modell réteg működését, anélkül hogy ez a nézeten bármi gondot okozna.
+Az alkalmazás az \emph{MVC} architektúrára épül (\ref{fig:mvc-pattern} ábra)\cite{MVC}. Tehát három rétegre bontható a felépítése, Modell-Nézet-Vezérlő. A Modell (angolul \emph{Model}) réteg tartalmazza az üzleti logikát, amely az adatokat kezeli és kapcsolatban van az adatbázissal. A nézet réteg (angolul \emph{View}) felelős a megjelenítésért. A vezérlő réteg (angolul \emph{Controller}) fogadja a kliens kéréseit és válaszol azokra. Az \emph{MVC} architektúra fő előnye, hogy jól elkülöníthetőek a rétegek, így a nézet független marad a modelltől. Ezáltal, ha szükséges, könnyedén le tudjuk cserélni az egész alkalmazás nézetét, vagy fordítva újra implementálhatjuk a modell réteg működését, anélkül hogy ez a nézeten bármi gondot okozna.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{developerguide/mvc-pattern}
@@ -316,7 +316,7 @@ A \emph{usersubjects} tábla egy kapcsoló tábla, melyben a tárgyfelelősök �
 \section{Model réteg}
 \label{sec:model}
 \subsection{Üzleti logika}
-Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le\footnote{Kivéve a \emph{LoginService} osztályt.} (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg. A vezérlő osztályok ezen \emph{service} osztályok metódusainak segítségével dolgozzák fel a kliens kéréseit és állítják elő a megfelelő válaszokat.
+Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és az \emph{ASS.BLL.Services} névtérben tároljuk. Az üzleti logikát szerepkörökre bontva valósítjuk meg. Minden szerepkörhöz tartozik egy \emph{interface}, mely leírja a szerepkörhöz tartozó funkciók metódusait, valamint egy osztály, ami implementálja az adott \emph{interface}-t. Az \emph{interface}-ket megvalósító osztályok a \emph{BaseService} osztályból származnak le\footnote{Kivéve a \emph{LoginService} osztályt.} (\ref{fig:bll-baseservice} ábra), melyben azok a funkcionalitások kerültek implementálásra, amiket minden egyes szerepkörhöz tartozó \emph{service} osztálynak meg kell valósítania. Ezeket a \emph{service} osztályokat az alkalmazás \emph{IoC} (\emph{Inversion of Control}) konténerébe \cite{IoC} regisztráljuk. Ezáltal a vezérlő osztályok rendelkeznek a hozzájuk tartozó \emph{service} osztály egy példányával, melyet konstruktoron keresztüli függőségi befecskendezéssel kapnak meg. A vezérlő osztályok ezen \emph{service} osztályok metódusainak segítségével dolgozzák fel a kliens kéréseit és állítják elő a megfelelő válaszokat.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{developerguide/baseservice}
@@ -326,15 +326,15 @@ Az üzleti logikát megvalósító objektumokat az \emph{ASS.BLL.Interfaces} és
 \subsubsection{BaseService osztály}
 \begin{description}
 	\item[GetUserData(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót\footnote{\href{https://docs.microsoft.com/en-us/dotnet/api/system.security.claims.claimsprincipal?view=netcore-3.1}{Ezen a linken} elolvashatjuk a \emph{ClaimsPrincipal} osztály dokumentációját.} kapja a metódus, majd eredményül a paraméterül kapott felhasználónak az adataival tér vissza.
-	\item[GetUserData(int):] az előbbi metódus túlterhelése, itt az keresendő felhasználó egyedi kulcsát kapja a metódus paraméterül.
+	\item[GetUserData(int):] az előbbi metódus túlterhelése, itt a keresendő felhasználó egyedi kulcsát kapja a metódus paraméterül.
 	\item[GetUserRoles(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó szerepköreivel tér vissza.
 	\item[GetUsersInRole(Role):] paraméterül egy \emph{Role enum} értéket kap, majd a paraméterül kapott szerepkörrel rendelkező felhasználókkal tér vissza.
 	\item[Dispose():] az \emph{IDisposeable interface} metódusa, mely gondoskodik a külső erőforrások felszabadításáról.
 \end{description}
 \subsubsection{LoginService osztály}
-Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentkeztetésért, valamint a bejelentkeztetett felhasználó fontos adatait (felhasználónév, név, szerepkörök)lekérdezni, hogy a felhasználó munkamenetébe (angolul \emph{session}) tárol a rendszer.
+Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentkeztetésért, valamint a bejelentkeztetett felhasználó fontos adatainak (felhasználónév, név, szerepkörök) lekérdezéséért, hogy a felhasználó munkamenetében (angolul \emph{session}) tudja tárolni a rendszer.
 \begin{description}
-	\item[CreateFullUserName(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó polgári nevéből és felhaszálónevéből képzett \emph{string}-el tér vissza.
+	\item[CreateFullUserName(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó polgári nevéből és felhasználónevéből képzett \emph{string}-el tér vissza.
 	\item[CreateUserRolesJson(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a felhasználó szerepköreivel tér vissza.
 	\item[SignIn(string,string,bool,bool):] paraméterül a bejelentkezési adatokat kapja, majd egy igaz/hamis értékkel tér vissza, ami a bejelentkezés sikerességét jelzi.
 	\item[SignOut():] kijelentkezteti a felhasználót az alkalmazásból.
@@ -353,7 +353,7 @@ Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentke
 	\item[DeleteSubject(int):] paraméterül egy tantárgy egyedi azonosítóját kapja, majd a megfelelő tantárgyat a metódus törli a rendszerből.
 	\item[GetAllUser():] a metódus listázza a rendszerben tárolt összes felhasználót.
 	\item[GetUserRoles(int):] paraméterül egy felhasználó egyedi azonosítóját kapja, majd a megfelelő felhasználó szerepköreivel tér vissza.
-	\item[CreateUser(string,string,string,string,string{[]}):] a metódus egy új felhasználótt hoz létre a rendszerben a paraméterül kapott adatok alapján.
+	\item[CreateUser(string,string,string,string,string{[]}):] a metódus egy új felhasználót hoz létre a rendszerben a paraméterül kapott adatok alapján.
 	\item[UpdateUser(int,string,string,string,string{[]}):] paraméterül egy felhasználó adatait kapja (egyedi azonosító, felhasználónév, polgári név, e-mail cím, szerepkörök). A metódus a megfelelő felhasználó adatait módosítja.
 \end{description}
 \begin{figure}[H]
@@ -365,8 +365,8 @@ Ez az osztály felelős az alkalmazásba való bejelentkeztetésért, kijelentke
 \subsubsection{TeacherService osztály}
 Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó funkciókat.
 \begin{description}
-	\item[CreateCourse(string{[]},int,string):] paraméterül felhasználónevek tömbjét, egy tantárgynak az egyedi azonosítóját illetve egy csoport nevet kap. A metódus létrehozza a paraméterül kapott tantárgyhoz az új csoportot, amennyiben ez lehetséges. Ha sikeres volt a csoport létrehozása, akkor a paraméterül kapott felhasználókat hozzárendeli a csoporthoz.
-	\item[GetSubjects(ClaimsPrincipal):] paraméterül kap egy bejelentkezett felhasználót, majd a hozzá rendelt tantárgyakkal tér vissza egy listában.
+	\item[CreateCourse(string{[]},int,string):] paraméterül felhasználónevek tömbjét, egy tantárgynak az egyedi azonosítóját illetve egy csoportnevet kap. A metódus létrehozza a paraméterül kapott tantárgyhoz az új csoportot, amennyiben ez lehetséges. Ha sikeres volt a csoport létrehozása, akkor a paraméterül kapott felhasználókat hozzárendeli a csoporthoz.
+	\item[GetSubjects(ClaimsPrincipal):] paraméterül kap egy bejelentkezett felhasználót, majd a hozzárendelt tantárgyakkal tér vissza egy listában.
 	\item[GetCourse(int):] paraméterül egy csoportnak az egyedi azonosítóját kapja, majd visszatér ezen csoport adataival.
 	\item[EditCourse(int,string,string{[]}):] paraméterül egy csoportnak az egyedi azonosítóját, a csoport nevét, és gyakorlatvezetők felhasználóneveit kapja. A metódus a paraméterül kapott adatokkal módosítja a megfelelő csoportot. 
 \end{description}
@@ -379,12 +379,12 @@ Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó f
 \subsubsection{InstructorService osztály}
 \begin{description}
 	\item[GetPendingList(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, visszatérési értéke a felhasználóhoz tartozó csoportba jelenkezett hallgatók listája.
-	\item[ProcessPendingStatus(int,bool):] paraméterül a jelentkezéseket tároló kapcsolótábla (\emph{UserCourses}) egyedi azonosítóját és egy igaz/hamis érték kap. A metódus az igaz/hamis érték alapján frissíti a megfelelő jelentkezési státuszt.
+	\item[ProcessPendingStatus(int,bool):] paraméterül a jelentkezéseket tároló kapcsolótábla (\emph{UserCourses}) egyedi azonosítóját és egy igaz/hamis érték kap. A metódus az igaz/hamis érték alapján frissíti a megfelelő jelentkezési státuszt. Az igaz érték a jelentkezés elfogadását jelenti, a hamis pedig az elutasítást.
 	\item[GetCourses(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, eredményül pedig a felhasználóhoz tartozó csoportokkal tér vissza.
-	\item[CreateAssignment(string,string,DateTime,DateTime,int{[]}):] paraméterül egy feladatnak az adatait kapja. A metódus leellenőrzi hogy a feladat elérésének a dátum kisebb-e mint a beadási határidő, ha igen akkor elmenti a feladatot, ha nem teljesül a feltétel, akkor kivétel váltódik ki.
+	\item[CreateAssignment(string,string,DateTime,DateTime,int{[]}):] paraméterül egy feladatnak az adatait kapja. A metódus leellenőrzi, hogy a feladat elérésének a dátuma korábban van-e mint a beadási határidő, ha igen akkor elmenti a feladatot, ha nem teljesül a feltétel, akkor kivétel váltódik ki.
 	\item[GetAssignment(int,int,ClaimsPrincipal):] paraméterül egy csoport és egy feladat egyedi azonosítóját valamint a bejelentkezett felhasználót kapja. A metódus a paraméterül kapott feladat adataival tér vissza, amennyiben a felhasználó gyakorlatvezetője a paraméterül kapott csoportnak, egyébként kivétel váltódik ki.
 	\item[GetStudent(int):] paraméterül egy hallgató egyedi azonosítóját kapja, visszatérési értéke a megfelelő felhasználó adatai.
-	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó aki az értékelést végrehajtja, a kiiírt feladat csoportjának a gyakorlatvezetője-e, ha igen elmentődik az értékelés, egyébként kivétel váltódik ki.
+	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó, aki az értékelést végrehajtja, a kiiírt feladat csoportjának a gyakorlatvezetője-e. Ha igen, elmentődik az értékelés, egyébként kivétel váltódik ki.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -396,10 +396,10 @@ Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó f
 Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 \begin{description}
 	\item[GetCourses(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja meg, majd a felhasználóhoz tartozó csoportokkal tér vissza.
-	\item[CourseRegistration(int{[]},ClaimsPrincipal):] paraméterül csoportok egyedi azonosítójának a tömbjét és a bejelentkezett felhasználót kapja, majd a felhasználót felveszi a paraméterül kapott csoportokba\footnote{Ezen a ponton még a hallgató csak jelentkezést adott le az adott csoport(ok)ba.}
-	\item[Read\_AssignmentGrid(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a hozzátartozó csoportok listájával tér vissza.
+	\item[CourseRegistration(int{[]},ClaimsPrincipal):] paraméterül csoportok egyedi azonosítójának a tömbjét és a bejelentkezett felhasználót kapja, majd a felhasználót felveszi a paraméterül kapott csoportokba\footnote{Ezen a ponton még a hallgató csak jelentkezést adott le az adott csoport(ok)ba.}.
+	\item[Read\_AssignmentGrid(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, majd a hozzá tartozó csoportok listájával tér vissza.
 	\item[GetAssignment(int,ClaimsPrincipal):] paraméterül egy feladatnak az egyedi azonosítóját és a bejelentkezett felhasználót kapja, majd visszatér a paraméterül kapott feladat adataival, ha a felhasználó tagja annak a csoportnak, amelyiket lekérdeztük.
-	\item[SubmitSolution(int,ClaimsPrincipal,string,DateTime):] paraméterül egy feladat egyedi azonosítóját, a bejelentkezett felhasználót, a feladat megoldását és a beadás időpontját kapja. A metódus leellenőrzi, hogy a beadás időpontja kisebb mint a feladat beadási határideje. Amennyiben helyes a beadási idő, elmenti a beadott megoldást, ellenkező esetben kivétel váltódik ki.
+	\item[SubmitSolution(int,ClaimsPrincipal,string,DateTime):] paraméterül egy feladat egyedi azonosítóját, a bejelentkezett felhasználót, a feladat megoldását és a beadás időpontját kapja. A metódus leellenőrzi, hogy a beadás időpontja korábbi-e mint a feladat beadási határideje. Amennyiben helyes a beadási idő, elmenti a beadott megoldást, ellenkező esetben kivétel váltódik ki.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -408,9 +408,9 @@ Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 	\label{fig:bll-studentservice}
 \end{figure}
 \subsection{Adatok megjelenítésére szolgáló modellek}
-Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladata a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás} objektumokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
+Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladatuk a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás}\todo{entitás objektum megdefiniálása} objektumokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
 \subsection{Adatok bevitelére szolgáló modellek}
-Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútomot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Ezt a \emph{.NET} keretrendszer biztosítja. Az attribútomok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a valadiációs hibaüzenetek testreszabni. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútomok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
+Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútomot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Az attribútomok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a valadiációs hibaüzenetek testreszabni. Ezt a \emph{.NET} keretrendszer biztosítja. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútomok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
 \lstset{caption={Példa az attribútomok használatára}, label=src:loginviewmodel}
 \begin{lstlisting}[language={[Sharp]C}]
 using System.ComponentModel.DataAnnotations;
@@ -432,7 +432,7 @@ namespace ASS.WEB.Models.ViewModels
 }
 \end{lstlisting}
 \subsection{Egyéb segédosztályok}
-Az alkalmazásban definiálásra kerülnek egyéb segéd osztályok és egy felsorolási típus (angolul \emph{enum}), melyeket az alább ábrán látható helyen találunk.
+Az alkalmazásban definiálásra kerülnek egyéb segédosztályok és egy felsorolási típus (angolul \emph{enum}), melyeket az alább ábrán látható helyen találunk.
 \begin{center}
 	\begin{forest}
 		for tree={
@@ -474,7 +474,7 @@ Az alkalmazásban definiálásra kerülnek egyéb segéd osztályok és egy fels
 \end{center}
 \subsubsection{Role.cs}
 A \emph{Role} felsorolási típus segítségével definiáljuk a rendszerben tárolt szerepköröket. Ugyanis így a forráskódban nem szükséges beégetett szövegeket használnunk a szerepkörökre\footnote{Ez alól kivétel az \emph{Authorize} attribútom, mivel az attribútomokban a keretrendszer csak konstans értékeket enged használni.}.
-\lstset{caption={Role enum}, label=src:roleenum}
+\lstset{caption={Szerepkörök felsorolási típusa}, label=src:roleenum}
 \begin{lstlisting}[language={[Sharp]C}]
 namespace ASS.Common.Enums
 {
@@ -514,14 +514,14 @@ namespace ASS.Common.Helpers
 				case "en-US":
 					return "English";
 				default:
-                    return "Ismeretlen";
+					return "Ismeretlen";
 			}
 		}
 	}
 }
 \end{lstlisting}
 \subsubsection{Settings osztályok}
-A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz különböző konfigurációk beállítását a felhasználói fiókokra. Például jelszóra vonatkozó konfigurációkat (minimum hossz, kötelező számot tartalmaznia stb), felhasználóra vonatkozó megszorításokat (minden felhasználó egyedi e-mail címmel rendelkezzen) és hibás bejelentkezés esetén konfigurálhatjuk a felhasználó kizárását az alkalmazásből (a kizárás időtartama). Ezen konfigurációk könnyű állíthatósága érdekében a konfigurációs értékek az alkalmazás konfigurációs fájljába (\emph{appsettings.json}) kiszervezésre került.
+A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz különböző konfigurációk beállítását a felhasználói fiókokra. Például jelszóra vonatkozó konfigurációkat (minimum hossz, kötelező számot tartalmaznia stb), felhasználóra vonatkozó megszorításokat (minden felhasználó egyedi e-mail címmel rendelkezzen) és hibás bejelentkezés esetén konfigurálhatjuk a felhasználó kizárását az alkalmazásből (a kizárás időtartama). Ezen konfigurációk könnyű állíthatósága érdekében a konfigurációs értékek az alkalmazás konfigurációs fájljába (\emph{appsettings.json}) kiszervezésre kerültek.
 \lstset{caption={Felhasználói fiók konfigurációs beállításai}, label=src:identityoptions}
 \begin{lstlisting}[language=json]
 ...
@@ -543,7 +543,7 @@ A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz k�
 }
 ...
 \end{lstlisting}
-Ugyanis így a kód módosítása nélkül tudjuk változtatni ezen konfigurációs beállításokat és nem kell a változások után újra fordítani az alkalmazást, hanem elengedő csak újraindítani, hiszen a forráskód nem változott. Ezeketet a beállításokat az alkalmazás indításakor olvassuk ki az \emph{appsettings.json} fájlból. Majd szerializáljuk a megfelelő objektumba (\emph{IdentitySettings} osztály) az adatokat. Továbbá egyszerre több fajta konfigurációs beállítást megadhatunk, annak függvényében, hogy az alkalmazás milyen módban fut\footnote{Ezt a beállítást is az \emph{appsettings.json} fájlban állíthatjuk} (\ref{src:appmode} forráskód).
+Ugyanis így a kód módosítása nélkül tudjuk változtatni ezen konfigurációs beállításokat és nem kell a változások után újra fordítani az alkalmazást, hanem elengedő csak újraindítani, hiszen a forráskód nem változott. Ezeket a beállításokat az alkalmazás indításakor kerül kiolvasásra az \emph{appsettings.json} fájlból, majd szerializálja a megfelelő objektumba (\emph{IdentitySettings} osztály) az adatokat. Továbbá egyszerre több fajta konfigurációs beállítást megadhatunk, annak függvényében, hogy az alkalmazás milyen módban fut\footnote{Ezt a beállítást is az \emph{appsettings.json} fájlban állíthatjuk} (\ref{src:appmode} forráskód).
 \lstset{caption={Alkalmazás futási módja}, label=src:appmode}
 \begin{lstlisting}[language=json]
 "Mode": "Development",
