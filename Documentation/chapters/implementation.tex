@@ -72,7 +72,7 @@ Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensi
 	\item LogLevel: itt állíthatjuk be, hogy milyen minimum szintű események kerüljenek naplózásra \cite{LogLevels}. A jelenlegi beállítással az alkalmazás minden legalább \emph{Information} szinttel rendelkező eseményt naplóz.
 \end{itemize}
 %\newpage
-\lstset{caption={Naplózás beállításai}, label=src:json}
+\lstset{caption={Naplózás beállításai}, label=src:log}
 \begin{lstlisting}[language=json]
 ...
 "Logging": {
@@ -95,7 +95,7 @@ Az adatbázis \emph{code first} módszerrel van megvalósítva, tehát nem az ad
 Az adatelérést az \emph{Entity Framework Core ORM} keretrendszer biztosítja \cite{EFCore}. Az objektum-relációs leképzés (angolul \emph{Object-Relational Mapping}), egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD} (Create,Read,Update,Delete műveleteknek a rövidítése) műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatott \emph{LINQ} (Language Integrated Queries) metódushívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
 
 Az adatbázis elérését az alkalmazás konfigurációs fájljában (\emph{appsettings.json}) tudjuk megadni illetve módosítani.
-\lstset{caption={Adatbázis elérése}, label=src:json}
+\lstset{caption={Adatbázis elérése}, label=src:dbconn}
 \begin{lstlisting}[language=json]
 ...
 "ConnectionStrings": {
@@ -408,8 +408,148 @@ Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 	\label{fig:bll-studentservice}
 \end{figure}
 \subsection{Adatok megjelenítésére szolgáló modellek}
+Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladata a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás} objektumokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
 \subsection{Adatok bevitelére szolgáló modellek}
+Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútomot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Ezt a \emph{.NET} keretrendszer biztosítja. Az attribútomok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a valadiációs hibaüzenetek testreszabni. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútomok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
+\lstset{caption={Példa az attribútomok használatára}, label=src:loginviewmodel}
+\begin{lstlisting}[language={[Sharp]C}]
+using System.ComponentModel.DataAnnotations;
+
+namespace ASS.WEB.Models.ViewModels
+{
+	public class LoginViewModel
+	{
+		[Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel),ErrorMessageResourceName = "UsernameRequired")]
+		[StringLength(maximumLength: 10, MinimumLength = 5, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), ErrorMessageResourceName = "UsernameLengthMessage")]
+		[Display(ResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), Name = "Username")]
+		public string Username { get; set; }
+
+		[Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), ErrorMessageResourceName = "PasswordRequired")]
+		[StringLength(maximumLength: 30, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel),ErrorMessageResourceName = "PasswordLength")]
+		[Display(ResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), Name = "Password")]
+		public string Password { get; set; }
+	}
+}
+\end{lstlisting}
 \subsection{Egyéb segédosztályok}
+Az alkalmazásban definiálásra kerülnek egyéb segéd osztályok és egy felsorolási típus (angolul \emph{enum}), melyeket az alább ábrán látható helyen találunk.
+\begin{center}
+	\begin{forest}
+		for tree={
+			font=\ttfamily,
+			grow'=0,
+			child anchor=west,
+			parent anchor=south,
+			anchor=west,
+			calign=first,
+			edge path={
+			\noexpand\path [draw, \forestoption{edge}]
+			(!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+			},
+			before typesetting nodes={
+			if n=1
+				{insert before={[,phantom]}}
+				{}
+			},
+			fit=band,
+			before computing xy={l=15pt},
+		}
+		[ASS
+			[ASS.Common/
+				[Enums/
+					[Role.cs]
+				]
+				[Helpers/
+					[CultureCodeMapping.cs]
+				]
+				[Settings/
+					[IdentitySettings.cs]
+					[LockoutSettings.cs]
+					[PasswordSettings.cs]
+					[UserSettings.cs]
+				]
+			]
+		]
+	\end{forest}
+\end{center}
+\subsubsection{Role.cs}
+A \emph{Role} felsorolási típus segítségével definiáljuk a rendszerben tárolt szerepköröket. Ugyanis így a forráskódban nem szükséges beégetett szövegeket használnunk a szerepkörökre\footnote{Ez alól kivétel az \emph{Authorize} attribútom, mivel az attribútomokban a keretrendszer csak konstans értékeket enged használni.}.
+\lstset{caption={Role enum}, label=src:roleenum}
+\begin{lstlisting}[language={[Sharp]C}]
+namespace ASS.Common.Enums
+{
+	public enum Role
+	{
+		Admin,
+		Teacher,
+		Instructor,
+		Student
+	}
+}
+\end{lstlisting}
+Továbbá a \emph{Role enum} segítségével egy ciklussal könnyedén tudjuk az adatbázisba perzisztálni az \emph{enum} értékeit.
+\lstset{caption={Szerepkörök tárolása az adatbázisba (DbInitializer.cs)}, label=src:roles}
+\begin{lstlisting}[language={[Sharp]C}]
+...
+foreach (Role item in Enum.GetValues(typeof(Role)))
+{
+	context.Roles.Add(new IdentityRole<int>() { Name = item.ToString(), NormalizedName = item.ToString() });
+}
+...
+\end{lstlisting}
+\subsubsection{CultureCodeMapping.cs}
+A \emph{CultureCodeMapping} egy statikus segédosztály, amely egy nyelvi kódból a nyelvet adja vissza. Ezt a segédosztályt a lokalizációnál használjuk, hogy a felületen ne a nyelvi kód (pl.: \emph{hu-HU}) jelenjen meg, hanem az adott nyelv neve.
+\lstset{caption={CultureCodeMapping osztály}, label=src:culturecodemapping}
+\begin{lstlisting}[language={[Sharp]C}]
+namespace ASS.Common.Helpers
+{
+	public static class CultureCodeMapping
+	{
+		public static string CultureCodeToCountryName(string cultureCode)
+		{
+			switch (cultureCode)
+			{
+				case "hu-HU":
+					return "Magyar";
+				case "en-US":
+					return "English";
+				default:
+                    return "Ismeretlen";
+			}
+		}
+	}
+}
+\end{lstlisting}
+\subsubsection{Settings osztályok}
+A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz különböző konfigurációk beállítását a felhasználói fiókokra. Például jelszóra vonatkozó konfigurációkat (minimum hossz, kötelező számot tartalmaznia stb), felhasználóra vonatkozó megszorításokat (minden felhasználó egyedi e-mail címmel rendelkezzen) és hibás bejelentkezés esetén konfigurálhatjuk a felhasználó kizárását az alkalmazásből (a kizárás időtartama). Ezen konfigurációk könnyű állíthatósága érdekében a konfigurációs értékek az alkalmazás konfigurációs fájljába (\emph{appsettings.json}) kiszervezésre került.
+\lstset{caption={Felhasználói fiók konfigurációs beállításai}, label=src:identityoptions}
+\begin{lstlisting}[language=json]
+...
+"User": {
+	"RequireUniqueEmail": false
+},
+"Password": {
+	"RequiredLength": 1,
+	"RequireLowercase": false,
+	"RequireUppercase": false,
+	"RequireDigit": false,
+	"RequireNonAlphanumeric": false,
+	"RequiredUniqueChars" : 1
+},
+"Lockout": {
+	"AllowedForNewUsers": false,
+	"DefaultLockoutTimeSpanInMins": 30,
+	"MaxFailedAccessAttempts": 10
+}
+...
+\end{lstlisting}
+Ugyanis így a kód módosítása nélkül tudjuk változtatni ezen konfigurációs beállításokat és nem kell a változások után újra fordítani az alkalmazást, hanem elengedő csak újraindítani, hiszen a forráskód nem változott. Ezeketet a beállításokat az alkalmazás indításakor olvassuk ki az \emph{appsettings.json} fájlból. Majd szerializáljuk a megfelelő objektumba (\emph{IdentitySettings} osztály) az adatokat. Továbbá egyszerre több fajta konfigurációs beállítást megadhatunk, annak függvényében, hogy az alkalmazás milyen módban fut\footnote{Ezt a beállítást is az \emph{appsettings.json} fájlban állíthatjuk} (\ref{src:appmode} forráskód).
+\lstset{caption={Alkalmazás futási módja}, label=src:appmode}
+\begin{lstlisting}[language=json]
+"Mode": "Development",
+...
+\end{lstlisting}
+Ennek használatával elég csak a módot változtatni, nem kell az összes \emph{IdentitySettings}-hez tartozó értéket módosítani.
 \section{Vezérlő réteg}
 \label{sec:controller}
 \subsection{\emph{Home} vezérlő}

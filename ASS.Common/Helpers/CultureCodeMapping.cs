@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ASS.Common.Helpers
+﻿namespace ASS.Common.Helpers
 {
     public static class CultureCodeMapping
     {
@@ -14,10 +10,8 @@ namespace ASS.Common.Helpers
                     return "Magyar";
                 case "en-US":
                     return "English";
-                case "de-DE":
-                    return "Deutsche";
                 default:
-                    return "Ismeretlen országkód";
+                    return "Ismeretlen";
             }
         }
     }
