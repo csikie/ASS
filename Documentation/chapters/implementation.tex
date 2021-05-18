@@ -408,7 +408,7 @@ Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 	\label{fig:bll-studentservice}
 \end{figure}
 \subsection{Adatok megjelenítésére szolgáló modellek}
-Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladatuk a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás}\todo{entitás objektum megdefiniálása} objektumokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
+Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladatuk a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás}\footnote{Azokat az osztályokat nevezzük \emph{entitás} osztálynak, melyekből az adatbázis táblák képződnek le.} osztályokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
 \subsection{Adatok bevitelére szolgáló modellek}
 Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútomot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Az attribútomok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a valadiációs hibaüzenetek testreszabni. Ezt a \emph{.NET} keretrendszer biztosítja. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútomok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
 \lstset{caption={Példa az attribútomok használatára}, label=src:loginviewmodel}
@@ -567,3 +567,31 @@ Ennek használatával elég csak a módot változtatni, nem kell az összes \emp
 \subsection{Megosztott nézetek}
 \section{Lokalizáció}
 \label{sec:localization}
+Az \emph{ASP.NET Core} keretrendszer támogatja az alkalmazások lokalizációját \cite{Localization}. A lokalizáció megvalósításához pár beállítást kell elvégeznünk az alkalmazásban. Első lépésként be kell állítani, hogy az alkalmazás lokalizálható legyen, valamint meg kell adnunk a támogatott nyelveket, az alkalmazás alapértelmezett nyelvét (\ref{src:localization} forráskód) és meg kell adnunk, hogy az alkalmazás mely mappában keresse a lokalizációs fájlokat.
+\lstset{caption={Lokalizáció beállítása}, label=src:localization}
+\begin{lstlisting}[language={[Sharp]C}]
+...
+services.AddLocalization(option => option.ResourcesPath = "Resources");
+services.AddMvc()
+		.AddViewLocalization();
+
+services.Configure<RequestLocalizationOptions>(options =>
+{
+	var supportedCultures = new List<CultureInfo>()
+	{
+		new CultureInfo("hu-HU"),
+		new CultureInfo("en-US"),
+	};
+	options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
+	options.SupportedCultures = supportedCultures;
+	options.SupportedUICultures = supportedCultures;
+});
+...
+\end{lstlisting}
+Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a befecskendezzük a lokalizációhoz szükséges osztályokat a \emph{\_ViewImports.cshtml} fájl segítségével, hogy az összes nézeten elérjük ezeket az osztályokat. Az \emph{IViewLocalizer} objektum tárolja a fordítandó kulcs-érték párokat, az \emph{IOptions<RequestLocalizationOptions>} objektum segítségével az alkalmazás áltál támogatott nyelveket tudjuk lekérdezni, hogy ezeket a szükséges nézeteken meg tudjuk jeleníteni.
+\lstset{caption={Lokalizációhoz szükséges objektumok befecskendezése}, label=src:localizationobjects}
+\begin{lstlisting}[language={[Sharp]C}]
+...
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> localizationOption
+\end{lstlisting}
