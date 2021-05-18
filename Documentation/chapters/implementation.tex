@@ -570,11 +570,8 @@ Ennek használatával elég csak a módot változtatni, nem kell az összes \emp
 Az \emph{ASP.NET Core} keretrendszer támogatja az alkalmazások lokalizációját \cite{Localization}. A lokalizáció megvalósításához pár beállítást kell elvégeznünk az alkalmazásban. Első lépésként be kell állítani, hogy az alkalmazás lokalizálható legyen, valamint meg kell adnunk a támogatott nyelveket, az alkalmazás alapértelmezett nyelvét (\ref{src:localization} forráskód) és meg kell adnunk, hogy az alkalmazás mely mappában keresse a lokalizációs fájlokat.
 \lstset{caption={Lokalizáció beállítása}, label=src:localization}
 \begin{lstlisting}[language={[Sharp]C}]
-...
 services.AddLocalization(option => option.ResourcesPath = "Resources");
-services.AddMvc()
-		.AddViewLocalization();
-
+services.AddMvc().AddViewLocalization();
 services.Configure<RequestLocalizationOptions>(options =>
 {
 	var supportedCultures = new List<CultureInfo>()
@@ -595,3 +592,47 @@ Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a
 @inject IViewLocalizer localizer
 @inject IOptions<RequestLocalizationOptions> localizationOption
 \end{lstlisting}
+Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell követnünk. A megadott \emph{ResourcesPath} mappában létrehozzuk a lokalizálni kivánt nézetek, nézetmodellek és \emph{DTO} mappáit, majd ezekhez létrehozzuk a megfelelően elnevezett \emph{resource} fájlokat\footnote{A viewmodelleknél és a dtoknál csak a nem alapértelmezett nyelvi \emph{resource} fájlokhoz kell kitenni a nyeli kódot (en-US)} (pl.: Index.hu-HU.resx).
+\begin{center}
+	\begin{forest}
+		for tree={
+			font=\ttfamily,
+			grow'=0,
+			child anchor=west,
+			parent anchor=south,
+			anchor=west,
+			calign=first,
+			edge path={
+			\noexpand\path [draw, \forestoption{edge}]
+			(!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+			},
+			before typesetting nodes={
+			if n=1
+				{insert before={[,phantom]}}
+				{}
+			},
+			fit=band,
+			before computing xy={l=15pt},
+		}
+		[Resources/
+			[Models/
+				[ViewModels/
+					[...]
+					[LoginViewModel.resx]
+					[LoginViewModel.en-US.resx]
+					[...]
+				]
+				[DTOs/]
+			]
+			[Views/
+				[...]
+				[Teacher/
+					[...]
+					[Index.hu-HU.resx]
+					[Index.en-US.resx]
+					[...]
+				]
+			]
+		]
+	\end{forest}
+\end{center}

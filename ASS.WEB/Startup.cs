@@ -30,9 +30,6 @@ namespace ASS.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string appMode = Configuration.GetSection("Mode").Value;
-            IdentitySettings identitySettings = Configuration.GetSection("IdentitySettings").GetSection(appMode).Get<IdentitySettings>();
-
             // Lokaliz?ci? hozz?ad?sa
             services.AddLocalization(option => option.ResourcesPath = "Resources");
             services.AddMvc()
@@ -49,6 +46,9 @@ namespace ASS.WEB
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
             });
+
+            string appMode = Configuration.GetSection("Mode").Value;
+            IdentitySettings identitySettings = Configuration.GetSection("IdentitySettings").GetSection(appMode).Get<IdentitySettings>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
