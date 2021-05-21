@@ -553,10 +553,109 @@ Ennek használatával elég csak a módot változtatni, nem kell az összes \emp
 \section{Vezérlő réteg}
 \label{sec:controller}
 \subsection{\emph{Home} vezérlő}
+A \emph{Home} vezérlő (\ref{fig:homecontroller} ábra) az alkalmazás alap funkcionalitásait implementálja, mint például a bejelentkezés vagy a kijelentkezés. Ez a vezérlő mindenki számára elérhető, nincs jogkörhöz kötve.
+\begin{description}
+	\item[{[HttpGet]} Index():] visszatér az alkalmazás főoldalával.
+	\item[{[HttpPost]} Login(LoginViewModel):] paraméterül a bejelentkezési adatokat kapja (felhasználónév, jelszó), majd a kapott adatokkal megpróbálja bejelentkeztetni az alkalmazásba a felhasználót, sikeres bejelentkezés esetén a szerepkörének megfelelő kezdőoldalra irányítja, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CultureManagment(string):] paraméterül egy nyelvi kódot kap (pl.: hu-HU), majd \emph{sütibe} menti a kapott nyelvi kódot, és visszatér az alkalmazás főoldalával. 
+	\item[{[HttpGet]} Error(string):] paraméterül a keletkezett hibának az azonosítóját kapja, majd visszatér az alkalmazás hibaoldalával.
+	\item[{[HttpGet]} AccessDenied():] az alkalmazás \emph{jogosulatlan kérés} oldalával tér vissza.
+	\item[{[HttpGet]} Logout():] kijelentkezteti a felhasználót, majd visszatér az alkalmazás főoldalával.
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/homecontroller}
+	\caption{\emph{Home} vezérlő}
+	\label{fig:homecontroller}
+\end{figure}
+\subsection{\emph{Base} vezérlő}
+A vezérlők őse\footnote{Leszámítva a \emph{Home} vezérlőt.} (\ref{fig:basecontroller} ábra), mely azokat a funkcionalitásokat valósítja meg, amellyel minden szerepkörhöz tartozó vezérlőnek tudnia kell.
+\begin{description}
+	\item[{[HttpGet]} Profile():] lekéri í bejelentkezett felhasználó adatait, majd visszatér szeméyles adatokat megjelenítő oldallal.
+	\item[{[HttpPost]} CultureManagment(string):] paraméterül egy nyelvi kódot kap (pl.: hu-HU), majd \emph{sütibe} menti a kapott nyelvi kódot, és visszatér a személyes adatokkat megjelenítő oldallal. 
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/basecontroller}
+	\caption{\emph{Base} vezérlő}
+	\label{fig:basecontroller}
+\end{figure}
 \subsection{\emph{Admin} vezérlő}
+Az \emph{Admin} vezérlőt csak rendszergazdai szerepkörrel rendelkező felhasználók érhetik el.
+\begin{description}
+	\item[{[HttpGet]} Index():] a rendszergazdai szerepkör főoldalával tér vissza.
+	\item[{[HttpGet]} GetTeachers():] lekéri a rendszerben szereplő tárgyfelelősi szerepkörrel rendelkező felhasználokat és ennek eredméyével tér vissza.
+	\item[{[HttpGet]} CreateSubject():] a tantárgyak létrehozására alkalmas felületet adja vissza.
+	\item[{[HttpPost]} CreateSubject(CreateSubjectViewModel):] a tantárgy létrehozásának küldése, ellenőrzi az adatok helyességét. Sikeres adatrögzítés után átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpGet]} GetSubjects():] lekéri a rendszerben szereplő tantárgyakat és ennek eredményével tér vissza.
+	\item[{[HttpPost]} DeleteSubject(string):] paraméterül egy \emph{Json string}-et\footnote{\href{https://www.json.org/json-en.html}{Javascript Object Notation}} kap melyben a törölni kívánt tantárgy adatai vannak tárolva. Ezt a tárgyat törli a rendszerből.
+	\item[{[HttpPost]} UpdateSubject(string):] paraméterül egy \emph{Json string}-et kap melyben a módosítani kívánt tantárgy adatai vannak, sikertelen módosítás esetén átirányítás történik a hiba oldalra.
+	\item[{[HttpGet]} Read\_UserGrid():] lekéri a rendszerben tárolt felhasználókat és ennek eredményével tér vissza.
+	\item[{[HttpGet]} CreateUser():] a felhasználók létrehozására alkalmas felületet adja vissza.
+	\item[{[HttpPost]} CreateUser(CreateUserViewModel):] a felhasználó létrehozásának küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpGet]} GetAllRole():] lekéri a rendszerben található szerepköröket és ennek eredményével tér vissza.
+	\item[{[HttpGet]} UpdateUser(int):] paraméterül egy felhasználó egyedi azonosítóját kapja, majd lekéri a paraméterül kapott felhasználó adatait. Ezután a felhasználó módosítására alkalmas felületet adja vissza, a szükséges adatokkal (a felhasználó adatai).
+	\item[{[HttpPost]} UpdateUser(UpdateUserViewModel):] a felhasználó módosításának küldése, ellenőrzi az adatok helyeségét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/admincontroller}
+	\caption{\emph{Admin} vezérlő}
+	\label{fig:admincontroller}
+\end{figure}
 \subsection{\emph{Instructor} vezérlő}
+Az \emph{Instructor} vezérlőt csak gyakorlatvezetői szerepkörrel rendelkező felhasználók érhetik el.
+\begin{description}
+	\item[{[HttpGet]} Index():] a gyakorlatvezetői szerepkör főoldalával tér vissza.
+	\item[{[HttpGet]} CreateAssignment():] feladat létrehozására alkalmas felületet adja vissza.
+	\item[{[HttpPost]} CreateAssignment(CreateAssignmentViewModel):] a feladat létrehozásának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpGet]} GetCourses():] lekéri a bejelentkezett felhasználóhoz tartozó csoportokat és ennek eredményével tér vissza.
+	\item[{[HttpGet]} GetPendingList():] lekéri a bejelentkezett felhasználóhoz tartozó csoportokra jelentkezett felhasználókat és ennek eredményével tér vissza.
+	\item[{[HttpGet]} EvaluateAssignment(int, int, int):] a paraméterül kapott egyedi azonosítók alapján (csoport,feladat,hallgató) lekéri a megfelelő adatokat és a feladat értékelésére alkalmas felületet adja vissza ezen adatokkal.
+	\item[{[HttpPost]} EvaluateAssignment(int, string):] a feladat értékelésének küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} ProcessPendingStatus(int, bool):] a csoportba való jelentkezés bírálatának küldése.
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/instructorcontroller}
+	\caption{\emph{Instructor} vezérlő}
+	\label{fig:instructorcontroller}
+\end{figure}
 \subsection{\emph{Teacher} vezérlő}
+Az \emph{Teacher} vezérlőt csak tárgyfelelősi szerepkörrel rendelkező felhasználók érhetik el.
+\begin{description}
+	\item[{[HttpGet]} Index():] a tárgyfelelősi szerepkör főoldalával tér vissza.
+	\item[{[HttpGet]} CreateCourse():] csoport létrehozására alkalmas felületet adja vissza.
+	\item[{[HttpPost]} CreateCourse(CreateCourseViewModel):] csoport létrehozásának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpGet]} Read\_SubjectGrid():] a bejelentkezett felhasználóhoz tartozó tantárgyakat és a hozzátartozó adatokat kéri le és ennek eredményével tér vissza.
+	\item[{[HttpGet]} GetSubjects():] a bejelentkezett felhasználóhoz tartozó tantárgyak neveit és egyedi azonosítóit kéri le és ennek eredményével tér vissza.
+	\item[{[HttpGet]} GetInstructors():] a rendszerben tárolt gyakorlatvezetői szerepkörrel rendelkező felhasználókat kéri le és ennek eredményével tér vissza.
+	\item[{[HttpGet]} EditCourse(int):] paraméterül egy csoport egyedi azonosítóját kapja, majd a megfelelő csoport adatait kéri le és a csoport módosítására alkalmas felületet adja vissza ezen adatokkal.
+	\item[{[HttpPost]} EditCourse(EditCourseViewModel):] a csoport módosításának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/teachercontroller}
+	\caption{\emph{Teacher} vezérlő}
+	\label{fig:teachercontroller}
+\end{figure}
 \subsection{\emph{Studnet} vezérlő}
+Az \emph{Studnet} vezérlőt csak hallgatói szerepkörrel rendelkező felhasználók érhetik el.
+\begin{description}
+	\item[{[HttpGet]} Index():] a hallgatói szerepkör főoldalával tér vissza.
+	\item[{[HttpGet]} GetCourses():] lekérdezi a bejelentkezett felhasználóhoz tartozó csoportokat és ennek eredményével tér vissza.
+	\item[{[HttpGet]} CourseRegistration():] a csoportba való jelentkezésre alkalmas felületet adja vissza.
+	\item[{[HttpPost]} CourseRegistration(CourseRegistrationViewModel):] a csoportba való jelentkezés küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpGet]} Read\_AssignmentGrid():] lekérdezi a bejelentkezett felhasználóhoz tartozó csoportokat és annak adatait majd ennek eredményével tér vissza.
+	\item[{[HttpGet]} Assignment(int):] paraméterül egy feladat egyedi azonosítóját kapja, majd lekéri a feladat adatiat és ezeket az adatokat, valamint a feladat megjelenítésére és a megoldás beküldésére alkalmas felületet adja vissza.
+	\item[{[HttpPost]} SubmitSolution(SolutionSubmissionViewModel):] a feladatra való megoldásának küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+\end{description}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{developerguide/studentcontroller}
+	\caption{\emph{Student} vezérlő}
+	\label{fig:studentcontroller}
+\end{figure}
 \section{Nézet réteg}
 \label{sec:view}
 \subsection{\emph{Home} vezérlő nézetei}
