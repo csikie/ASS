@@ -658,12 +658,76 @@ Az \emph{Studnet} vezérlőt csak hallgatói szerepkörrel rendelkező felhaszn�
 \end{figure}
 \section{Nézet réteg}
 \label{sec:view}
+Ez a réteg felelős az adatok megjelenítésére, illetve az egész alkalmazás kinézetéért. A nézeteket a \emph{Views} mappában találjuk vezérlők szerinti almappákba csoportosítva, valamint a megosztott nézeteket a \emph{Shared} mappában. A nézetek megvalósításakor \emph{Razor} \cite{Razor} szintaxist is használnunk, mellyel \emph{C\#} forráskódot illeszthetünk a \emph{HTML} alapú nézetekbe. Ezzel megvalósítva a nézetek dinamikus működését.
+\begin{center}
+	\begin{forest}
+		for tree={
+			font=\ttfamily,
+			grow'=0,
+			child anchor=west,
+			parent anchor=south,
+			anchor=west,
+			calign=first,
+			edge path={
+			\noexpand\path [draw, \forestoption{edge}]
+			(!u.south west) +(7.5pt,0) |- node[fill,inner sep=1.25pt] {} (.child anchor)\forestoption{edge label};
+			},
+			before typesetting nodes={
+			if n=1
+				{insert before={[,phantom]}}
+				{}
+			},
+			fit=band,
+			before computing xy={l=15pt},
+		}
+		[Views/
+			[Admin/]
+			[Home/]
+			[Instructor/]
+			[Shared/]
+			[Student/]
+			[Teacher/]
+		]
+	\end{forest}
+\end{center}
 \subsection{\emph{Home} vezérlő nézetei}
+\begin{description}
+	\item[Index:] az alkalmazás főoldala, továbbá ezen a nézeten lehet bejelentkezni és az alkalmazás nyelvét módosítani.
+\end{description}
 \subsection{\emph{Admin} vezérlő nézetei}
+\begin{description}
+	\item[Index:] A rendszergazdai szerepkör főoldalának nézete.
+	\item[CreateSubject:] tantárgyak létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
+	\item[CreateUser:] felhasználók létrehozására szolgaló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
+	\item[UpdateUser:] felhasznélók adatainak módosítására szolgáló nézet, amely egy űrlapba tölti a felhasználó aktuális adatait, majd a megfelelő vezérlőnek továbbítja az adatokat.
+\end{description}
 \subsection{\emph{Instructor} vezérlő nézetei}
+\begin{description}
+	\item[Index:] a gyakorlatvezetői szerepkör főoldalának nézete.
+	\item[CreateAssignment:] feladat létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat. 
+	\item[EvaluateAssignment:] feladat értékelésére szolgáló nézet, mely megjeleníti a hallgató beadott munkáit, valamint tartalmaz egy űrlapot amivel az értékelést tudjuk elküldeni a megfelelő vezérlőnek.
+\end{description}
 \subsection{\emph{Teacher} vezérlő nézetei}
+\begin{description}
+	\item[Index:] a tárgyfelelősi szerepkör főoldalának nézete.
+	\item[CreateCourse:] csoport létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat. 
+	\item[EditCourse:] csoport módosítására szolgáló nézet, amely egy űrlapba tölti a csoport aktuális adatait, majd a megfelelő vezérlőnek továbbítja az adatokat. 
+\end{description}
 \subsection{\emph{Student} vezérlő nézetei}
+\begin{description}
+	\item[Index:] a hallgatói szerepkör főoldalának nézete.
+	\item[Assignment:] egy feladat megjelenítésére szolgáló nézet, amely tartalmazza a feladat adatait, valamint egy űtlapot amin keresztül a feladatra megoldást tudunk beküldeni.
+	\item[CourseRegistration:] csoportba való jelentkezésre szolgaló nézet, mely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
+	\item[\_SubmitSolutionForm:] az \emph{Assignment} nézeten használt parciális nézet\footnote{\url{https://docs.microsoft.com/en-us/aspnet/core/mvc/views/partial?view=aspnetcore-3.1}} (angolul \emph{Partial View}), ami magát a feladat beküldésére szolgáló űrlapot tartalmazza.
+\end{description}
 \subsection{Megosztott nézetek}
+\begin{description}
+	\item[\_Layout:] az alkalmazás főoldalának és az \emph{AccessDenied} nézetnek az általános kinézetét és menüsorát tartalmazó nézet.
+	\item[\_MainLayout:] az összes többi nézetnek az általános kinézet és menüsorát tartalmazó nézet.
+	\item[AccessDenied:] a jogosulatlan kérés esetén megjelenítendő nézet.
+	\item[Error:] az egyéb hibák esetén megjelenítendő nézet.
+	\item[Profile:] a felhasználó személyes adatait megjelenítő nézet, ami egy csak olvasható űrlapba tölti a felhasználó adatait, illetve tartalmaz két gombot, melyekkel változtatni tudjuk az alkalmazás nyelvét.
+\end{description}
 \section{Lokalizáció}
 \label{sec:localization}
 Az \emph{ASP.NET Core} keretrendszer támogatja az alkalmazások lokalizációját \cite{Localization}. A lokalizáció megvalósításához pár beállítást kell elvégeznünk az alkalmazásban. Első lépésként be kell állítani, hogy az alkalmazás lokalizálható legyen, valamint meg kell adnunk a támogatott nyelveket, az alkalmazás alapértelmezett nyelvét (\ref{src:localization} forráskód) és meg kell adnunk, hogy az alkalmazás mely mappában keresse a lokalizációs fájlokat.
