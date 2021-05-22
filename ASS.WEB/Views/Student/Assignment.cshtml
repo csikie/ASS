@@ -37,38 +37,40 @@
                             const countDownDate = new Date("@Model.EndDate.ToString("r")");
                             const countFunc = setInterval(function () {
                                 const distance = countDownDate - new Date();
-                                let coundownTimerString = "";
+                                let countdownTimerString = "";
 
                                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) - 2;
                                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                                if (days !== 0) {
-                                    coundownTimerString = days + " @localizer["CountdownTimerDay"] ";
+                                if (days > 1) {
+                                    countdownTimerString = days + " @localizer["CountdownTimerDays"] ";
+                                } else if (days === 1) {
+                                    countdownTimerString = days + " @localizer["CountdownTimerDay"] ";
                                 }
 
                                 if (days <= 0 && minutes <= 0 && hours <= 0 && seconds <= 0) {
-                                    coundownTimerString = "@localizer["CountdownTimerExpired"]";
+                                    countdownTimerString = "@localizer["CountdownTimerExpired"]";
                                     document.getElementById("solutionSubmitBtn").disabled = true;
                                     document.getElementById("solutionSubmitContainer").remove();
                                     clearInterval(countFunc);
                                 }
                                 else {
-                                    coundownTimerString += hours + ":";
+                                    countdownTimerString += hours + ":";
                                     if (minutes < 10) {
-                                        coundownTimerString += "0" + minutes + ":";
+                                        countdownTimerString += "0" + minutes + ":";
                                     } else {
-                                        coundownTimerString += minutes + ":";
+                                        countdownTimerString += minutes + ":";
                                     }
                                     if (seconds < 10) {
-                                        coundownTimerString += "0" + seconds;
+                                        countdownTimerString += "0" + seconds;
                                     } else {
-                                        coundownTimerString += seconds;
+                                        countdownTimerString += seconds;
                                     }
                                 }
 
-                                document.getElementById("countdownTimer").innerHTML = coundownTimerString;
+                                document.getElementById("countdownTimer").innerHTML = countdownTimerString;
 
                             }, 1000);
                         });
@@ -93,7 +95,7 @@
                                 {
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="heading-@item.Id">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#solution-@item.Id" aria-expanded="false" aria-controls="solution-@item.Id">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#solution-@item.Id" aria-expanded="false" aria-controls="solution-@item.Id">
                                                 <span class="badge bg-secondary me-2">@localizer["SubmissionTime"]: @item.SubmissionTime</span>
                                                 @if (!string.IsNullOrEmpty(item.Grade))
                                                 {
@@ -104,7 +106,7 @@
                                         <div id="solution-@item.Id" class="accordion-collapse collapse" aria-labelledby="heading-@item.Id" data-bs-parent="#accordionSolution">
                                             <div class="accordion-body">
                                                 <code>
-                                                    @item.SubmittedSolution
+                                                    <pre>@item.SubmittedSolution</pre>
                                                 </code>
                                             </div>
                                         </div>

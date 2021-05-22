@@ -133,13 +133,13 @@
     <value>Instructor</value>
   </data>
   <data name="PersonalDatasTitle" xml:space="preserve">
-    <value>Personal datas</value>
+    <value>Profile</value>
   </data>
   <data name="RealNamePlaceholder" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="RolesPlaceholder" xml:space="preserve">
-    <value>Role(s)</value>
+    <value>Role</value>
   </data>
   <data name="Student" xml:space="preserve">
     <value>Student</value>

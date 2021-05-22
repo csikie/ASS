@@ -124,7 +124,7 @@
     <value>A csoport név hossza nem megfelelő! ({2} - {1}) karakter között kell lennie!</value>
   </data>
   <data name="CourseNameRequired" xml:space="preserve">
-    <value>A {0} mező kitöltése köteelző!</value>
+    <value>A {0} mező kitöltése kötelező!</value>
   </data>
   <data name="InstructorUserNames" xml:space="preserve">
     <value>Gyakorlatvezető(k)</value>

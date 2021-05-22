@@ -123,6 +123,9 @@
   <data name="CountdownTimerDay" xml:space="preserve">
     <value>nap</value>
   </data>
+  <data name="CountdownTimerDays" xml:space="preserve">
+    <value>nap</value>
+  </data>
   <data name="CountdownTimerExpired" xml:space="preserve">
     <value>LEJÁRT</value>
   </data>

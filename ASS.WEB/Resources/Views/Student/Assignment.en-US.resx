@@ -123,6 +123,9 @@
   <data name="CountdownTimerDay" xml:space="preserve">
     <value>day</value>
   </data>
+  <data name="CountdownTimerDays" xml:space="preserve">
+    <value>days</value>
+  </data>
   <data name="CountdownTimerExpired" xml:space="preserve">
     <value>EXPIRED</value>
   </data>

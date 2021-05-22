@@ -79,7 +79,7 @@ namespace ASS.WEB.Resources.Models.ViewModels {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A {0} mező kitöltése köteelző!.
+        ///   Looks up a localized string similar to A {0} mező kitöltése kötelező!.
         /// </summary>
         public static string CourseNameRequired {
             get {
