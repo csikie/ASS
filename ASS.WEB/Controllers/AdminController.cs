@@ -153,7 +153,25 @@ namespace ASS.WEB.Controllers
                 List<object> roles = new List<object>();
                 foreach (Role role in Enum.GetValues(typeof(Role)))
                 {
-                    roles.Add(new { Role = role.ToString() });
+                    string roleText = string.Empty;
+
+                    switch (role)
+                    {
+                        case Role.Admin:
+                            roleText = Resources.Roles.Admin;
+                            break;
+                        case Role.Teacher:
+                            roleText = Resources.Roles.Teacher;
+                            break;
+                        case Role.Instructor:
+                            roleText = Resources.Roles.Instructor;
+                            break;
+                        case Role.Student:
+                            roleText = Resources.Roles.Student;
+                            break;
+                    }
+
+                    roles.Add(new { Role = role.ToString(), RoleText = roleText });
                 }
                 return Ok(JsonConvert.SerializeObject(roles.ToArray()));
             }

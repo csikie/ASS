@@ -553,10 +553,10 @@ Ennek használatával elég csak a módot változtatni, nem kell az összes \emp
 \section{Vezérlő réteg}
 \label{sec:controller}
 \subsection{\emph{Home} vezérlő}
-A \emph{Home} vezérlő (\ref{fig:homecontroller} ábra) az alkalmazás alap funkcionalitásait implementálja, mint például a bejelentkezés vagy a kijelentkezés. Ez a vezérlő mindenki számára elérhető, nincs jogkörhöz kötve.
+A \emph{Home} vezérlő (\ref{fig:homecontroller} ábra) az alkalmazás alap funkcionalitásait implementálja, mint például a bejelentkezés vagy a kijelentkezés. Ez a vezérlő mindenki számára elérhető, nincs szerepkörhöz kötve.
 \begin{description}
 	\item[{[HttpGet]} Index():] visszatér az alkalmazás főoldalával.
-	\item[{[HttpPost]} Login(LoginViewModel):] paraméterül a bejelentkezési adatokat kapja (felhasználónév, jelszó), majd a kapott adatokkal megpróbálja bejelentkeztetni az alkalmazásba a felhasználót, sikeres bejelentkezés esetén a szerepkörének megfelelő kezdőoldalra irányítja, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} Login(LoginViewModel):] paraméterül a bejelentkezési adatokat kapja (felhasználónév, jelszó), majd a kapott adatokkal megpróbálja bejelentkeztetni az alkalmazásba a felhasználót, sikeres bejelentkezés esetén a szerepkörének megfelelő kezdőoldalra irányítja, egyébként jelzi a hibát a felhasználónak.
 	\item[{[HttpPost]} CultureManagment(string):] paraméterül egy nyelvi kódot kap (pl.: hu-HU), majd \emph{sütibe} menti a kapott nyelvi kódot, és visszatér az alkalmazás főoldalával. 
 	\item[{[HttpGet]} Error(string):] paraméterül a keletkezett hibának az azonosítóját kapja, majd visszatér az alkalmazás hibaoldalával.
 	\item[{[HttpGet]} AccessDenied():] az alkalmazás \emph{jogosulatlan kérés} oldalával tér vissza.
@@ -571,8 +571,8 @@ A \emph{Home} vezérlő (\ref{fig:homecontroller} ábra) az alkalmazás alap fun
 \subsection{\emph{Base} vezérlő}
 A vezérlők őse\footnote{Leszámítva a \emph{Home} vezérlőt.} (\ref{fig:basecontroller} ábra), mely azokat a funkcionalitásokat valósítja meg, amellyel minden szerepkörhöz tartozó vezérlőnek tudnia kell.
 \begin{description}
-	\item[{[HttpGet]} Profile():] lekéri í bejelentkezett felhasználó adatait, majd visszatér szeméyles adatokat megjelenítő oldallal.
-	\item[{[HttpPost]} CultureManagment(string):] paraméterül egy nyelvi kódot kap (pl.: hu-HU), majd \emph{sütibe} menti a kapott nyelvi kódot, és visszatér a személyes adatokkat megjelenítő oldallal. 
+	\item[{[HttpGet]} Profile():] lekéri a bejelentkezett felhasználó adatait, majd visszatér személyes adatokat megjelenítő oldallal.
+	\item[{[HttpPost]} CultureManagment(string):] paraméterül egy nyelvi kódot kap (pl.: hu-HU), majd \emph{sütibe} menti a kapott nyelvi kódot, és visszatér a személyes adatokat megjelenítő oldallal. 
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -584,18 +584,18 @@ A vezérlők őse\footnote{Leszámítva a \emph{Home} vezérlőt.} (\ref{fig:bas
 Az \emph{Admin} vezérlőt csak rendszergazdai szerepkörrel rendelkező felhasználók érhetik el.
 \begin{description}
 	\item[{[HttpGet]} Index():] a rendszergazdai szerepkör főoldalával tér vissza.
-	\item[{[HttpGet]} GetTeachers():] lekéri a rendszerben szereplő tárgyfelelősi szerepkörrel rendelkező felhasználokat és ennek eredméyével tér vissza.
+	\item[{[HttpGet]} GetTeachers():] lekéri a rendszerben szereplő tárgyfelelősi szerepkörrel rendelkező felhasználókat és ennek eredményével tér vissza.
 	\item[{[HttpGet]} CreateSubject():] a tantárgyak létrehozására alkalmas felületet adja vissza.
-	\item[{[HttpPost]} CreateSubject(CreateSubjectViewModel):] a tantárgy létrehozásának küldése, ellenőrzi az adatok helyességét. Sikeres adatrögzítés után átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CreateSubject(CreateSubjectViewModel):] a tantárgy létrehozásának fogadása, ellenőrzi az adatok helyességét. Sikeres adatrögzítés után átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 	\item[{[HttpGet]} GetSubjects():] lekéri a rendszerben szereplő tantárgyakat és ennek eredményével tér vissza.
 	\item[{[HttpPost]} DeleteSubject(string):] paraméterül egy \emph{Json string}-et\footnote{\href{https://www.json.org/json-en.html}{Javascript Object Notation}} kap melyben a törölni kívánt tantárgy adatai vannak tárolva. Ezt a tárgyat törli a rendszerből.
-	\item[{[HttpPost]} UpdateSubject(string):] paraméterül egy \emph{Json string}-et kap melyben a módosítani kívánt tantárgy adatai vannak, sikertelen módosítás esetén átirányítás történik a hiba oldalra.
+	\item[{[HttpPost]} UpdateSubject(string):] paraméterül egy \emph{Json string}-et kap melyben a módosítani kívánt tantárgy adatai vannak, sikertelen módosítás esetén átirányítás történik a hibaoldalra.
 	\item[{[HttpGet]} Read\_UserGrid():] lekéri a rendszerben tárolt felhasználókat és ennek eredményével tér vissza.
 	\item[{[HttpGet]} CreateUser():] a felhasználók létrehozására alkalmas felületet adja vissza.
-	\item[{[HttpPost]} CreateUser(CreateUserViewModel):] a felhasználó létrehozásának küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CreateUser(CreateUserViewModel):] a felhasználó létrehozásának fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 	\item[{[HttpGet]} GetAllRole():] lekéri a rendszerben található szerepköröket és ennek eredményével tér vissza.
 	\item[{[HttpGet]} UpdateUser(int):] paraméterül egy felhasználó egyedi azonosítóját kapja, majd lekéri a paraméterül kapott felhasználó adatait. Ezután a felhasználó módosítására alkalmas felületet adja vissza, a szükséges adatokkal (a felhasználó adatai).
-	\item[{[HttpPost]} UpdateUser(UpdateUserViewModel):] a felhasználó módosításának küldése, ellenőrzi az adatok helyeségét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} UpdateUser(UpdateUserViewModel):] a felhasználó módosításának fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -608,12 +608,12 @@ Az \emph{Instructor} vezérlőt csak gyakorlatvezetői szerepkörrel rendelkező
 \begin{description}
 	\item[{[HttpGet]} Index():] a gyakorlatvezetői szerepkör főoldalával tér vissza.
 	\item[{[HttpGet]} CreateAssignment():] feladat létrehozására alkalmas felületet adja vissza.
-	\item[{[HttpPost]} CreateAssignment(CreateAssignmentViewModel):] a feladat létrehozásának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CreateAssignment(CreateAssignmentViewModel):] a feladat létrehozásának fogadása és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 	\item[{[HttpGet]} GetCourses():] lekéri a bejelentkezett felhasználóhoz tartozó csoportokat és ennek eredményével tér vissza.
 	\item[{[HttpGet]} GetPendingList():] lekéri a bejelentkezett felhasználóhoz tartozó csoportokra jelentkezett felhasználókat és ennek eredményével tér vissza.
 	\item[{[HttpGet]} EvaluateAssignment(int, int, int):] a paraméterül kapott egyedi azonosítók alapján (csoport,feladat,hallgató) lekéri a megfelelő adatokat és a feladat értékelésére alkalmas felületet adja vissza ezen adatokkal.
-	\item[{[HttpPost]} EvaluateAssignment(int, string):] a feladat értékelésének küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
-	\item[{[HttpPost]} ProcessPendingStatus(int, bool):] a csoportba való jelentkezés bírálatának küldése.
+	\item[{[HttpPost]} EvaluateAssignment(int, string):] a feladat értékelésének fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
+	\item[{[HttpPost]} ProcessPendingStatus(int, bool):] a csoportba való jelentkezés bírálatának fogadása.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -622,16 +622,16 @@ Az \emph{Instructor} vezérlőt csak gyakorlatvezetői szerepkörrel rendelkező
 	\label{fig:instructorcontroller}
 \end{figure}
 \subsection{\emph{Teacher} vezérlő}
-Az \emph{Teacher} vezérlőt csak tárgyfelelősi szerepkörrel rendelkező felhasználók érhetik el.
+A \emph{Teacher} vezérlőt csak tárgyfelelősi szerepkörrel rendelkező felhasználók érhetik el.
 \begin{description}
 	\item[{[HttpGet]} Index():] a tárgyfelelősi szerepkör főoldalával tér vissza.
 	\item[{[HttpGet]} CreateCourse():] csoport létrehozására alkalmas felületet adja vissza.
-	\item[{[HttpPost]} CreateCourse(CreateCourseViewModel):] csoport létrehozásának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CreateCourse(CreateCourseViewModel):] csoport létrehozásának fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 	\item[{[HttpGet]} Read\_SubjectGrid():] a bejelentkezett felhasználóhoz tartozó tantárgyakat és a hozzátartozó adatokat kéri le és ennek eredményével tér vissza.
 	\item[{[HttpGet]} GetSubjects():] a bejelentkezett felhasználóhoz tartozó tantárgyak neveit és egyedi azonosítóit kéri le és ennek eredményével tér vissza.
 	\item[{[HttpGet]} GetInstructors():] a rendszerben tárolt gyakorlatvezetői szerepkörrel rendelkező felhasználókat kéri le és ennek eredményével tér vissza.
 	\item[{[HttpGet]} EditCourse(int):] paraméterül egy csoport egyedi azonosítóját kapja, majd a megfelelő csoport adatait kéri le és a csoport módosítására alkalmas felületet adja vissza ezen adatokkal.
-	\item[{[HttpPost]} EditCourse(EditCourseViewModel):] a csoport módosításának küldése és ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} EditCourse(EditCourseViewModel):] a csoport módosításának fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -639,16 +639,16 @@ Az \emph{Teacher} vezérlőt csak tárgyfelelősi szerepkörrel rendelkező felh
 	\caption{\emph{Teacher} vezérlő}
 	\label{fig:teachercontroller}
 \end{figure}
-\subsection{\emph{Studnet} vezérlő}
-Az \emph{Studnet} vezérlőt csak hallgatói szerepkörrel rendelkező felhasználók érhetik el.
+\subsection{\emph{Student} vezérlő}
+A \emph{Student} vezérlőt csak hallgatói szerepkörrel rendelkező felhasználók érhetik el.
 \begin{description}
 	\item[{[HttpGet]} Index():] a hallgatói szerepkör főoldalával tér vissza.
 	\item[{[HttpGet]} GetCourses():] lekérdezi a bejelentkezett felhasználóhoz tartozó csoportokat és ennek eredményével tér vissza.
 	\item[{[HttpGet]} CourseRegistration():] a csoportba való jelentkezésre alkalmas felületet adja vissza.
-	\item[{[HttpPost]} CourseRegistration(CourseRegistrationViewModel):] a csoportba való jelentkezés küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
-	\item[{[HttpGet]} Read\_AssignmentGrid():] lekérdezi a bejelentkezett felhasználóhoz tartozó csoportokat és annak adatait majd ennek eredményével tér vissza.
-	\item[{[HttpGet]} Assignment(int):] paraméterül egy feladat egyedi azonosítóját kapja, majd lekéri a feladat adatiat és ezeket az adatokat, valamint a feladat megjelenítésére és a megoldás beküldésére alkalmas felületet adja vissza.
-	\item[{[HttpPost]} SubmitSolution(SolutionSubmissionViewModel):] a feladatra való megoldásának küldése, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelezzük a hibát a felhasználónak.
+	\item[{[HttpPost]} CourseRegistration(CourseRegistrationViewModel):] a csoportba való jelentkezés fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
+	\item[{[HttpGet]} Read\_AssignmentGrid():] lekérdezi a bejelentkezett felhasználóhoz tartozó csoportokat és annak adatait, majd ennek eredményével tér vissza.
+	\item[{[HttpGet]} Assignment(int):] paraméterül egy feladat egyedi azonosítóját kapja, majd lekéri a feladat adatait, és ezeket az adatokat, valamint a feladat megjelenítésére és a megoldás beküldésére alkalmas felületet adja vissza.
+	\item[{[HttpPost]} SubmitSolution(SolutionSubmissionViewModel):] a feladatra való megoldásának fogadása, ellenőrzi az adatok helyességét. Sikeres rögzítés esetén átirányítás történik a szerepkör főoldalára, egyébként jelzi a hibát a felhasználónak.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -658,7 +658,7 @@ Az \emph{Studnet} vezérlőt csak hallgatói szerepkörrel rendelkező felhaszn�
 \end{figure}
 \section{Nézet réteg}
 \label{sec:view}
-Ez a réteg felelős az adatok megjelenítésére, illetve az egész alkalmazás kinézetéért. A nézeteket a \emph{Views} mappában találjuk vezérlők szerinti almappákba csoportosítva, valamint a megosztott nézeteket a \emph{Shared} mappában. A nézetek megvalósításakor \emph{Razor} \cite{Razor} szintaxist is használnunk, mellyel \emph{C\#} forráskódot illeszthetünk a \emph{HTML} alapú nézetekbe. Ezzel megvalósítva a nézetek dinamikus működését.
+Ez a réteg felelős az adatok megjelenítéséért, illetve az egész alkalmazás kinézetéért. A nézeteket a \emph{Views} mappában találjuk vezérlők szerinti almappákba csoportosítva, valamint a megosztott nézeteket a \emph{Shared} mappában. A nézetek megvalósításakor \emph{Razor} \cite{Razor} szintaxist is használnunk, mellyel \emph{C\#} forráskódot illeszthetünk a \emph{HTML} alapú nézetekbe, ezzel megvalósítva a nézetek dinamikus működését.
 \begin{center}
 	\begin{forest}
 		for tree={
@@ -698,14 +698,14 @@ Ez a réteg felelős az adatok megjelenítésére, illetve az egész alkalmazás
 \begin{description}
 	\item[Index:] A rendszergazdai szerepkör főoldalának nézete.
 	\item[CreateSubject:] tantárgyak létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
-	\item[CreateUser:] felhasználók létrehozására szolgaló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
-	\item[UpdateUser:] felhasznélók adatainak módosítására szolgáló nézet, amely egy űrlapba tölti a felhasználó aktuális adatait, majd a megfelelő vezérlőnek továbbítja az adatokat.
+	\item[CreateUser:] felhasználók létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
+	\item[UpdateUser:] felhasználók adatainak módosítására szolgáló nézet, amely egy űrlapba tölti a felhasználó aktuális adatait, majd a megfelelő vezérlőnek továbbítja az adatokat.
 \end{description}
 \subsection{\emph{Instructor} vezérlő nézetei}
 \begin{description}
 	\item[Index:] a gyakorlatvezetői szerepkör főoldalának nézete.
 	\item[CreateAssignment:] feladat létrehozására szolgáló nézet, amely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat. 
-	\item[EvaluateAssignment:] feladat értékelésére szolgáló nézet, mely megjeleníti a hallgató beadott munkáit, valamint tartalmaz egy űrlapot amivel az értékelést tudjuk elküldeni a megfelelő vezérlőnek.
+	\item[EvaluateAssignment:] feladat értékelésére szolgáló nézet, mely megjeleníti a hallgató beadott munkáit, valamint tartalmaz egy űrlapot, amivel az értékelést tudjuk elküldeni a megfelelő vezérlőnek.
 \end{description}
 \subsection{\emph{Teacher} vezérlő nézetei}
 \begin{description}
@@ -716,14 +716,14 @@ Ez a réteg felelős az adatok megjelenítésére, illetve az egész alkalmazás
 \subsection{\emph{Student} vezérlő nézetei}
 \begin{description}
 	\item[Index:] a hallgatói szerepkör főoldalának nézete.
-	\item[Assignment:] egy feladat megjelenítésére szolgáló nézet, amely tartalmazza a feladat adatait, valamint egy űtlapot amin keresztül a feladatra megoldást tudunk beküldeni.
-	\item[CourseRegistration:] csoportba való jelentkezésre szolgaló nézet, mely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
+	\item[Assignment:] egy feladat megjelenítésére szolgáló nézet, amely tartalmazza a feladat adatait, valamint egy űrlapot, amin keresztül a feladatra megoldást tudunk beküldeni.
+	\item[CourseRegistration:] csoportba való jelentkezésre szolgáló nézet, mely egy űrlapot tartalmaz, ami a megfelelő vezérlőnek továbbítja a bevitt adatokat.
 	\item[\_SubmitSolutionForm:] az \emph{Assignment} nézeten használt parciális nézet\footnote{\url{https://docs.microsoft.com/en-us/aspnet/core/mvc/views/partial?view=aspnetcore-3.1}} (angolul \emph{Partial View}), ami magát a feladat beküldésére szolgáló űrlapot tartalmazza.
 \end{description}
 \subsection{Megosztott nézetek}
 \begin{description}
 	\item[\_Layout:] az alkalmazás főoldalának és az \emph{AccessDenied} nézetnek az általános kinézetét és menüsorát tartalmazó nézet.
-	\item[\_MainLayout:] az összes többi nézetnek az általános kinézet és menüsorát tartalmazó nézet.
+	\item[\_MainLayout:] az összes többi nézetnek az általános kinézetét és menüsorát tartalmazó nézet.
 	\item[AccessDenied:] a jogosulatlan kérés esetén megjelenítendő nézet.
 	\item[Error:] az egyéb hibák esetén megjelenítendő nézet.
 	\item[Profile:] a felhasználó személyes adatait megjelenítő nézet, ami egy csak olvasható űrlapba tölti a felhasználó adatait, illetve tartalmaz két gombot, melyekkel változtatni tudjuk az alkalmazás nyelvét.
@@ -748,14 +748,14 @@ services.Configure<RequestLocalizationOptions>(options =>
 });
 ...
 \end{lstlisting}
-Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a befecskendezzük a lokalizációhoz szükséges osztályokat a \emph{\_ViewImports.cshtml} fájl segítségével, hogy az összes nézeten elérjük ezeket az osztályokat. Az \emph{IViewLocalizer} objektum tárolja a fordítandó kulcs-érték párokat, az \emph{IOptions<RequestLocalizationOptions>} objektum segítségével az alkalmazás áltál támogatott nyelveket tudjuk lekérdezni, hogy ezeket a szükséges nézeteken meg tudjuk jeleníteni.
+Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a befecskendezzük a lokalizációhoz szükséges osztályokat a \emph{\_ViewImports.cshtml} fájl segítségével, hogy az összes nézeten elérjük ezeket az osztályokat. Az \emph{IViewLocalizer} objektum tárolja a fordítandó kulcs-érték párokat, az \emph{IOptions<RequestLocalizationOptions>} objektum segítségével az alkalmazás által támogatott nyelveket tudjuk lekérdezni, hogy ezeket a szükséges nézeteken meg tudjuk jeleníteni, lehetővé téve a nyelv kiválasztását.
 \lstset{caption={Lokalizációhoz szükséges objektumok befecskendezése}, label=src:localizationobjects}
 \begin{lstlisting}[language={[Sharp]C}]
 ...
 @inject IViewLocalizer localizer
 @inject IOptions<RequestLocalizationOptions> localizationOption
 \end{lstlisting}
-Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell követnünk. A megadott \emph{ResourcesPath} mappában létrehozzuk a lokalizálni kivánt nézetek, nézetmodellek és \emph{DTO} mappáit, majd ezekhez létrehozzuk a megfelelően elnevezett \emph{resource} fájlokat\footnote{A viewmodelleknél és a dtoknál csak a nem alapértelmezett nyelvi \emph{resource} fájlokhoz kell kitenni a nyeli kódot (en-US)} (pl.: Index.hu-HU.resx).
+Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell követnünk. A megadott \emph{ResourcesPath} mappában létrehozzuk a lokalizálni kivánt nézetek, nézetmodellek és \emph{DTO} mappáit, majd ezekhez létrehozzuk a megfelelően elnevezett \emph{resource} fájlokat\footnote{A viewmodelleknél és a DTO-knál csak a nem alapértelmezett nyelvi \emph{resource} fájlokhoz kell kitenni a nyeli kódot (en-US)} (pl.: Index.hu-HU.resx).
 \begin{center}
 	\begin{forest}
 		for tree={

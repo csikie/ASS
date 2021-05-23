@@ -65,13 +65,21 @@
             <script>
                     $(document).ready(function() {
                         $("#multiselect").kendoMultiSelect({
-                            dataTextField: "Role",
+                            dataTextField: "RoleText",
                             dataValueField: "Role",
                             dataSource: {
                                 transport: {
                                     read: {
                                         dataType: "json",
                                         url: "@Url.Action("GetAllRole", "Admin")"
+                                    }
+                                },
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            Role: { type: "string" },
+                                            RoleText: { type: "string" }
+                                        }
                                     }
                                 }
                             }

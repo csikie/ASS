@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
   <data name="CreatedSubjectsTitle" xml:space="preserve">
     <value>Subject information</value>
   </data>
@@ -129,14 +132,23 @@
   <data name="HeadTitle" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Instructor" xml:space="preserve">
+    <value>Instructor</value>
+  </data>
   <data name="RealNameGridHeader" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="RolesGridHeader" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
+  </data>
   <data name="SubjectNameGridHeader" xml:space="preserve">
     <value>Subject name</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Teacher</value>
   </data>
   <data name="TeachersnameGridHeader" xml:space="preserve">
     <value>Teacher(s)</value>

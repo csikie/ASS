@@ -118,36 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="HeadTitle" xml:space="preserve">
-    <value>Felhasználó módosítása</value>
+    <value>E-mail cím</value>
   </data>
   <data name="RealName" xml:space="preserve">
     <value>Név</value>
   </data>
-  <data name="RoleAddError" xml:space="preserve">
-    <value>Hiba a szerepkörhöz adás során!</value>
-  </data>
-  <data name="RoleRemoveError" xml:space="preserve">
-    <value>Hiba a szerepkör eltávolítása során!</value>
-  </data>
-  <data name="RolesLabel" xml:space="preserve">
-    <value>Szerepkör(ök)</value>
-  </data>
-  <data name="Student" xml:space="preserve">
-    <value>Hallgató</value>
-  </data>
-  <data name="UpdateButton" xml:space="preserve">
-    <value>Módosít</value>
-  </data>
-  <data name="UpdateUserTitle" xml:space="preserve">
-    <value>Felhasználó módosítása</value>
+  <data name="Roles" xml:space="preserve">
+    <value>Szerepkör</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Neptun kód</value>
-  </data>
-  <data name="UserNameCompareError" xml:space="preserve">
-    <value>A felhaszanálónév nem módosítható!</value>
   </data>
 </root>

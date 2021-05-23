@@ -89,7 +89,7 @@ namespace ASS.WEB.Controllers
             {
                 try
                 {
-                    teacherService.EditCourse(model.Id, model.CourseName, model.InstructorUserNames);
+                    teacherService.EditCourse(model.Id, model.CourseName, model.InstructorUserNames == null ? new string[0] : model.InstructorUserNames);
                     return RedirectToAction("Index","Teacher");
                 }
                 catch (Exception)

@@ -38,8 +38,8 @@
             <h4>@localizer["SubmittedSolutionTitle"]</h4>
             <div class="card">
                 <div class="card-body">
-                    <code id="submittedSolution">
-                        @Model.Assignment.Solutions.FirstOrDefault().SubmittedSolution
+                    <code>
+                        <pre id="submittedSolution">@Html.Raw(Model.Assignment.Solutions.FirstOrDefault().SubmittedSolution)</pre>
                     </code>
                 </div>
             </div>

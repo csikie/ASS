@@ -223,13 +223,13 @@
                                 let roles = "";
                                 dataItem.Roles.forEach(function (item) {
                                     if (item === "Student") {
-                                        roles += "Hallgató, ";
+                                        roles += "@localizer["Student"]" + ", ";
                                     } else if (item === "Teacher") {
-                                        roles += "Tárgyfelelős, ";
+                                        roles += "@localizer["Teacher"]" + ", ";
                                     } else if (item === "Admin") {
-                                        roles += "Rendszergazda, ";
+                                        roles += "@localizer["Admin"]" + ", ";
                                     } else if (item === "Instructor") {
-                                        roles += "Gyakorlatvezető, ";
+                                        roles += "@localizer["Instructor"]" + ", ";
                                     }
                                 });
                                 return roles.slice(0, -2);

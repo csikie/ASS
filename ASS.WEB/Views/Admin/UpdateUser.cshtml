@@ -27,35 +27,35 @@
                 }
             }
         }
-        <div class="col-lg-8">
-            <form method="post">
-                <div class="form-floating mb-3">
-                    <input type="text" asp-for="UserName" class="form-control" placeholder="@localizer["UserName"]" readonly/>
-                    <label asp-for="UserName"></label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="text" asp-for="RealName" class="form-control" placeholder="@localizer["RealName"]" />
-                    <label asp-for="RealName"></label>
-                    <span class="text-danger" asp-validation-for="RealName"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="email" asp-for="Email" class="form-control" placeholder="@localizer["Email"]" />
-                    <label asp-for="Email"></label>
-                    <span class="text-danger" asp-validation-for="Email"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Roles">@localizer["RolesLabel"]</label>
-                    <select id="multiselect" multiple="multiple" asp-for="Roles"></select>
-                    <span asp-validation-for="Roles" class="text-danger"></span>
-                </div>
-                <div class="d-grid gap-2 pt-3">
-                    <button type="submit" class="btn btn-block btn-primary" name="update-btn">@localizer["UpdateButton"]</button>
-                </div>
-            </form>
-            <script>
+    <div class="col-lg-8">
+        <form method="post">
+            <div class="form-floating mb-3">
+                <input type="text" asp-for="UserName" class="form-control" placeholder="@localizer["UserName"]" readonly />
+                <label asp-for="UserName"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" asp-for="RealName" class="form-control" placeholder="@localizer["RealName"]" />
+                <label asp-for="RealName"></label>
+                <span class="text-danger" asp-validation-for="RealName"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" asp-for="Email" class="form-control" placeholder="@localizer["Email"]" />
+                <label asp-for="Email"></label>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Roles">@localizer["RolesLabel"]</label>
+                <select id="multiselect" multiple="multiple" asp-for="Roles"></select>
+                <span asp-validation-for="Roles" class="text-danger"></span>
+            </div>
+            <div class="d-grid gap-2 pt-3">
+                <button type="submit" class="btn btn-block btn-primary" name="update-btn">@localizer["UpdateButton"]</button>
+            </div>
+        </form>
+        <script>
                     $(document).ready(function() {
                         $("#multiselect").kendoMultiSelect({
-                            dataTextField: "Role",
+                            dataTextField: "RoleText",
                             dataValueField: "Role",
                             dataSource: {
                                 transport: {
@@ -63,12 +63,20 @@
                                         dataType: "json",
                                         url: "@Url.Action("GetAllRole", "Admin")"
                                     }
+                                },
+                                schema: {
+                                    model: {
+                                        fields: {
+                                            Role: { type: "string" },
+                                            RoleText: { type: "string" }
+                                        }
+                                    }
                                 }
                             },
                             value: @Html.Raw(JsonConvert.SerializeObject(Model.Roles))
                         });
                     });
-            </script>
-        </div>
+        </script>
+    </div>
     </div>
 </div>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Rendszergazda</value>
+  </data>
   <data name="CreatedSubjectsTitle" xml:space="preserve">
     <value>Tantárgyak információi</value>
   </data>
@@ -129,14 +132,23 @@
   <data name="HeadTitle" xml:space="preserve">
     <value>Kezdőoldal</value>
   </data>
+  <data name="Instructor" xml:space="preserve">
+    <value>Gyakorlatvezető</value>
+  </data>
   <data name="RealNameGridHeader" xml:space="preserve">
     <value>Név</value>
   </data>
   <data name="RolesGridHeader" xml:space="preserve">
     <value>Szerepkörök</value>
   </data>
+  <data name="Student" xml:space="preserve">
+    <value>Hallgató</value>
+  </data>
   <data name="SubjectNameGridHeader" xml:space="preserve">
     <value>Tantárgy neve</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Tárgyfelelős</value>
   </data>
   <data name="TeachersnameGridHeader" xml:space="preserve">
     <value>Tárgyfelelős(ök)</value>
