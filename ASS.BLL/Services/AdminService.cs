@@ -82,6 +82,8 @@ namespace ASS.BLL.Services
                     subject.UserSubject.Add(new UserSubject(subject, context.Users.FirstOrDefault(x => x.UserName == teacherNeptunCode)));
                 }
             }
+
+            context.SaveChanges();
         }
 
         public void DeleteSubject(int id)
