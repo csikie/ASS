@@ -1,0 +1,27 @@
+\chapter{Összegzés} % Conclusion
+\label{ch:sum}
+\section{Használt fejlesztői eszközök}
+Az alkalmazás fejlesztlése során az alábbi fejlesztői eszközök voltak használva\footnote{Ezek használata nem kötelező, az ../ASS.WEB könyvtárból tudjuk fordítani és futtatni is a \emph{dotnet build} és \emph{dotnet run} parancsokkal.}:
+\begin{compactitem}
+    \item Microsoft Visual Studio Enterprise 2019
+    \item Visual Studio for Mac 
+    \item MySql Workbench
+\end{compactitem}
+\section{Telepítés}
+Előkövetelmények: Microsoft .Net core 3.1 SDK, MySql 8.0 adatbázis szerver.
+\begin{enumerate}
+    \item \textbf{Forráskód:} töltsük le \emph{GitHub}-ról az alkalmazás forráskódját\footnote{\url{https://github.com/csikie/ASS}}
+    \item \textbf{Telepítés:}
+    \begin{description}
+        \item[Microsoft Azure kihelyezés:] \cite{Azure}
+        \item[\emph{dotnet publish}:] a másik lehetőségünk az alkalmazás telepítésére, hogy az \emph{../ASS.WEB} mappában állva a parancssorban kiadjuk a \emph{dotnet publish -o "Path"} parancs lefordítja és összeszedi a szükséges fájlokat a kért \emph{"Path"} mappába. Majd az \emph{ASS.WEB.exe} futtatásával lehet elindítani az alkalmazást. Alapértelmezetten a \emph{localhost:5001}-es címen lehet elérni.
+    \end{description}
+\end{enumerate}
+\section{Továbbfejlesztési lehetőségek}
+\begin{description}
+    \item[Automata tesztelő:] a beadott megoldásokat legyen lehetőség automatán tesztelni \emph{Docker} segítségével.
+    \item[Szerkeszthető feladatok:] legyen lehetőség a kiírt feladatokat módosítani.
+    \item[Értesítések:] a felahsználok kapjanak értesítésket a rendszerben ha például egy új feladat került kiírásra egy csoportjukban.
+    \item[Vizsga mód:] ha be van kapcsolva egy feladatnál, akkor a feladat ideje alatt a csoporthoz tartozó megoldott feladatok nem látszanak a felületen.
+    \item[Tantárgy szintű feladatok:] legyen lehetőség egy tantárgy összes csoportjához ugyan azt a feladatot kiírni.    
+\end{description}
