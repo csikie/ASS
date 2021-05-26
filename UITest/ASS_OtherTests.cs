@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
+using System.Threading;
 
 namespace UITest
 {
@@ -22,6 +23,7 @@ namespace UITest
             };
             _driver = new EdgeDriver(ConfigurationManager.AppSettings["DriverPath"], options);
             _driver.Url = ConfigurationManager.AppSettings["Url"];
+            Thread.Sleep(1000);
         }
 
         [TestCleanup]

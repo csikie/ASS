@@ -22,6 +22,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UserDTO.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Models\ViewModels\CourseRegistrationViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CourseRegistrationViewModel.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Models\ViewModels\CreateAssignmentViewModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -71,6 +76,10 @@
     <EmbeddedResource Update="Resources\Models\DTOs\UserDTO.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UserDTO.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Models\ViewModels\CourseRegistrationViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CourseRegistrationViewModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Models\ViewModels\CreateAssignmentViewModel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

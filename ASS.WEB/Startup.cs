@@ -26,6 +26,7 @@ namespace ASS.WEB
         }
 
         public IConfiguration Configuration { get; }
+        private string AppMode { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -47,12 +48,12 @@ namespace ASS.WEB
                 options.SupportedUICultures = supportedCultures;
             });
 
-            string appMode = Configuration.GetSection("Mode").Value;
-            IdentitySettings identitySettings = Configuration.GetSection("IdentitySettings").GetSection(appMode).Get<IdentitySettings>();
+            AppMode = Configuration.GetSection("Mode").Value;
+            IdentitySettings identitySettings = Configuration.GetSection("IdentitySettings").GetSection(AppMode).Get<IdentitySettings>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            services.AddDbContext<ASSContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ASSContext>(options => options.UseMySQL(Configuration.GetConnectionString(AppMode)));
 
             // Dependency injection be?ll?t?sa az authentik?ci?hoz
             services.AddIdentity<User, IdentityRole<int>>()
@@ -131,7 +132,7 @@ namespace ASS.WEB
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DbInitializer.Initialize(serviceProvider, userManager);
+            DbInitializer.Initialize(serviceProvider, userManager, AppMode);
         }
     }
 }
