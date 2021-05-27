@@ -1,2 +1,47 @@
 \chapter{Tesztelés} % Test guide
 \label{ch:test}
+Az alkalmazáshoz automatizált felületi tesztek tartoznak, melyet a \emph{Selenium} \cite{Selenium} programkönyvtár segítségével valósítunk meg. Továbbá szükségünk lesz a szmáítógépünk található \emph{Microsoft Edge} verziójával azonos \emph{Microsoft Edge Driver}-re\footnote{\url{https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/\#downloads}} a \emph{Selenium}-hoz, melyet a \emph{../UITest} mappába kell másolnunk és \emph{Visual Studio}-ban ennek a fájlnak a tulajdonságainál be kell állítani a \emph{Copy to Output Directory}-nak a \emph{Copy always} értéket. Valamint szükséges telepítenünk az alkalmazást a \hyperref[step:dotnet-publish]{\emph{dotnet publish}}-ban olvasható módon. Ezek után nyissuk meg a \emph{testhost.dll.config} fájlt és adjuk meg az \emph{Url} és \emph{DriverPath} kulcsok értékeit\footnote{Az \emph{Url} kulcs értéke a kitelepített alkalmazás elérési címe (alapértelmezetten \emph{localhost:5001}). A \emph{DriverPath} kulcs értéke pedig \emph{.."Path"../UITest/bin/Debug/netcoreapp3.1}.}. Majd mielőtt a tesztet futtatnánk, még indítsuk el az \emph{Edge} böngészőnk és a szerverünk (\emph{"dotnet publishban megadott mappa"/ASS.WEB.exe}) és látogassunk el a \emph{localhost:5001} címre, hogy be tudjuk állítani az alkalmazást biztonságos webhelyként. Ezek után a \emph{../UITest} mappán állva a \emph{dotnet test} vagy \emph{Visual Studio}-ban a \emph{Test exploler}-en a \emph{Run} gombbal tudjuk lefuttatni.
+\section{Futtatott teszt esetek}
+\subsection{ASS\_AdminTests.cs}
+\begin{description}
+    \item[Admin\_CreateSubject\_EmptyFields:] annak ellenőrzése, hogy hiányos űrlapot nem lehet beküldeni.
+    \item[Admin\_CreateSubject\_AlreadyUsedSubjectName:] annak ellenőrzése, hogy foglalt tantárgynévvel nem enged az alkalmazás tantárgyat létrehozni.
+    \item[Admin\_CreateSubject\_Ok:] tantárgy létrehozás sikerességének a tesztelése.
+    \item[Admin\_CreateUser\_Ok:] felhasználó létrehozás sikerességének a tesztelése.
+    \item[Admin\_CreateUser\_EmptyFields:] annak ellenőrzése, hogy hiányos űrlapot nem lehet beküldeni.
+    \item[Admin\_CreateUser\_PasswordsNotMatch:] annak ellenőrzése, hogy az űrlapon beírt két jelszónak meg kell egyeznie.
+    \item[Admin\_CreateUser\_ErrorWhileCreateUser:] annak tesztelése, hogy létező felhasználónévvel nem lehet új felhasználót létrehozni.
+    \item[Admin\_UpdateSubject\_Ok:] a tantárgy módosításnak a sikerességének tesztelése.
+    \item[Admin\_UpdateSubject\_Error:] meglévő tantárgynévre az alkalmazás nem engedi módosítani egy másik tantárgynak a nevét.
+    \item[Admin\_UpdateUser\_Ok:] a felhasználó módosításának a sikerességének tesztelése.
+\end{description}
+\subsection{ASS\_OtherTests.cs}
+\begin{description}
+    \item[ChangeLanguageTest:] a nyelvválasztás tesztelése.
+    \item[EmptyLoginFieldsTest:] hiányos űrlappal nem lehet bejelentkezni.
+    \item[LengthUsernameFieldsTest:] nem megfelelő felhasználónév hosszúsággal nem lehet bejelentkezni.
+    \item[LoginWrongUserTest:] rossz vagy nem létező felhasználóval való bejelentkezés. 
+    \item[LoginTest:] bejelentkezés tesztelése.
+    \item[LogoutTest:] kijelentkezés tesztelése.
+\end{description}
+\subsection{ASS\_InstructorTests.cs}
+\begin{description}
+    \item[Instructor\_ApproveRegistration:] a hallgató csoporba jelentkezésének az elfogadásának a tesztelése.
+    \item[Instructor\_CreateAssignment\_Emptyfields:] hiányos űrlappal való feladat létrehozásának a tesztelése.
+    \item[Instructor\_CreateAssignment\_WrongRange:] rossz időintervallummal való feladat létrehozásnak a tesztelése.
+    \item[Instructor\_CreateAssignment\_Ok:] sikeres feladat létrehozásnak a tesztelése.
+    \item[Instructor\_EvaluateAssignment:] feladat értékelésének a tesztelése.
+\end{description}
+\subsection{ASS\_StudentTests.cs}
+\begin{description}
+    \item[Student\_CourseRegistration\_EmptyField:] hiányos űrlappal csoportba való jelentkezésnek a tesztelése.
+    \item[Student\_CourseRegistration\_Ok:] sikeres csoportba jelentkezésnek a tesztelése.
+    \item[Student\_SubmitSolution\_Ok:] feladatra való megoldás beküldésének a tesztelése.
+\end{description}
+\subsection{ASS\_TeacherTests.cs}
+\begin{description}
+    \item[Teacher\_EditCourse\_Emptyfields:] csoport módosításának tesztelése hiányos űrlappal.
+    \item[Teacher\_EditCourse\_Ok:] sikeres csoportmódosításnak a tesztelése.
+    \item[Teacher\_CreateCourse\_EmptyFields:] csoport létrehozásának a tesztelése hiányos űrlappal.
+    \item[Teacher\_CreateCourse\_Ok:] sikeres csoport létrehozásnak a tesztelése.
+\end{description}
