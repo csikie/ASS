@@ -71,7 +71,7 @@ Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensi
 	\item OutputTemplate: itt adható meg a bejegyzések sablonja, hogy hogyan nézzenek ki a bejegyzés\footnote{\href{https://github.com/serilog/serilog/wiki/Formatting-Output}{Ezen a linken} részletes leírást olvashatunk az \emph{OutputTemplate}-ben használható paraméterekről.}. Az alkalmazás a következő sablont használja a bejegyzésekre: [\emph{Időbélyeg}] - [\emph{Esemény súlyossági szintje}] - [\emph{Üzenet}] \emph{Új sor} [\emph{Kivétel (ha van)}].
 	\item LogLevel: itt állíthatjuk be, hogy milyen minimum szintű események kerüljenek naplózásra \cite{LogLevels}. A jelenlegi beállítással az alkalmazás minden legalább \emph{Information} szinttel rendelkező eseményt naplóz.
 \end{itemize}
-%\newpage
+\newpage
 \lstset{caption={Naplózás beállításai}, label=src:log}
 \begin{lstlisting}[language=json]
 ...
@@ -424,10 +424,7 @@ namespace ASS.WEB.Models.ViewModels
 		[Display(ResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), Name = "Username")]
 		public string Username { get; set; }
 
-		[Required(ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), ErrorMessageResourceName = "PasswordRequired")]
-		[StringLength(maximumLength: 30, ErrorMessageResourceType = typeof(Resources.Models.ViewModels.LoginViewModel),ErrorMessageResourceName = "PasswordLength")]
-		[Display(ResourceType = typeof(Resources.Models.ViewModels.LoginViewModel), Name = "Password")]
-		public string Password { get; set; }
+		...
 	}
 }
 \end{lstlisting}
@@ -733,20 +730,16 @@ Ez a réteg felelős az adatok megjelenítéséért, illetve az egész alkalmaz�
 Az \emph{ASP.NET Core} keretrendszer támogatja az alkalmazások lokalizációját \cite{Localization}. A lokalizáció megvalósításához pár beállítást kell elvégeznünk az alkalmazásban. Első lépésként be kell állítani, hogy az alkalmazás lokalizálható legyen, valamint meg kell adnunk a támogatott nyelveket, az alkalmazás alapértelmezett nyelvét (\ref{src:localization} forráskód) és meg kell adnunk, hogy az alkalmazás mely mappában keresse a lokalizációs fájlokat.
 \lstset{caption={Lokalizáció beállítása}, label=src:localization}
 \begin{lstlisting}[language={[Sharp]C}]
-services.AddLocalization(option => option.ResourcesPath = "Resources");
+services.AddLocalization(o => o.ResourcesPath = "Resources");
 services.AddMvc().AddViewLocalization();
-services.Configure<RequestLocalizationOptions>(options =>
-{
-	var supportedCultures = new List<CultureInfo>()
-	{
-		new CultureInfo("hu-HU"),
-		new CultureInfo("en-US"),
+services.Configure<RequestLocalizationOptions>(o => {
+	var supportedCultures = new List<CultureInfo>() {
+		new CultureInfo("hu-HU"), new CultureInfo("en-US"),
 	};
-	options.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
-	options.SupportedCultures = supportedCultures;
-	options.SupportedUICultures = supportedCultures;
+	o.DefaultRequestCulture = new RequestCulture(supportedCultures[0]);
+	o.SupportedCultures = supportedCultures;
+	o.SupportedUICultures = supportedCultures;
 });
-...
 \end{lstlisting}
 Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a befecskendezzük a lokalizációhoz szükséges osztályokat a \emph{\_ViewImports.cshtml} fájl segítségével, hogy az összes nézeten elérjük ezeket az osztályokat. Az \emph{IViewLocalizer} objektum tárolja a fordítandó kulcs-érték párokat, az \emph{IOptions<RequestLocalizationOptions>} objektum segítségével az alkalmazás által támogatott nyelveket tudjuk lekérdezni, hogy ezeket a szükséges nézeteken meg tudjuk jeleníteni, lehetővé téve a nyelv kiválasztását.
 \lstset{caption={Lokalizációhoz szükséges objektumok befecskendezése}, label=src:localizationobjects}
@@ -799,3 +792,20 @@ Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell k
 		]
 	\end{forest}
 \end{center}
+\section{Használt fejlesztői eszközök}
+Az alkalmazás fejlesztlése során az alábbi fejlesztői eszközök voltak használva\footnote{Ezek használata nem kötelező, az ASS.WEB könyvtárból tudjuk fordítani és futtatni is a \emph{dotnet build} és \emph{dotnet run} parancsokkal.}:
+\begin{compactitem}
+    \item Microsoft Visual Studio Enterprise 2019
+    \item Visual Studio for Mac 
+    \item MySql Workbench
+\end{compactitem}
+\section{Telepítés}
+Előkövetelmények: Microsoft .Net core 3.1 SDK, MySql 8.0 adatbázis szerver.
+\begin{enumerate}
+    \item \textbf{Forráskód:} töltsük le \emph{GitHub}-ról az alkalmazás forráskódját\footnote{\url{https://github.com/csikie/ASS}}
+    \item \textbf{Telepítés:}
+    \begin{description}
+        \item[Microsoft Azure kihelyezés:] \cite{Azure}
+        \item[\emph{dotnet publish}:]\label{step:dotnet-publish} a másik lehetőségünk az alkalmazás telepítésére, hogy az \emph{ASS.WEB} mappában állva a parancssorban kiadjuk a \emph{dotnet publish -o "Path"} parancs lefordítja és összeszedi a szükséges fájlokat a kért \emph{"Path"} mappába. Majd az \emph{ASS.WEB.exe} futtatásával lehet elindítani az alkalmazást. Alapértelmezetten a \emph{localhost:5001}-es címen lehet elérni.
+    \end{description}
+\end{enumerate}

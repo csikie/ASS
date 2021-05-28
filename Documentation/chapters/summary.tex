@@ -1,27 +1,13 @@
 \chapter{Összegzés} % Conclusion
 \label{ch:sum}
-\section{Használt fejlesztői eszközök}
-Az alkalmazás fejlesztlése során az alábbi fejlesztői eszközök voltak használva\footnote{Ezek használata nem kötelező, az ../ASS.WEB könyvtárból tudjuk fordítani és futtatni is a \emph{dotnet build} és \emph{dotnet run} parancsokkal.}:
-\begin{compactitem}
-    \item Microsoft Visual Studio Enterprise 2019
-    \item Visual Studio for Mac 
-    \item MySql Workbench
-\end{compactitem}
-\section{Telepítés}
-Előkövetelmények: Microsoft .Net core 3.1 SDK, MySql 8.0 adatbázis szerver.
-\begin{enumerate}
-    \item \textbf{Forráskód:} töltsük le \emph{GitHub}-ról az alkalmazás forráskódját\footnote{\url{https://github.com/csikie/ASS}}
-    \item \textbf{Telepítés:}
-    \begin{description}
-        \item[Microsoft Azure kihelyezés:] \cite{Azure}
-        \item[\emph{dotnet publish}:]\label{step:dotnet-publish} a másik lehetőségünk az alkalmazás telepítésére, hogy az \emph{../ASS.WEB} mappában állva a parancssorban kiadjuk a \emph{dotnet publish -o "Path"} parancs lefordítja és összeszedi a szükséges fájlokat a kért \emph{"Path"} mappába. Majd az \emph{ASS.WEB.exe} futtatásával lehet elindítani az alkalmazást. Alapértelmezetten a \emph{localhost:5001}-es címen lehet elérni.
-    \end{description}
-\end{enumerate}
+A szakdolgozatomban bemutattam egy beadandó kezelő rendszer megvalósítását C\# alapokon. Az alkalmazásban különválnak a tárgyfelelősök, a gyakorlatvezetők és a hallgatók. A tárgyfelelős a hozzájuk tartozó tantárgyakhoz csoportokat hozhat létre, melyekhez gyakorlatvezetőket rendelhet. A gyakorlatvezetők feladatot írhatnak ki a csoport számára, valamint engedélyezhetik a hallgatók csoportba való jelentkezését. Végül a hallgatók látják a kiírt feladatokat melyekre megoldásokat küldhetnek be, amit a gyakorlatvezetők értékelhetnek.
+
+A \emph{.NET} keretrendszer lehetővé teszi, hogy az alkalmazás több platformon is futhasson, Windows-on, MacOS-en és Linux-on.
 \section{Továbbfejlesztési lehetőségek}
 \begin{description}
-    \item[Automata tesztelő:] a beadott megoldásokat legyen lehetőség automatán tesztelni \emph{Docker} segítségével.
+    \item[Automata tesztelő:] a beadott megoldásokat legyen lehetőség automatán tesztelni \emph{Docker} segítségével, ezáltal segítve az oktatók munkáját a javításban.
     \item[Szerkeszthető feladatok:] legyen lehetőség a kiírt feladatokat módosítani.
-    \item[Értesítések:] a felahsználok kapjanak értesítésket a rendszerben ha például egy új feladat került kiírásra egy csoportjukban.
     \item[Vizsga mód:] ha be van kapcsolva egy feladatnál, akkor a feladat ideje alatt a csoporthoz tartozó megoldott feladatok nem látszanak a felületen.
-    \item[Tantárgy szintű feladatok:] legyen lehetőség egy tantárgy összes csoportjához ugyan azt a feladatot kiírni.    
+    \item[Tantárgy szintű feladatok:] legyen lehetőség egy tantárgy összes csoportjához ugyanazt a feladatot kiírni. Ezáltal egy tantárgynál, ha zárthelyi dolgozatnak a kiírásá sokkal könnyebben kezelhető lenne.
+    \item[Értesítések és e-mail küldés:] a felhasználók kapjanak értesítéseket a rendszerben, ha például egy új feladat került kiírásra egy csoportjukban. Ezáltal a hallgatók figyelmét nem kerüli el, ha például új feladat kerül kiírásra, vagy értékelték egy beadott munkájukat. 
 \end{description}
