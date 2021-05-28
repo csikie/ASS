@@ -65,7 +65,7 @@ Az alkalmazásban a könnyebb és egyszerűbb fejleszthetőség miatt a \emph{Mo
 \end{description}
 \section{Naplózás}
 \label{sec:log}
-Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensions.Logging.File} nyílt forráskódú programkönyvtár használatával valósítjuk meg \cite{SERILOG}. Az alkalmazás automatikusan naplózza a futás közbeni eseményeket és az esetleges kivételeket. Természetesen támogatott a saját bejegyzések létrehozása is. A naplózás beállításait az \emph{appsettings.json} (\ref{src:json} ábra) fájlban tudjuk személyreszabni. Az alábbi négy értéket szabjuk személyre az alkalmazáshoz:
+Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensions.Logging.File} nyílt forráskódú programkönyvtár használatával valósítjuk meg \cite{SERILOG}. Az alkalmazás automatikusan naplózza a futás közbeni eseményeket és az esetleges kivételeket. Természetesen támogatott a saját bejegyzések létrehozása is. A naplózás beállításait az \emph{appsettings.json} (\ref{src:json} ábra) fájlban tudjuk személyre szabni. Az alábbi négy értéket szabjuk személyre az alkalmazáshoz:
 \begin{itemize}
 	\item PathFormat: itt tudjuk megadni az alkalmazás naplófájljainak a mentési helyét, és egy sablont a fájlok nevére. A \emph{\{Date\}} paraméter helyére az aktuális dátum kerül beillesztésre (pl.: 20210513). Ha az elérési útban található mappa nem létezik azt a programkönyvtár automatikusan létrehozza a számunkra.
 	\item OutputTemplate: itt adható meg a bejegyzések sablonja, hogy hogyan nézzenek ki a bejegyzés\footnote{\href{https://github.com/serilog/serilog/wiki/Formatting-Output}{Ezen a linken} részletes leírást olvashatunk az \emph{OutputTemplate}-ben használható paraméterekről.}. Az alkalmazás a következő sablont használja a bejegyzésekre: [\emph{Időbélyeg}] - [\emph{Esemény súlyossági szintje}] - [\emph{Üzenet}] \emph{Új sor} [\emph{Kivétel (ha van)}].
@@ -90,7 +90,7 @@ Az alkalmazás fájl szintű naplózást tartalmaz, amit a \emph{Serilog.Extensi
 \subsection{Technológiák}
 Az alkalmazáshoz szükséges telepítünk egy \emph{MySQL Community Server}-re, ajánlott a \emph{8.0.25}-ös verzió.\footnote{Az alkalmazás működik régebbi verzióval is. Viszont az alkalmazás nincs felkészítve az esetleges verziók közötti különbségekre.} Az autentikáció és autorizáció megvalósításához a Microsoft által készített \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} nyílt forráskódú programkönyvtárat használja rendszer. A programkönyvtár tartalmaz meglévő adatbázis táblákat, melyeknek a tartalma és működése elolvasható a Microsoft hivatalos honlapján \cite{Identity}. A programkönyvtár gondoskodik a jelszavak biztonságos tárolásáról, melyet időfüggő sózással és a jelszó hashelésével valósít meg.
 
-Az adatbázis \emph{code first} módszerrel van megvalósítva, tehát nem az adatbázis szerveren \emph{SQL} kódot futattva hozzuk létre az adatbázis táblákat, hanem modell osztályokkal definiáljuk az adatbázis táblákat \cite{CodeFirst}. Ezen modelleket az \emph{ASS.DAL.Models} névtérben tároljuk.
+Az adatbázis \emph{code first} módszerrel van megvalósítva, tehát nem az adatbázis szerveren \emph{SQL} kódot futtatva hozzuk létre az adatbázis táblákat, hanem modell osztályokkal definiáljuk az adatbázis táblákat \cite{CodeFirst}. Ezen modelleket az \emph{ASS.DAL.Models} névtérben tároljuk.
 
 Az adatelérést az \emph{Entity Framework Core ORM} keretrendszer biztosítja \cite{EFCore}. Az objektum-relációs leképzés (angolul \emph{Object-Relational Mapping}), egy technika az adatok konvertálására nem kompatibilis típusos rendszerek és objektumorientált programozási nyelvek között. Így az alkalmazás forráskódjában nincsenek beégetett \emph{SQL} kódok. Ezek helyett a \emph{CRUD} (Create,Read,Update,Delete műveleteknek a rövidítése) műveleteket a \emph{.NET} nyújtotta és az \emph{Entity Framework Core} által is támogatott \emph{LINQ} (Language Integrated Queries) metódushívásokkal valósul meg \cite{LINQ}. Továbbá a keretrendszer védelmet biztosít az \emph{SQL Injection} támadások ellen \cite{SQLInjection}, ugyanis a műveletek a \emph{C\#} és \emph{LINQ} metódusokból kerülnek előállításra paraméterezetten.
 
@@ -129,7 +129,7 @@ A \emph{Microsoft.AspNetCore.Identity.EntityFrameworkCore} programkönyvtár ál
 		\hline \hline
 		Id & egész & Elsődleges kulcs \\
 		\hline
-		UserName & szöveg & Felhaszálónév (neptun kód) \\
+		UserName & szöveg & Felhasználónév (neptun kód) \\
 		\hline
 		Email & szöveg & Felhasználó e-mail címe \\
 		\hline
@@ -378,13 +378,13 @@ Ez az osztály implementálja a \emph{tárgyfelelős}i szerepkörhöz tartozó f
 \end{figure}
 \subsubsection{InstructorService osztály}
 \begin{description}
-	\item[GetPendingList(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, visszatérési értéke a felhasználóhoz tartozó csoportba jelenkezett hallgatók listája.
+	\item[GetPendingList(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, visszatérési értéke a felhasználóhoz tartozó csoportba jelentkezett hallgatók listája.
 	\item[ProcessPendingStatus(int,bool):] paraméterül a jelentkezéseket tároló kapcsolótábla (\emph{UserCourses}) egyedi azonosítóját és egy igaz/hamis érték kap. A metódus az igaz/hamis érték alapján frissíti a megfelelő jelentkezési státuszt. Az igaz érték a jelentkezés elfogadását jelenti, a hamis pedig az elutasítást.
 	\item[GetCourses(ClaimsPrincipal):] paraméterül a bejelentkezett felhasználót kapja, eredményül pedig a felhasználóhoz tartozó csoportokkal tér vissza.
 	\item[CreateAssignment(string,string,DateTime,DateTime,int{[]}):] paraméterül egy feladatnak az adatait kapja. A metódus leellenőrzi, hogy a feladat elérésének a dátuma korábban van-e mint a beadási határidő, ha igen akkor elmenti a feladatot, ha nem teljesül a feltétel, akkor kivétel váltódik ki.
 	\item[GetAssignment(int,int,ClaimsPrincipal):] paraméterül egy csoport és egy feladat egyedi azonosítóját valamint a bejelentkezett felhasználót kapja. A metódus a paraméterül kapott feladat adataival tér vissza, amennyiben a felhasználó gyakorlatvezetője a paraméterül kapott csoportnak, egyébként kivétel váltódik ki.
 	\item[GetStudent(int):] paraméterül egy hallgató egyedi azonosítóját kapja, visszatérési értéke a megfelelő felhasználó adatai.
-	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó, aki az értékelést végrehajtja, a kiiírt feladat csoportjának a gyakorlatvezetője-e. Ha igen, elmentődik az értékelés, egyébként kivétel váltódik ki.
+	\item[EvaluateAssignment(int,string,DateTime,ClaimsPrincipal):] paraméterül egy feladat egyedi azonosítóját, a feladatra beadott megoldás értékelését, az értékelésnek az időpontját és a bejelentkezett felhasználót kapja. A metódus ellenőrzi, hogy az a felhasználó, aki az értékelést végrehajtja, a kiírt feladat csoportjának a gyakorlatvezetője-e. Ha igen, elmentődik az értékelés, egyébként kivétel váltódik ki.
 \end{description}
 \begin{figure}[H]
 	\centering
@@ -410,8 +410,8 @@ Ez az osztály implementálja a \emph{hallgató}i szerepkörnek a funkcióit.
 \subsection{Adatok megjelenítésére szolgáló modellek}
 Az adatok megjelenítésére adatátviteli objektumok\footnote{\url{https://en.wikipedia.org/wiki/Data_transfer_object}} (angolul \emph{Data transfer object \(DTO\)}) kerülnek definiálásra. Feladatuk a folyamatok között közvetíteni a szükséges adatokat. Jelen esetben a vezérlő meghívja az üzleti logika megfelelő metódusát a kérés során, majd egy ilyen \emph{DTO} osztályba csomagolja az üzleti logika által visszaadott \emph{entitás}\footnote{Azokat az osztályokat nevezzük \emph{entitás} osztálynak, melyekből az adatbázis táblák képződnek le.} osztályokban tárolt adatokat és ezt az objektumot kapja meg a nézet, hogy megtudja jeleníteni a kliens számára az adatokat. Ezeket az osztályokat a \emph{ASS.WEB.Models.DTOs} névtérben tároljuk.
 \subsection{Adatok bevitelére szolgáló modellek}
-Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútomot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Az attribútomok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a valadiációs hibaüzenetek testreszabni. Ezt a \emph{.NET} keretrendszer biztosítja. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútomok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
-\lstset{caption={Példa az attribútomok használatára}, label=src:loginviewmodel}
+Az adatok bevitele nézetmodellek (angolul \emph{viewmodel}) segítségével valósul meg. A nézetmodelleket a \emph{ASS.WEB.Models.ViewModels} névtérben tároljuk. A nézetmodellek tulajdonságaira (angolul \emph{property}) megszabhatunk (egy vagy több) attribútumot, melyet a \emph{System.ComponentModel.DataAnnotations} névtérből érünk el. Az attribútumok használatával egyszerűen tudjuk validálni nézetmodelljeinket, vagy a validiációs hibaüzenetek testre szabni. Ezt a \emph{.NET} keretrendszer biztosítja. Ugyanis fontos a felhasználó által kitöltött űrlapok ellenőrzése, hogy hibás adatok ne kerülhessenek a rendszerbe. A nézetmodelleket a rendszer az űrlapoknál használja fel, tehát a nézetmodellek egy-egy kitöltött űrlap adatait képes tárolni. Az attribútumok leírását a Microsoft hivatalos honlápján részletesen el lehet olvasni \cite{DataAnnotations}.
+\lstset{caption={Példa az attribútumok használatára}, label=src:loginviewmodel}
 \begin{lstlisting}[language={[Sharp]C}]
 using System.ComponentModel.DataAnnotations;
 
@@ -470,7 +470,7 @@ Az alkalmazásban definiálásra kerülnek egyéb segédosztályok és egy felso
 	\end{forest}
 \end{center}
 \subsubsection{Role.cs}
-A \emph{Role} felsorolási típus segítségével definiáljuk a rendszerben tárolt szerepköröket. Ugyanis így a forráskódban nem szükséges beégetett szövegeket használnunk a szerepkörökre\footnote{Ez alól kivétel az \emph{Authorize} attribútom, mivel az attribútomokban a keretrendszer csak konstans értékeket enged használni.}.
+A \emph{Role} felsorolási típus segítségével definiáljuk a rendszerben tárolt szerepköröket. Ugyanis így a forráskódban nem szükséges beégetett szövegeket használnunk a szerepkörökre\footnote{Ez alól kivétel az \emph{Authorize} attribútum, mivel az attribútumokban a keretrendszer csak konstans értékeket enged használni.}.
 \lstset{caption={Szerepkörök felsorolási típusa}, label=src:roleenum}
 \begin{lstlisting}[language={[Sharp]C}]
 namespace ASS.Common.Enums
@@ -518,7 +518,7 @@ namespace ASS.Common.Helpers
 }
 \end{lstlisting}
 \subsubsection{Settings osztályok}
-A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz különböző konfigurációk beállítását a felhasználói fiókokra. Például jelszóra vonatkozó konfigurációkat (minimum hossz, kötelező számot tartalmaznia stb), felhasználóra vonatkozó megszorításokat (minden felhasználó egyedi e-mail címmel rendelkezzen) és hibás bejelentkezés esetén konfigurálhatjuk a felhasználó kizárását az alkalmazásből (a kizárás időtartama). Ezen konfigurációk könnyű állíthatósága érdekében a konfigurációs értékek az alkalmazás konfigurációs fájljába (\emph{appsettings.json}) kiszervezésre kerültek.
+A \emph{Microsoft.AspNetCore.Identity} \cite{IdentityOptions} lehetővé tesz különböző konfigurációk beállítását a felhasználói fiókokra. Például jelszóra vonatkozó konfigurációkat (minimum hossz, kötelező számot tartalmaznia stb), felhasználóra vonatkozó megszorításokat (minden felhasználó egyedi e-mail címmel rendelkezzen) és hibás bejelentkezés esetén konfigurálhatjuk a felhasználó kizárását az alkalmazásból (a kizárás időtartama). Ezen konfigurációk könnyű állíthatósága érdekében a konfigurációs értékek az alkalmazás konfigurációs fájljába (\emph{appsettings.json}) kiszervezésre kerültek.
 \lstset{caption={Felhasználói fiók konfigurációs beállításai}, label=src:identityoptions}
 \begin{lstlisting}[language=json]
 ...
@@ -748,7 +748,7 @@ Ezzel az összes szükséges beállítást elvégeztük. Második lépésként a
 @inject IViewLocalizer localizer
 @inject IOptions<RequestLocalizationOptions> localizationOption
 \end{lstlisting}
-Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell követnünk. A megadott \emph{ResourcesPath} mappában létrehozzuk a lokalizálni kivánt nézetek, nézetmodellek és \emph{DTO} mappáit, majd ezekhez létrehozzuk a megfelelően elnevezett \emph{resource} fájlokat\footnote{A viewmodelleknél és a DTO-knál csak a nem alapértelmezett nyelvi \emph{resource} fájlokhoz kell kitenni a nyeli kódot (en-US)} (pl.: Index.hu-HU.resx).
+Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell követnünk. A megadott \emph{ResourcesPath} mappában létrehozzuk a lokalizálni kívánt nézetek, nézetmodellek és \emph{DTO} mappáit, majd ezekhez létrehozzuk a megfelelően elnevezett \emph{resource} fájlokat\footnote{A viewmodelleknél és a DTO-knál csak a nem alapértelmezett nyelvi \emph{resource} fájlokhoz kell kitenni a nyeli kódot (en-US)} (pl.: Index.hu-HU.resx).
 \begin{center}
 	\begin{forest}
 		for tree={
@@ -793,7 +793,7 @@ Utolsó lépésként pedig a fájlnév és mappa struktúra konvenciókat kell k
 	\end{forest}
 \end{center}
 \section{Használt fejlesztői eszközök}
-Az alkalmazás fejlesztlése során az alábbi fejlesztői eszközök voltak használva\footnote{Ezek használata nem kötelező, az ASS.WEB könyvtárból tudjuk fordítani és futtatni is a \emph{dotnet build} és \emph{dotnet run} parancsokkal.}:
+Az alkalmazás fejlesztése során az alábbi fejlesztői eszközök voltak használva\footnote{Ezek használata nem kötelező, az ASS.WEB könyvtárból tudjuk fordítani és futtatni is a \emph{dotnet build} és \emph{dotnet run} parancsokkal.}:
 \begin{compactitem}
     \item Microsoft Visual Studio Enterprise 2019
     \item Visual Studio for Mac 

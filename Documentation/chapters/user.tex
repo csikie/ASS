@@ -91,7 +91,7 @@ Felhasználót létrehozni a ``Felhasználó létrehozás'' linkre kattintva tud
 \end{figure}
 \subsection{Tárgyfelelős}\label{step:teacher-role}
 Ha tárgyfelelősként jelentkezünk be a rendszerbe, akkor az alábbi kezdőoldal fogad minket (\ref{fig:teacher-home} ábra).
-A kezdőoldalon egy tablázat található, amiben látjuk azokat a tantárgyakat, és a tantárgyakhoz tartozó csoportokat, amelyeknek a felelősei vagyunk.
+A kezdőoldalon egy táblázat található, amiben látjuk azokat a tantárgyakat, és a tantárgyakhoz tartozó csoportokat, amelyeknek a felelősei vagyunk.
 A tárgyfelelős a következő funkciókat használhatja:
 \begin{compactitem}
     \item \hyperref[step:teacher-create-course]{Csoport létrehozása egy tantárgyhoz}
@@ -217,7 +217,7 @@ Csoportba jelentkezni a ``Csoport jelentkezés'' menüpontra kattintva tudunk. A
 \end{figure}
 \subsubsection{Megoldás beadása}
 \label{step:student-solution}
-Megoldás beküldéséhez válasszuk ki a kivánt feladatot, amire megoldást szeretnénk beküldeni, majd kattintsunk a ``Feladat megtekintése'' gombra. Ekkor a rendszer egy új ablakban megnyitja a feladatot (\ref{fig:student-submit-sol} ábra). Az oldalon a következő információkat látjuk:
+Megoldás beküldéséhez válasszuk ki a kívánt feladatot, amire megoldást szeretnénk beküldeni, majd kattintsunk a ``Feladat megtekintése'' gombra. Ekkor a rendszer egy új ablakban megnyitja a feladatot (\ref{fig:student-submit-sol} ábra). Az oldalon a következő információkat látjuk:
 \begin{compactitem}
     \item Határidő visszaszámláló
     \item Feladat neve, leírása
@@ -239,7 +239,7 @@ A rendszerben jelenleg három olyan oldal található, amelyet minden szerepkör
 	\caption{Profil oldal}
 	\label{fig:profile}
 \end{figure}
-A másik két oldal az esetleges nem várt hibákról tájékoztat minket. Ezen hibák két kategóriába oszthatók: jogosulatlan kérés a rendszer felé, egyéb nem várt hiba. Jogosulatlan kérés akkor lép fel, ha megpróbálunk a szerepkörünkhöz nem tartozó funkciót elérni a rendszerben. Például: csak hallgatói szerepkörrel rendelkező felhasználóval vagyunk bejelentkezve a rendszerbe és a webcím végén a ``Student''-et lecseréljük ``Admin''-ra. Ezzel olyan kérést indítunk a rendszernek, hogy navigáljon minket a rendszergazdai szerepkörhöz tartozó kezdőoldalra, amihez nincs jogosultságunk, ezért a rendszer megtadja a hozzáférést a kért oldalhoz. Ilyenkor a rendszer az alábbi \ref{fig:access-denied} ábrán látható oldalra navigál minket, ahonnan lehetőségünk van visszatérni a szerepkörünkhöz tartozó kezdőoldalra.
+A másik két oldal az esetleges nem várt hibákról tájékoztat minket. Ezen hibák két kategóriába oszthatók: jogosulatlan kérés a rendszer felé, egyéb nem várt hiba. Jogosulatlan kérés akkor lép fel, ha megpróbálunk a szerepkörünkhöz nem tartozó funkciót elérni a rendszerben. Például: csak hallgatói szerepkörrel rendelkező felhasználóval vagyunk bejelentkezve a rendszerbe és a webcím végén a ``Student''-et lecseréljük ``Admin''-ra. Ezzel olyan kérést indítunk a rendszernek, hogy navigáljon minket a rendszergazdai szerepkörhöz tartozó kezdőoldalra, amihez nincs jogosultságunk, ezért a rendszer megtagadja a hozzáférést a kért oldalhoz. Ilyenkor a rendszer az alábbi \ref{fig:access-denied} ábrán látható oldalra navigál minket, ahonnan lehetőségünk van visszatérni a szerepkörünkhöz tartozó kezdőoldalra.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1.0\textwidth]{userguide/access-denied}
